@@ -494,14 +494,14 @@
     "href": "index.html",
     "title": "R for Novices - Gapminder Lessons",
     "section": "",
-    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThese lessons are designed to help you learn R programming fundamentals through practical data analysis examples."
+    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThis is an adapted version of the Software Carpentry R-novice-gapminder course, designed to provide a clearer, more focused learning experience. These lessons can be used by instructors for teaching side-by-side or by students to follow along independently."
   },
   {
     "objectID": "index.html#welcome",
     "href": "index.html#welcome",
     "title": "R for Novices - Gapminder Lessons",
     "section": "",
-    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThese lessons are designed to help you learn R programming fundamentals through practical data analysis examples."
+    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThis is an adapted version of the Software Carpentry R-novice-gapminder course, designed to provide a clearer, more focused learning experience. These lessons can be used by instructors for teaching side-by-side or by students to follow along independently."
   },
   {
     "objectID": "index.html#available-lessons",
@@ -515,7 +515,7 @@
     "href": "index.html#about",
     "title": "R for Novices - Gapminder Lessons",
     "section": "About",
-    "text": "About\nThis is a collection of Software Carpentry-style lessons for learning R programming."
+    "text": "About\nThis is a decluttered adaptation of Software Carpentry’s R programming course, optimized for teaching and learning. The content has been streamlined to provide clear, focused lessons while maintaining the core learning objectives.\n\nCredits\n\nBased on Software Carpentry’s R-novice-gapminder\nAdapted and generated with the assistance of GitHub Copilot AI"
   },
   {
     "objectID": "index.html#getting-started",

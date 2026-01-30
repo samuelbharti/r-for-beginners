@@ -6,7 +6,7 @@ title: "R for Novices - Gapminder Lessons"
 
 Welcome to the R for Novices lesson series using the Gapminder dataset.
 
-These lessons are designed to help you learn R programming fundamentals through practical data analysis examples.
+This is an adapted version of the [Software Carpentry R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience. These lessons can be used by instructors for teaching side-by-side or by students to follow along independently.
 
 ## Available Lessons
 
@@ -17,7 +17,12 @@ These lessons are designed to help you learn R programming fundamentals through 
 
 ## About
 
-This is a collection of Software Carpentry-style lessons for learning R programming.
+This is a decluttered adaptation of Software Carpentry's R programming course, optimized for teaching and learning. The content has been streamlined to provide clear, focused lessons while maintaining the core learning objectives.
+
+### Credits
+
+- Based on [Software Carpentry's R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/)
+- Adapted and generated with the assistance of GitHub Copilot AI
 
 ## Getting Started
 
