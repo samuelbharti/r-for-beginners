@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "R for Novices - Gapminder Lessons"
+  navbar:
+    left:
+      - href: index.html
+        text: Home
+      - href: lessons/exploring_dataframes.html
+        text: Exploring Data Frames
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-copy: true
+
+execute:
+  freeze: auto
+
+knitr:
+  opts_knit:
+    root.dir: ".."

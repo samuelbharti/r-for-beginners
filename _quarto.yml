@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - index.qmd
+    - src/*.qmd
+  resources:
+    - .nojekyll
+
+website:
+  title: "R for Novices - Gapminder Lessons"
+  navbar:
+    left:
+      - href: index.html
+        text: Home
+      - href: lessons/exploring_dataframes.html
+        text: Exploring Data Frames
+    right:
+      - icon: github
+        href: https://github.com/samuelbharti/sw-r-novice-gapminder-lessons
+
+metadata-files:
+  - src/_metadata.yml
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-copy: true

@@ -1,0 +1,31 @@
+---
+title: "R for Novices - Gapminder Lessons"
+---
+
+## Welcome!
+
+Welcome to the R for Novices lesson series using the Gapminder dataset.
+
+These lessons are designed to help you learn R programming fundamentals through practical data analysis examples.
+
+## Available Lessons
+
+1. [Exploring Data Frames](lessons/exploring_dataframes.html) - Learn to manipulate and explore data frames in R
+
+## About
+
+This is a collection of Software Carpentry-style lessons for learning R programming.
+
+## Getting Started
+
+To follow along with these lessons, you'll need:
+
+- R (version 4.0 or higher)
+- RStudio (recommended)
+- The gapminder package
+
+Install the gapminder package with:
+
+```r
+install.packages("gapminder")
+```

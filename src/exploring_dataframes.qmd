@@ -1,0 +1,366 @@
+---
+title: "Exploring Data Frames in R"
+author: "Samuel Bharti"
+---
+
+## Overview
+
+Today we will learn to:
+
+-   Add and remove rows or columns
+-   Append two data frames
+-   Explore data frame properties
+-   Read data from CSV files
+
+## What is a Data Frame?
+
+A data frame is a table where:
+
+-   Columns are vectors (same data type within column)
+-   Rows are lists (can mix data types across columns)
+-   Most common data structure in R
+
+## Reading Data
+
+Load data from CSV files:
+
+```{r}
+#| eval: true
+#| echo: true
+
+cats <- read.csv("data/feline-data.csv")
+cats
+```
+
+
+## Adding Columns
+
+Use `cbind()` to add columns:
+
+```{r}
+#| eval: true
+#| echo: true
+
+age <- c(2, 3, 5)
+cbind(cats, age)
+```
+
+
+## Try: Adding a Different Vector
+
+What happens if we try with a different number of values?
+
+```{r}
+#| eval: false
+#| echo: true
+
+age <- c(2, 3, 5, 12)
+cbind(cats, age)
+```
+
+## Error: Too Many Values
+
+```         
+Error in `data.frame()`:
+! arguments imply differing number of rows: 3, 4
+```
+
+The data frame has 3 rows but age has 4 values.
+
+## Adding Columns: Key Rule
+
+Number of rows must match vector length:
+
+```{r}
+#| eval: false
+#| echo: true
+
+nrow(cats)  # 3
+length(age) # must also be 3
+```
+
+Mismatched lengths will cause an error.
+
+## Saving the New Column
+
+To keep the new column, assign it back to cats:
+
+```{r}
+#| eval: true
+#| echo: true
+
+age <- c(2, 3, 5)
+cats <- cbind(cats, age)
+cats
+```
+
+## Adding Rows
+
+Use `rbind()` to add rows (as lists):
+
+```{r}
+#| eval: true
+#| echo: true
+
+newRow <- list("tortoiseshell", 3.3, TRUE, 9)
+cats <- rbind(cats, newRow)
+cats
+```
+
+## Removing Rows
+
+Use negative indices to drop rows:
+
+```{r}
+#| eval: true
+#| echo: true
+
+# Remove row 4
+cats[-4, ]
+```
+
+Remove multiple rows:
+
+```{r}
+#| eval: true
+#| echo: true
+
+# Remove rows 3 and 4
+cats[c(-3, -4), ]
+```
+
+## Removing Columns
+
+Use negative column indices:
+
+```{r}
+#| eval: true
+#| echo: true
+
+# Remove column 4
+cats[, -4]
+```
+
+Or use column names with `%in%`:
+
+```{r}
+#| eval: true
+#| echo: true
+
+drop <- names(cats) %in% c("age")
+cats[, !drop]
+```
+
+## Appending Data Frames
+
+Combine two data frames with `rbind()`:
+
+```{r}
+#| eval: true
+#| echo: true
+
+cats <- rbind(cats, cats)
+cats
+```
+
+Result: duplicate rows appended to original data
+
+## Challenge 1 {.challenge-title}
+
+Create a data frame with your information:
+
+```{r}
+#| eval: false
+#| echo: true
+
+df <- data.frame(
+  first_name = c("Your", "Name"),
+  last_name = c("Goes", "Here"),
+  lucky_number = c(7, 13)
+)
+```
+
+Then:
+
+1.  Use `rbind()` to add an entry for the person sitting beside you
+
+2.  Use `cbind()` to add a column with each person's answer to the question, "Is it time for coffee break?"
+
+## Commit Your Work
+
+Save progress to version control:
+
+``` bash
+git add .
+git commit -m "Add data frame manipulation examples"
+```
+
+## Reading the Gapminder Dataset
+
+Now let's work with a realistic dataset. Load the gapminder data:
+
+```{r}
+#| eval: false
+#| echo: true
+
+gapminder <- read.csv("data/gapminder_data.csv")
+```
+
+Or read directly from the internet:
+
+```{r}
+#| eval: true
+#| echo: true
+
+gapminder <- read.csv(
+  "https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv"
+)
+```
+
+## Exploring Gapminder: str()
+
+Check the structure of the dataset:
+
+```{r}
+#| eval: false
+#| echo: true
+
+str(gapminder)
+```
+
+Output shows 1704 observations and 6 variables:
+
+-   `country` (character)
+-   `year` (integer)
+-   `pop` (numeric)
+-   `continent` (character)
+-   `lifeExp` (numeric)
+-   `gdpPercap` (numeric)
+
+## Exploring Gapminder: summary()
+
+Get summary statistics:
+
+```{r}
+#| eval: true
+#| echo: true
+
+summary(gapminder)
+```
+
+Shows min, quartiles, median, mean, and max for each column.
+
+## Data Type by Column
+
+Check individual column types:
+
+```{r}
+#| eval: true
+#| echo: true
+
+typeof(gapminder$year)      # integer
+typeof(gapminder$country)   # character
+str(gapminder$country)      # character vector length 1704
+```
+
+## Checking Data Frame Properties
+
+Examine dimensions and types:
+
+```{r}
+#| eval: true
+#| echo: true
+
+typeof(gapminder)        # list
+length(gapminder)        # 6 (columns)
+nrow(gapminder)          # 1704 rows
+ncol(gapminder)          # 6 columns
+dim(gapminder)           # 1704 6
+colnames(gapminder)      # column names
+```
+
+## Viewing the Data
+
+Check the first and last rows:
+
+```{r}
+#| eval: true
+#| echo: true
+
+head(gapminder)
+tail(gapminder)
+```
+
+## Challenge 2 {.challenge-title}
+
+Examine the gapminder data:
+
+1.  Check the last few lines of the data
+2.  Check some rows in the middle
+3.  Try to pull a few random rows
+
+(Hint: Use functions like `tail()`, subsetting, and `sample()`)
+
+## Challenge 2 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+tail(gapminder)
+
+# Middle rows (example: rows 800–810)
+gapminder[800:810, ]
+
+# Random rows
+gapminder[sample(nrow(gapminder), 5), ]
+```
+
+## Challenge 3 {.challenge-title}
+
+Create an R script:
+
+1.  Go to File \> New File \> R Script
+2.  Write code to load the gapminder dataset
+3.  Save in the `scripts/` directory
+4.  Add to version control
+5.  Run the script using `source()` function
+
+## Challenge 4 {.challenge-title}
+
+Interpret the output of `str(gapminder)`:
+
+Using what you know about lists and vectors, explain:
+
+-   What does each line of `str()` output mean?
+-   Why is length 6 but nrow is 1704?
+-   How does this relate to the data structure?
+
+Discuss with your neighbor.
+
+## Important Reminders
+
+-   Columns must have consistent types
+-   Number of elements must match when adding columns
+-   Rows are added as lists
+-   Always check structure after loading data
+-   Use `str()` first, then explore further
+
+## Commit Your Final Work
+
+Save all changes to version control:
+
+``` bash
+git add .
+git commit -m "Complete data frame exploration lesson"
+```
+
+Always commit your final work.
+
+## Resources
+
+-   Software Carpentry: [r-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/)
+-   RStudio Cheatsheets
+-   R Documentation: `?read.csv`, `?str`, etc.
+
+## Questions?

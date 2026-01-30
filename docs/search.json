@@ -1,0 +1,240 @@
+[
+  {
+    "objectID": "src/exploring_dataframes.html",
+    "href": "src/exploring_dataframes.html",
+    "title": "Exploring Data Frames in R",
+    "section": "",
+    "text": "Today we will learn to:\n\nAdd and remove rows or columns\nAppend two data frames\nExplore data frame properties\nRead data from CSV files"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#overview",
+    "href": "src/exploring_dataframes.html#overview",
+    "title": "Exploring Data Frames in R",
+    "section": "",
+    "text": "Today we will learn to:\n\nAdd and remove rows or columns\nAppend two data frames\nExplore data frame properties\nRead data from CSV files"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#what-is-a-data-frame",
+    "href": "src/exploring_dataframes.html#what-is-a-data-frame",
+    "title": "Exploring Data Frames in R",
+    "section": "What is a Data Frame?",
+    "text": "What is a Data Frame?\nA data frame is a table where:\n\nColumns are vectors (same data type within column)\nRows are lists (can mix data types across columns)\nMost common data structure in R"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#reading-data",
+    "href": "src/exploring_dataframes.html#reading-data",
+    "title": "Exploring Data Frames in R",
+    "section": "Reading Data",
+    "text": "Reading Data\nLoad data from CSV files:\n\ncats &lt;- read.csv(\"data/feline-data.csv\")\ncats\n\n    coat weight likes_catnip\n1 calico    2.1            1\n2  black    5.0            0\n3  tabby    3.2            1"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#adding-columns",
+    "href": "src/exploring_dataframes.html#adding-columns",
+    "title": "Exploring Data Frames in R",
+    "section": "Adding Columns",
+    "text": "Adding Columns\nUse cbind() to add columns:\n\nage &lt;- c(2, 3, 5)\ncbind(cats, age)\n\n    coat weight likes_catnip age\n1 calico    2.1            1   2\n2  black    5.0            0   3\n3  tabby    3.2            1   5"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#try-adding-a-different-vector",
+    "href": "src/exploring_dataframes.html#try-adding-a-different-vector",
+    "title": "Exploring Data Frames in R",
+    "section": "Try: Adding a Different Vector",
+    "text": "Try: Adding a Different Vector\nWhat happens if we try with a different number of values?\n\nage &lt;- c(2, 3, 5, 12)\ncbind(cats, age)"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#error-too-many-values",
+    "href": "src/exploring_dataframes.html#error-too-many-values",
+    "title": "Exploring Data Frames in R",
+    "section": "Error: Too Many Values",
+    "text": "Error: Too Many Values\nError in `data.frame()`:\n! arguments imply differing number of rows: 3, 4\nThe data frame has 3 rows but age has 4 values."
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#adding-columns-key-rule",
+    "href": "src/exploring_dataframes.html#adding-columns-key-rule",
+    "title": "Exploring Data Frames in R",
+    "section": "Adding Columns: Key Rule",
+    "text": "Adding Columns: Key Rule\nNumber of rows must match vector length:\n\nnrow(cats)  # 3\nlength(age) # must also be 3\n\nMismatched lengths will cause an error."
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#saving-the-new-column",
+    "href": "src/exploring_dataframes.html#saving-the-new-column",
+    "title": "Exploring Data Frames in R",
+    "section": "Saving the New Column",
+    "text": "Saving the New Column\nTo keep the new column, assign it back to cats:\n\nage &lt;- c(2, 3, 5)\ncats &lt;- cbind(cats, age)\ncats\n\n    coat weight likes_catnip age\n1 calico    2.1            1   2\n2  black    5.0            0   3\n3  tabby    3.2            1   5"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#adding-rows",
+    "href": "src/exploring_dataframes.html#adding-rows",
+    "title": "Exploring Data Frames in R",
+    "section": "Adding Rows",
+    "text": "Adding Rows\nUse rbind() to add rows (as lists):\n\nnewRow &lt;- list(\"tortoiseshell\", 3.3, TRUE, 9)\ncats &lt;- rbind(cats, newRow)\ncats\n\n           coat weight likes_catnip age\n1        calico    2.1            1   2\n2         black    5.0            0   3\n3         tabby    3.2            1   5\n4 tortoiseshell    3.3            1   9"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#removing-rows",
+    "href": "src/exploring_dataframes.html#removing-rows",
+    "title": "Exploring Data Frames in R",
+    "section": "Removing Rows",
+    "text": "Removing Rows\nUse negative indices to drop rows:\n\n# Remove row 4\ncats[-4, ]\n\n    coat weight likes_catnip age\n1 calico    2.1            1   2\n2  black    5.0            0   3\n3  tabby    3.2            1   5\n\n\nRemove multiple rows:\n\n# Remove rows 3 and 4\ncats[c(-3, -4), ]\n\n    coat weight likes_catnip age\n1 calico    2.1            1   2\n2  black    5.0            0   3"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#removing-columns",
+    "href": "src/exploring_dataframes.html#removing-columns",
+    "title": "Exploring Data Frames in R",
+    "section": "Removing Columns",
+    "text": "Removing Columns\nUse negative column indices:\n\n# Remove column 4\ncats[, -4]\n\n           coat weight likes_catnip\n1        calico    2.1            1\n2         black    5.0            0\n3         tabby    3.2            1\n4 tortoiseshell    3.3            1\n\n\nOr use column names with %in%:\n\ndrop &lt;- names(cats) %in% c(\"age\")\ncats[, !drop]\n\n           coat weight likes_catnip\n1        calico    2.1            1\n2         black    5.0            0\n3         tabby    3.2            1\n4 tortoiseshell    3.3            1"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#appending-data-frames",
+    "href": "src/exploring_dataframes.html#appending-data-frames",
+    "title": "Exploring Data Frames in R",
+    "section": "Appending Data Frames",
+    "text": "Appending Data Frames\nCombine two data frames with rbind():\n\ncats &lt;- rbind(cats, cats)\ncats\n\n           coat weight likes_catnip age\n1        calico    2.1            1   2\n2         black    5.0            0   3\n3         tabby    3.2            1   5\n4 tortoiseshell    3.3            1   9\n5        calico    2.1            1   2\n6         black    5.0            0   3\n7         tabby    3.2            1   5\n8 tortoiseshell    3.3            1   9\n\n\nResult: duplicate rows appended to original data"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#challenge-1",
+    "href": "src/exploring_dataframes.html#challenge-1",
+    "title": "Exploring Data Frames in R",
+    "section": "Challenge 1",
+    "text": "Challenge 1\nCreate a data frame with your information:\n\ndf &lt;- data.frame(\n  first_name = c(\"Your\", \"Name\"),\n  last_name = c(\"Goes\", \"Here\"),\n  lucky_number = c(7, 13)\n)\n\nThen:\n\nUse rbind() to add an entry for the person sitting beside you\nUse cbind() to add a column with each person’s answer to the question, “Is it time for coffee break?”"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#commit-your-work",
+    "href": "src/exploring_dataframes.html#commit-your-work",
+    "title": "Exploring Data Frames in R",
+    "section": "Commit Your Work",
+    "text": "Commit Your Work\nSave progress to version control:\ngit add .\ngit commit -m \"Add data frame manipulation examples\""
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#reading-the-gapminder-dataset",
+    "href": "src/exploring_dataframes.html#reading-the-gapminder-dataset",
+    "title": "Exploring Data Frames in R",
+    "section": "Reading the Gapminder Dataset",
+    "text": "Reading the Gapminder Dataset\nNow let’s work with a realistic dataset. Load the gapminder data:\n\ngapminder &lt;- read.csv(\"data/gapminder_data.csv\")\n\nOr read directly from the internet:\n\ngapminder &lt;- read.csv(\n  \"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv\"\n)"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#exploring-gapminder-str",
+    "href": "src/exploring_dataframes.html#exploring-gapminder-str",
+    "title": "Exploring Data Frames in R",
+    "section": "Exploring Gapminder: str()",
+    "text": "Exploring Gapminder: str()\nCheck the structure of the dataset:\n\nstr(gapminder)\n\nOutput shows 1704 observations and 6 variables:\n\ncountry (character)\nyear (integer)\npop (numeric)\ncontinent (character)\nlifeExp (numeric)\ngdpPercap (numeric)"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#exploring-gapminder-summary",
+    "href": "src/exploring_dataframes.html#exploring-gapminder-summary",
+    "title": "Exploring Data Frames in R",
+    "section": "Exploring Gapminder: summary()",
+    "text": "Exploring Gapminder: summary()\nGet summary statistics:\n\nsummary(gapminder)\n\n   country               year           pop             continent        \n Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704       \n Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character  \n Mode  :character   Median :1980   Median :7.024e+06   Mode  :character  \n                    Mean   :1980   Mean   :2.960e+07                     \n                    3rd Qu.:1993   3rd Qu.:1.959e+07                     \n                    Max.   :2007   Max.   :1.319e+09                     \n    lifeExp        gdpPercap       \n Min.   :23.60   Min.   :   241.2  \n 1st Qu.:48.20   1st Qu.:  1202.1  \n Median :60.71   Median :  3531.8  \n Mean   :59.47   Mean   :  7215.3  \n 3rd Qu.:70.85   3rd Qu.:  9325.5  \n Max.   :82.60   Max.   :113523.1  \n\n\nShows min, quartiles, median, mean, and max for each column."
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#data-type-by-column",
+    "href": "src/exploring_dataframes.html#data-type-by-column",
+    "title": "Exploring Data Frames in R",
+    "section": "Data Type by Column",
+    "text": "Data Type by Column\nCheck individual column types:\n\ntypeof(gapminder$year)      # integer\n\n[1] \"integer\"\n\ntypeof(gapminder$country)   # character\n\n[1] \"character\"\n\nstr(gapminder$country)      # character vector length 1704\n\n chr [1:1704] \"Afghanistan\" \"Afghanistan\" \"Afghanistan\" \"Afghanistan\" ..."
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#checking-data-frame-properties",
+    "href": "src/exploring_dataframes.html#checking-data-frame-properties",
+    "title": "Exploring Data Frames in R",
+    "section": "Checking Data Frame Properties",
+    "text": "Checking Data Frame Properties\nExamine dimensions and types:\n\ntypeof(gapminder)        # list\n\n[1] \"list\"\n\nlength(gapminder)        # 6 (columns)\n\n[1] 6\n\nnrow(gapminder)          # 1704 rows\n\n[1] 1704\n\nncol(gapminder)          # 6 columns\n\n[1] 6\n\ndim(gapminder)           # 1704 6\n\n[1] 1704    6\n\ncolnames(gapminder)      # column names\n\n[1] \"country\"   \"year\"      \"pop\"       \"continent\" \"lifeExp\"   \"gdpPercap\""
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#viewing-the-data",
+    "href": "src/exploring_dataframes.html#viewing-the-data",
+    "title": "Exploring Data Frames in R",
+    "section": "Viewing the Data",
+    "text": "Viewing the Data\nCheck the first and last rows:\n\nhead(gapminder)\n\n      country year      pop continent lifeExp gdpPercap\n1 Afghanistan 1952  8425333      Asia  28.801  779.4453\n2 Afghanistan 1957  9240934      Asia  30.332  820.8530\n3 Afghanistan 1962 10267083      Asia  31.997  853.1007\n4 Afghanistan 1967 11537966      Asia  34.020  836.1971\n5 Afghanistan 1972 13079460      Asia  36.088  739.9811\n6 Afghanistan 1977 14880372      Asia  38.438  786.1134\n\ntail(gapminder)\n\n      country year      pop continent lifeExp gdpPercap\n1699 Zimbabwe 1982  7636524    Africa  60.363  788.8550\n1700 Zimbabwe 1987  9216418    Africa  62.351  706.1573\n1701 Zimbabwe 1992 10704340    Africa  60.377  693.4208\n1702 Zimbabwe 1997 11404948    Africa  46.809  792.4500\n1703 Zimbabwe 2002 11926563    Africa  39.989  672.0386\n1704 Zimbabwe 2007 12311143    Africa  43.487  469.7093"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#challenge-2",
+    "href": "src/exploring_dataframes.html#challenge-2",
+    "title": "Exploring Data Frames in R",
+    "section": "Challenge 2",
+    "text": "Challenge 2\nExamine the gapminder data:\n\nCheck the last few lines of the data\nCheck some rows in the middle\nTry to pull a few random rows\n\n(Hint: Use functions like tail(), subsetting, and sample())"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#challenge-2-solution",
+    "href": "src/exploring_dataframes.html#challenge-2-solution",
+    "title": "Exploring Data Frames in R",
+    "section": "Challenge 2 Solution",
+    "text": "Challenge 2 Solution\n\ntail(gapminder)\n\n# Middle rows (example: rows 800–810)\ngapminder[800:810, ]\n\n# Random rows\ngapminder[sample(nrow(gapminder), 5), ]"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#challenge-3",
+    "href": "src/exploring_dataframes.html#challenge-3",
+    "title": "Exploring Data Frames in R",
+    "section": "Challenge 3",
+    "text": "Challenge 3\nCreate an R script:\n\nGo to File &gt; New File &gt; R Script\nWrite code to load the gapminder dataset\nSave in the scripts/ directory\nAdd to version control\nRun the script using source() function"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#challenge-4",
+    "href": "src/exploring_dataframes.html#challenge-4",
+    "title": "Exploring Data Frames in R",
+    "section": "Challenge 4",
+    "text": "Challenge 4\nInterpret the output of str(gapminder):\nUsing what you know about lists and vectors, explain:\n\nWhat does each line of str() output mean?\nWhy is length 6 but nrow is 1704?\nHow does this relate to the data structure?\n\nDiscuss with your neighbor."
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#important-reminders",
+    "href": "src/exploring_dataframes.html#important-reminders",
+    "title": "Exploring Data Frames in R",
+    "section": "Important Reminders",
+    "text": "Important Reminders\n\nColumns must have consistent types\nNumber of elements must match when adding columns\nRows are added as lists\nAlways check structure after loading data\nUse str() first, then explore further"
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#commit-your-final-work",
+    "href": "src/exploring_dataframes.html#commit-your-final-work",
+    "title": "Exploring Data Frames in R",
+    "section": "Commit Your Final Work",
+    "text": "Commit Your Final Work\nSave all changes to version control:\ngit add .\ngit commit -m \"Complete data frame exploration lesson\"\nAlways commit your final work."
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#resources",
+    "href": "src/exploring_dataframes.html#resources",
+    "title": "Exploring Data Frames in R",
+    "section": "Resources",
+    "text": "Resources\n\nSoftware Carpentry: r-novice-gapminder\nRStudio Cheatsheets\nR Documentation: ?read.csv, ?str, etc."
+  },
+  {
+    "objectID": "src/exploring_dataframes.html#questions",
+    "href": "src/exploring_dataframes.html#questions",
+    "title": "Exploring Data Frames in R",
+    "section": "Questions?",
+    "text": "Questions?"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "R for Novices - Gapminder Lessons",
+    "section": "",
+    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThese lessons are designed to help you learn R programming fundamentals through practical data analysis examples."
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "R for Novices - Gapminder Lessons",
+    "section": "",
+    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThese lessons are designed to help you learn R programming fundamentals through practical data analysis examples."
+  },
+  {
+    "objectID": "index.html#available-lessons",
+    "href": "index.html#available-lessons",
+    "title": "R for Novices - Gapminder Lessons",
+    "section": "Available Lessons",
+    "text": "Available Lessons\n\nExploring Data Frames - Learn to manipulate and explore data frames in R"
+  },
+  {
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "R for Novices - Gapminder Lessons",
+    "section": "About",
+    "text": "About\nThis is a collection of Software Carpentry-style lessons for learning R programming."
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "R for Novices - Gapminder Lessons",
+    "section": "Getting Started",
+    "text": "Getting Started\nTo follow along with these lessons, you’ll need:\n\nR (version 4.0 or higher)\nRStudio (recommended)\nThe gapminder package\n\nInstall the gapminder package with:\ninstall.packages(\"gapminder\")"
+  }
+]
