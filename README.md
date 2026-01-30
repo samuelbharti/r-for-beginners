@@ -2,23 +2,54 @@
 
 An adapted version of [Software Carpentry's R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience for both instructors and students.
 
-## About This Project
+🌐 **[View the lessons online](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/)**
 
-This website declutters and streamlines the original Software Carpentry content, making it ideal for:
-- **Instructors** teaching R programming side-by-side with students
-- **Students** following along independently at their own pace
-- **Self-learners** wanting clear, focused R programming lessons
+## About This Course
 
-The lessons maintain the core learning objectives while presenting content in a more accessible format.
+This website presents R programming lessons in a decluttered, streamlined format that makes learning easier and more enjoyable. Whether you're an instructor teaching a workshop or a student learning independently, these lessons provide:
 
-## Lessons Included
+- Clear, focused content without unnecessary complexity
+- Step-by-step examples using real-world data (Gapminder dataset)
+- Hands-on exercises to practice your skills
+- A clean, modern interface for easy navigation
 
-1. **Exploring Data Frames** - Manipulate and explore data frames in R
-2. **Subsetting Data** - Extract subsets of data effectively
-3. **Functions Explained** - Create and understand R functions
-4. **Writing Data** - Export and save your data
+## Lessons
 
-## Project Structure
+1. **[Exploring Data Frames](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/exploring_dataframes.html)** - Learn to manipulate and explore data frames in R
+2. **[Subsetting Data](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/data_subsetting.html)** - Master techniques for extracting subsets of data
+3. **[Functions Explained](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/functions.html)** - Understand and create your own R functions
+4. **[Writing Data](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/writing_data.html)** - Learn to export and save your data
+
+## Who Is This For?
+
+- **Instructors**: Use these materials for teaching R programming workshops
+- **Students**: Follow along during class or work through lessons independently
+- **Self-learners**: Build your R programming skills at your own pace
+
+## Getting Started
+
+No installation required! Simply visit the [website](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/) and start learning.
+
+To follow along with the lessons, you'll need:
+- R (version 4.0 or higher)
+- RStudio (recommended)
+- The gapminder package: `install.packages("gapminder")`
+
+## Credits
+
+- **Original Content**: [Software Carpentry's R for Reproducible Scientific Analysis](https://swcarpentry.github.io/r-novice-gapminder/)
+- **Adaptation**: Samuel Bharti
+- **AI Assistance**: Generated and adapted with GitHub Copilot
+
+## License
+
+This work is licensed under [CC BY 4.0](LICENSE.md), following Software Carpentry's licensing. You are free to share and adapt these materials with attribution.
+
+---
+
+## For Developers
+
+### Project Structure
 
 ```
 ├── index.qmd              # Homepage (renders to docs/index.html)
