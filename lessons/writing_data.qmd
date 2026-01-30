@@ -1,0 +1,584 @@
+---
+title: "Writing Data in R"
+author: "Samuel Bharti"
+---
+
+## Overview
+
+Today we will learn to:
+
+-   Save plots from R to files
+-   Control plot size and resolution
+-   Write data frames to CSV and other formats
+-   Handle formatting options for data output
+-   Create reproducible data-cleaning workflows
+
+## Questions
+
+-   How can I save plots and data created in R?
+-   What formats can I export to?
+-   How do I control the output format?
+
+## Why Write Data and Plots?
+
+-   **Share results** with colleagues
+-   **Archive** your work
+-   **Create reports** with multiple plots
+-   **Automate workflows** without manual clicking
+-   **Batch process** multiple files
+
+Writing output is essential for reproducible research!
+
+## Saving Plots: Quick Method
+
+The easiest way - use `ggsave()` from ggplot2:
+
+```{r}
+#| eval: false
+#| echo: true
+
+ggsave("My_most_recent_plot.pdf")
+```
+
+Saves your most recent ggplot to a file.
+
+## Saving Plots: RStudio Export Button
+
+Within RStudio:
+
+-   Go to the Plot window
+-   Click **Export**
+-   Choose format: PDF, PNG, JPG, etc.
+-   Set size and resolution
+-   Click Save
+
+Quick and interactive!
+
+## When to Use Manual Methods
+
+The Export button works great when:
+
+-   You want a quick save
+-   Making one or two plots
+-   Interactively exploring
+
+But... what if you need to:
+
+-   Create a PDF with multiple pages?
+-   Loop through subsets of data?
+-   Generate many plots automatically?
+
+**You need programmatic control!**
+
+## Using the pdf() Device
+
+Create a PDF file programmatically:
+
+```{r}
+#| eval: false
+#| echo: true
+
+pdf("Life_Exp_vs_time.pdf", width=12, height=4)
+
+# Your plotting code here
+ggplot(data=gapminder, aes(x=year, y=lifeExp, 
+                           colour=country)) +
+  geom_line() +
+  theme(legend.position = "none")
+
+# Important: Turn off the PDF device!
+dev.off()
+```
+
+## Understanding Devices
+
+In R, a "device" is where your plot goes:
+
+-   **Screen device**: Default (shows in Plot pane)
+-   **PDF device**: Writes to PDF file
+-   **PNG device**: Writes to PNG file
+-   **JPEG device**: Writes to JPEG file
+-   **Other devices**: SVG, BMP, TIFF, etc.
+
+## The pdf() Function
+
+Parameters for control:
+
+```{r}
+#| eval: false
+#| echo: true
+
+pdf("filename.pdf", 
+    width = 12,      # Width in inches
+    height = 4,      # Height in inches
+    pointsize = 12,  # Font size
+    family = "sans") # Font family
+```
+
+## Creating Multi-Page PDFs
+
+Each plotting command creates a new page:
+
+```{r}
+#| eval: false
+#| echo: true
+
+pdf("multi_page.pdf", width=10, height=6)
+
+# Page 1
+plot(x = 1:10, y = 1:10)
+
+# Page 2
+plot(x = 1:10, y = (1:10)^2)
+
+# Page 3
+plot(x = 1:10, y = sqrt(1:10))
+
+dev.off()  # Close the device
+```
+
+Each call to `plot()` adds a new page!
+
+## Important: dev.off() {.callout-warning}
+
+**Always remember to call `dev.off()`!**
+
+-   Closes the output device
+-   Finalizes the file
+-   Frees up the device
+-   File won't be complete without it
+
+If you forget, the file is incomplete or corrupted!
+
+## Other Image Formats
+
+Use similar functions for different formats:
+
+```{r}
+#| eval: false
+#| echo: true
+
+png("plot.png", width=800, height=600)
+# Your plot code
+dev.off()
+
+jpeg("plot.jpg", width=800, height=600)
+# Your plot code
+dev.off()
+
+svg("plot.svg", width=10, height=8)
+# Your plot code
+dev.off()
+```
+
+Same structure, different output formats!
+
+## PNG and JPEG Parameters
+
+For bitmap formats, use pixels for size:
+
+```{r}
+#| eval: false
+#| echo: true
+
+png("plot.png", width=800, height=600, res=72)
+# res = resolution in DPI (dots per inch)
+
+jpeg("plot.jpg", width=800, height=600, quality=90)
+# quality = 0-100 (higher = better quality, larger file)
+```
+
+## Challenge 1 {.challenge-title}
+
+Write a command to create a multi-page PDF showing:
+
+1.  Life expectancy vs. time (line plot) - first page
+2.  Same data with facets by continent (facet_grid) - second page
+
+Make the PDF 12 inches wide and 4 inches tall.
+
+## Challenge 1 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+pdf("Life_Exp_vs_time.pdf", width=12, height=4)
+
+# Page 1: Line plot
+ggplot(data=gapminder, aes(x=year, y=lifeExp, 
+                           colour=country)) +
+  geom_line() +
+  theme(legend.position = "none")
+
+# Page 2: Faceted plot
+ggplot(data=gapminder, aes(x=year, y=lifeExp, 
+                           colour=country)) +
+  geom_line() +
+  facet_grid(~continent) +
+  theme(legend.position = "none")
+
+dev.off()
+```
+
+## Writing Data: Introduction
+
+Now let's save **data** (not plots)!
+
+Use the `write.table()` function:
+
+```{r}
+#| eval: false
+#| echo: true
+
+aust_subset <- gapminder[gapminder$country == "Australia", ]
+
+write.table(aust_subset,
+  file = "cleaned-data/gapminder-aus.csv",
+  sep = ","
+)
+```
+
+This saves a data frame to a file.
+
+## First Look at Output
+
+Let's check what was written:
+
+```bash
+head cleaned-data/gapminder-aus.csv
+```
+
+Output:
+```
+"country","year","pop","continent","lifeExp","gdpPercap"
+"61","Australia",1952,8691212,"Oceania",69.12,10039.59564
+"62","Australia",1957,9712569,"Oceania",70.33,10949.64959
+```
+
+**Problem:** Lots of unwanted quotation marks and row numbers!
+
+## write.table() Default Behavior {.callout-warning}
+
+By default, `write.table()`:
+
+-   Wraps character vectors in quotes
+-   Includes row and column names
+-   Includes row numbers
+-   Uses spaces as separator
+
+This is usually NOT what we want for CSV files!
+
+## Fixing the Output
+
+Add parameters to control formatting:
+
+```{r}
+#| eval: false
+#| echo: true
+
+write.table(
+  gapminder[gapminder$country == "Australia", ],
+  file = "cleaned-data/gapminder-aus.csv",
+  sep = ",",
+  quote = FALSE,      # Don't quote strings
+  row.names = FALSE   # Don't include row numbers
+)
+```
+
+## Checking the Fixed Output
+
+```bash
+head cleaned-data/gapminder-aus.csv
+```
+
+Output:
+```
+country,year,pop,continent,lifeExp,gdpPercap
+Australia,1952,8691212,Oceania,69.12,10039.59564
+Australia,1957,9712569,Oceania,70.33,10949.64959
+Australia,1962,10794968,Oceania,70.93,12217.22686
+Australia,1967,11872264,Oceania,71.1,14526.12465
+```
+
+Perfect! Clean and readable CSV!
+
+## write.table() Parameters {.callout-note}
+
+Key parameters:
+
+-   `file`: Output filename
+-   `sep`: Column separator (`","` for CSV)
+-   `quote`: Wrap strings in quotes? (default TRUE)
+-   `row.names`: Include row numbers? (default TRUE)
+-   `col.names`: Include column names? (default TRUE)
+-   `na`: How to represent NA values (default "NA")
+
+## Alternative: write.csv() {.callout-tip}
+
+Use `write.csv()` as a shortcut:
+
+```{r}
+#| eval: false
+#| echo: true
+
+write.csv(aust_subset,
+  file = "cleaned-data/gapminder-aus.csv",
+  row.names = FALSE
+)
+```
+
+`write.csv()` automatically sets:
+
+-   `sep = ","`
+-   `quote = TRUE` (includes headers and factors)
+
+## Choosing Between write.table() and write.csv()
+
+**Use `write.table()` when:**
+
+-   You need custom separators
+-   You want `quote = FALSE`
+-   Working with tab-delimited files
+-   Want precise control
+
+**Use `write.csv()` when:**
+
+-   Creating standard CSV files
+-   Want quotes around text
+-   Don't need to customize separator
+
+## Challenge 2 {.challenge-title}
+
+Create a **data-cleaning script** that:
+
+1.  Loads the gapminder data
+2.  Subsets it to include **only data since 1990**
+3.  Writes it to `cleaned-data/gapminder-1990-onwards.csv`
+
+Name the script `data-cleaning.R` and place it in the root directory.
+
+## Challenge 2 Solution {.challenge-title}
+
+Create `data-cleaning.R`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Load the data
+gapminder <- read.csv(
+  "data/gapminder_data.csv"
+)
+
+# Subset data from 1990 onwards
+gapminder_recent <- gapminder[gapminder$year >= 1990, ]
+
+# Write to file
+write.csv(gapminder_recent,
+  file = "cleaned-data/gapminder-1990-onwards.csv",
+  row.names = FALSE
+)
+
+print("Data cleaning complete!")
+```
+
+Run it with: `source("data-cleaning.R")`
+
+## Workflow: From Raw to Clean Data
+
+Typical data processing workflow:
+
+1.  **Load** raw data with `read.csv()`
+2.  **Explore** structure with `str()`, `head()`
+3.  **Clean** by subsetting, transforming
+4.  **Check** results with `summary()`, `tail()`
+5.  **Write** cleaned data with `write.csv()`
+
+## Why This Workflow? {.callout-note}
+
+This approach ensures:
+
+-   **Reproducibility**: Script documents all steps
+-   **Traceability**: Can see what changed
+-   **Reusability**: Run again with new data
+-   **Sharing**: Others can repeat your process
+-   **Auditability**: Archive of transformations
+
+## Data Output Formats
+
+Beyond CSV, R can write:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Tab-separated values
+write.table(df, "file.tsv", sep = "\t", row.names = FALSE)
+
+# Fixed-width format
+write.fwf(df, "file.txt")
+
+# Other formats (with packages)
+library(readxl)
+writexl::write_xlsx(df, "file.xlsx")
+
+library(haven)
+write_sas(df, "file.sas7bdat")
+```
+
+## Creating Output Directories
+
+Before writing files, ensure directory exists:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Check if directory exists
+if (!dir.exists("cleaned-data")) {
+  dir.create("cleaned-data")
+}
+
+# Then write your file
+write.csv(df, "cleaned-data/output.csv")
+```
+
+Prevents "directory not found" errors!
+
+## Best Practices for Output {.callout-tip}
+
+-   **Use descriptive filenames**: `gapminder-1990-onwards.csv`
+-   **Include dates**: `results-2026-01-30.csv`
+-   **Document transformations**: Comment your code
+-   **Save intermediate steps**: For debugging
+-   **Use consistent separators**: CSV or TSV
+-   **Turn off row numbers**: Unless needed
+-   **Quote only when needed**: Smaller files
+
+## Combining Saving Plots and Data
+
+Complete workflow:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Subset data
+subset_data <- gapminder[gapminder$year >= 1990, ]
+
+# Create and save plot
+pdf("plot_recent.pdf")
+ggplot(subset_data, aes(x=year, y=lifeExp)) + geom_point()
+dev.off()
+
+# Save the subset
+write.csv(subset_data, "recent-data.csv", row.names = FALSE)
+
+print("Analysis complete!")
+```
+
+## Verification After Saving
+
+Always verify your output:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Read it back in
+check_data <- read.csv("cleaned-data/gapminder-aus.csv")
+
+# Verify structure
+str(check_data)
+head(check_data)
+
+# Compare with original (if needed)
+nrow(check_data)  # Should match what we wrote
+```
+
+## Common Mistakes {.callout-warning}
+
+-   Forgetting to call `dev.off()` after plotting
+-   Including row numbers when you don't want them
+-   Using wrong separators (comma vs tab)
+-   Not creating output directories first
+-   Forgetting quotes around filenames
+-   Not verifying the output
+
+## File Naming Conventions
+
+Good filenames:
+
+-   `gapminder-cleaned.csv`
+-   `results_2026-01-30.csv`
+-   `Africa_subset_1990-2007.csv`
+
+Bad filenames:
+
+-   `data.csv` (too generic)
+-   `my file.csv` (spaces problematic)
+-   `FINAL_FINAL_v3.csv` (version chaos)
+
+Be descriptive and version-controlled!
+
+## Performance Considerations
+
+Writing large data frames:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# For large files, specify col.names and row.names explicitly
+# It's faster than letting R figure it out
+
+write.csv(large_df, "output.csv", 
+          row.names = FALSE,
+          col.names = TRUE)
+```
+
+Can also use `data.table::fwrite()` for even faster writing.
+
+## Key Points
+
+-   Save plots using `pdf()`, `png()`, or `jpeg()` devices
+-   Always call `dev.off()` after saving plots
+-   Use `write.table()` or `write.csv()` to save data
+-   Set `row.names = FALSE` and `quote = FALSE` for clean CSV output
+-   Create output directories before writing files
+
+## Key Points (Continued)
+
+-   Use descriptive filenames for clarity
+-   Verify output after saving
+-   Combine data cleaning and output in scripts
+-   Document transformations with comments
+-   Use version control for reproducibility
+
+## Organizing Your Project {.callout-note}
+
+Typical structure:
+
+```
+project/
+├── data/                    # Raw data
+│   └── gapminder_data.csv
+├── cleaned-data/            # Output data
+│   └── gapminder-clean.csv
+├── figures/                 # Output plots
+│   └── plot.pdf
+├── scripts/                 # Analysis scripts
+│   ├── functions.R
+│   └── data-cleaning.R
+└── README.md               # Documentation
+```
+
+## Resources
+
+-   Software Carpentry: [r-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/)
+-   R Documentation: `?write.table`, `?write.csv`, `?pdf`
+-   ggplot2 Documentation: `?ggsave`
+-   Project organization best practices
+
+## Questions?

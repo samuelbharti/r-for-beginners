@@ -1,0 +1,800 @@
+---
+title: "Functions Explained"
+author: "Samuel Bharti"
+---
+
+## Overview
+
+Today we will learn to:
+
+-   Define a function that takes arguments
+-   Return a value from a function
+-   Check argument conditions with `stopifnot()`
+-   Test a function
+-   Set default values for function arguments
+-   Divide programs into small, single-purpose functions
+
+## Questions
+
+-   How can I write a new function in R?
+-   How do I make my code more reusable?
+-   How can I check that my function is working correctly?
+
+## Why Functions?
+
+If we only analyze one dataset:
+
+-   Load in spreadsheet
+-   Calculate simple statistics
+-   Done!
+
+But what if:
+
+-   Data is updated periodically?
+-   Need to re-run analysis?
+-   Get similar data from different sources?
+
+**Functions let us repeat operations with a single command!**
+
+## What is a Function? {.callout-note}
+
+Functions gather a sequence of operations into a whole, providing:
+
+-   A **name** we can remember and invoke
+-   Relief from remembering individual operations
+-   A defined set of **inputs** and **outputs**
+-   Rich connections to the larger programming environment
+
+If you have written a function, **you are a computer programmer!**
+
+## Function Structure
+
+The general structure of a function:
+
+```{r}
+#| eval: false
+#| echo: true
+
+my_function <- function(parameters) {
+  # perform action
+  # return value
+}
+```
+
+Three key parts: name, parameters, and body
+
+## Defining a Function
+
+Convert Fahrenheit to Kelvin:
+
+```{r}
+#| eval: true
+#| echo: true
+
+fahr_to_kelvin <- function(temp) {
+  kelvin <- ((temp - 32) * (5 / 9)) + 273.15
+  return(kelvin)
+}
+```
+
+## Function Anatomy
+
+Breaking down `fahr_to_kelvin`:
+
+-   **Name**: `fahr_to_kelvin`
+-   **Parameter**: `temp` (in parentheses)
+-   **Body**: Code within curly braces `{}`
+-   **Return**: Value sent back to caller
+
+Indentation (2 spaces) makes code readable!
+
+## Functions as Recipes {.callout-tip}
+
+Think of creating functions like writing a cookbook:
+
+1.  Define "ingredients" (parameters)
+2.  Say what to do with them (body)
+3.  Serve the result (return value)
+
+When we call the function, arguments are assigned to parameters.
+
+## Return Statement {.callout-note}
+
+**R is unique:** The return statement is not required!
+
+R automatically returns the last line in the function body.
+
+**But for clarity**, we will explicitly use `return()` statements.
+
+## Calling Our Function
+
+Test the function with known values:
+
+```{r}
+#| eval: true
+#| echo: true
+
+# Freezing point of water
+fahr_to_kelvin(32)
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+# Boiling point of water
+fahr_to_kelvin(212)
+```
+
+## Challenge 1 {.challenge-title}
+
+Write a function called `kelvin_to_celsius()` that takes a temperature in **Kelvin** and returns that temperature in **Celsius**.
+
+**Hint:** To convert from Kelvin to Celsius you subtract 273.15
+
+Try it yourself before looking at the solution!
+
+## Challenge 1 Solution {.challenge-title}
+
+```{r}
+#| eval: true
+#| echo: true
+
+kelvin_to_celsius <- function(temp) {
+  celsius <- temp - 273.15
+  return(celsius)
+}
+
+# Test it
+kelvin_to_celsius(273.15)  # Should be 0
+```
+
+## Combining Functions
+
+The real power: mixing, matching, and combining functions!
+
+Let's define both conversion functions:
+
+```{r}
+#| eval: true
+#| echo: true
+
+fahr_to_kelvin <- function(temp) {
+  kelvin <- ((temp - 32) * (5 / 9)) + 273.15
+  return(kelvin)
+}
+
+kelvin_to_celsius <- function(temp) {
+  celsius <- temp - 273.15
+  return(celsius)
+}
+```
+
+## Challenge 2 {.challenge-title}
+
+Define a function to convert directly from **Fahrenheit to Celsius**, by **reusing** the two functions above.
+
+Think about how you can call one function from inside another!
+
+## Challenge 2 Solution {.challenge-title}
+
+```{r}
+#| eval: true
+#| echo: true
+
+fahr_to_celsius <- function(temp) {
+  temp_k <- fahr_to_kelvin(temp)
+  result <- kelvin_to_celsius(temp_k)
+  return(result)
+}
+
+# Test it
+fahr_to_celsius(32)   # Freezing point = 0°C
+fahr_to_celsius(212)  # Boiling point = 100°C
+```
+
+## Defensive Programming
+
+**Important concept:** Ensure functions only work in their intended use cases!
+
+Defensive programming:
+
+-   Frequently check conditions
+-   Throw errors if something is wrong
+-   Use **assertion statements**
+-   Make debugging easier
+
+## Problem with Current Function
+
+What happens with bad input?
+
+```{r}
+#| eval: false
+#| echo: true
+
+fahr_to_kelvin("hot")  # A string, not a number
+```
+
+This will fail with a cryptic error. We should fail **early** and **clearly**!
+
+## Using stop()
+
+Check conditions with `if` statements:
+
+```{r}
+#| eval: true
+#| echo: true
+
+fahr_to_kelvin <- function(temp) {
+  if (!is.numeric(temp)) {
+    stop("temp must be a numeric vector.")
+  }
+  kelvin <- ((temp - 32) * (5 / 9)) + 273.15
+  return(kelvin)
+}
+```
+
+## The stopifnot() Function
+
+Better approach for multiple conditions:
+
+```{r}
+#| eval: true
+#| echo: true
+
+fahr_to_kelvin <- function(temp) {
+  stopifnot(is.numeric(temp))
+  kelvin <- ((temp - 32) * (5 / 9)) + 273.15
+  return(kelvin)
+}
+```
+
+`stopifnot()` lists requirements that should be TRUE
+
+## Testing stopifnot()
+
+Works with proper input:
+
+```{r}
+#| eval: true
+#| echo: true
+
+fahr_to_kelvin(temp = 32)
+```
+
+## Testing stopifnot() - Error
+
+Fails instantly with improper input:
+
+```{r}
+#| eval: false
+#| echo: true
+
+fahr_to_kelvin(temp = as.factor(32))
+```
+
+```         
+Error in fahr_to_kelvin():
+! is.numeric(temp) is not TRUE
+```
+
+Clear error message!
+
+## Why stopifnot()? {.callout-tip}
+
+Benefits of `stopifnot()`:
+
+-   Handles multiple conditions easily
+-   Acts as extra documentation
+-   Fails fast and clearly
+-   Better than cryptic errors later
+
+List all requirements at the start of your function!
+
+## Challenge 3 {.challenge-title}
+
+Use defensive programming to ensure that `fahr_to_celsius()` throws an error immediately if the argument `temp` is specified inappropriately.
+
+Add a `stopifnot()` check to your function!
+
+## Challenge 3 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+fahr_to_celsius <- function(temp) {
+  stopifnot(is.numeric(temp))
+  temp_k <- fahr_to_kelvin(temp)
+  result <- kelvin_to_celsius(temp_k)
+  return(result)
+}
+```
+
+## More Complex Functions
+
+Let's work with the gapminder dataset!
+
+Define a function to calculate GDP:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Takes a dataset and multiplies the population column
+# with the GDP per capita column.
+calcGDP <- function(dat) {
+  gdp <- dat$pop * dat$gdpPercap
+  return(gdp)
+}
+```
+
+## Function Structure Review
+
+Breaking down `calcGDP`:
+
+-   **Argument**: `dat` (a data frame)
+-   **Body**: Multiply population by GDP per capita
+-   **Return**: The calculated GDP values
+
+Indentation makes code readable!
+
+## Testing calcGDP
+
+Load the gapminder data and test:
+
+```{r}
+#| eval: false
+#| echo: true
+
+gapminder <- read.csv(
+  "https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv"
+)
+
+calcGDP(head(gapminder))
+```
+
+Output: `[1] 6567086330 7585448670 8758855797 9648014150 9678553274 11697659231`
+
+Not very informative!
+
+## Adding More Arguments
+
+Make it more flexible with optional arguments:
+
+```{r}
+#| eval: false
+#| echo: true
+
+calcGDP <- function(dat, year=NULL, country=NULL) {
+  if(!is.null(year)) {
+    dat <- dat[dat$year %in% year, ]
+  }
+  if (!is.null(country)) {
+    dat <- dat[dat$country %in% country, ]
+  }
+  gdp <- dat$pop * dat$gdpPercap
+  
+  new <- cbind(dat, gdp=gdp)
+  return(new)
+}
+```
+
+## Default Arguments
+
+Notice `year=NULL` and `country=NULL`:
+
+-   These are **default values**
+-   Used if user doesn't specify
+-   Makes function more flexible
+-   Use `=` in function definition for defaults
+
+## Loading Functions
+
+Save functions to a file, then load them:
+
+```{r}
+#| eval: false
+#| echo: true
+
+source("functions/functions-lesson.R")
+```
+
+Loads all functions from that file into your session!
+
+## How calcGDP Works
+
+Plain English explanation:
+
+1.  Subset by year (if provided)
+2.  Subset by country (if provided)
+3.  Calculate GDP on the subset
+4.  Add GDP as new column
+5.  Return the enhanced data frame
+
+Much more informative than just numbers!
+
+## Testing with Year
+
+Extract data for a specific year:
+
+```{r}
+#| eval: false
+#| echo: true
+
+head(calcGDP(gapminder, year=2007))
+```
+
+Output includes country, year, population, continent, life expectancy, GDP per capita, and calculated GDP!
+
+## Testing with Country
+
+Extract data for a specific country:
+
+```{r}
+#| eval: false
+#| echo: true
+
+calcGDP(gapminder, country="Australia")
+```
+
+Returns all years for Australia with calculated GDP.
+
+## Testing with Both
+
+Combine year and country:
+
+```{r}
+#| eval: false
+#| echo: true
+
+calcGDP(gapminder, year=2007, country="Australia")
+```
+
+Returns just one row: Australia in 2007!
+
+## Understanding NULL Checks
+
+The condition checks:
+
+```{r}
+#| eval: false
+#| echo: true
+
+if(!is.null(year)) {
+  dat <- dat[dat$year %in% year, ]
+}
+```
+
+-   Check if argument was provided
+-   If yes: subset the data
+-   If no: use full dataset
+
+## Function Flexibility {.callout-tip}
+
+Now `calcGDP` can calculate GDP for:
+
+-   The whole dataset
+-   A single year
+-   A single country
+-   A combination of year and country
+-   **Multiple** years or countries (using `%in%`)
+
+Building in conditionals makes functions flexible!
+
+## Pass by Value {.callout-note}
+
+**Important:** Functions in R make **copies** of data!
+
+-   When we modify `dat` inside the function
+-   We modify a **copy**, not the original
+-   Original variable remains unchanged
+
+This is "pass-by-value" - makes coding safer!
+
+## Function Scope {.callout-note}
+
+**Scoping:** Variables created inside a function only exist during execution!
+
+When we call `calcGDP()`:
+
+-   `dat`, `gdp`, `new` only exist inside the function
+-   Don't affect variables outside the function
+-   Even if they have the same names!
+
+## Challenge 4 {.challenge-title}
+
+Test out your GDP function by calculating the GDP for **New Zealand** in **1987**.
+
+How does this differ from New Zealand's GDP in **1952**?
+
+## Challenge 4 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+calcGDP(gapminder, year=1987, country="New Zealand")
+calcGDP(gapminder, year=1952, country="New Zealand")
+
+# Or compare both:
+calcGDP(gapminder, year=c(1952, 1987), 
+        country="New Zealand")
+```
+
+## Challenge 5 {.challenge-title}
+
+The `paste()` function combines text together:
+
+```{r}
+#| eval: true
+#| echo: true
+
+best_practice <- c("Write", "programs", "for", 
+                   "people", "not", "computers")
+paste(best_practice, collapse=" ")
+```
+
+Write a function called `fence()` that takes two vectors: `text` and `wrapper`, and prints the text wrapped with the wrapper.
+
+## Challenge 5 Expected Output {.challenge-title}
+
+Expected output:
+
+```{r}
+#| eval: false
+#| echo: true
+
+fence(text=best_practice, wrapper="***")
+```
+
+Should produce:
+
+```         
+[1] "*** Write programs for people not computers ***"
+```
+
+**Hint:** `paste()` has a `sep` argument for separators!
+
+## Challenge 5 Solution {.challenge-title}
+
+```{r}
+#| eval: true
+#| echo: true
+
+fence <- function(text, wrapper) {
+  text_combined <- paste(text, collapse=" ")
+  result <- paste(wrapper, text_combined, wrapper, sep="")
+  return(result)
+}
+
+# Test it
+fence(text=best_practice, wrapper="***")
+```
+
+## Testing and Documenting {.callout-tip}
+
+Essential practices for functions:
+
+1.  **Write** a function
+2.  **Comment** parts to document behavior
+3.  **Load** the source file
+4.  **Experiment** in console to test
+5.  **Fix** any bugs
+6.  **Repeat** until it works!
+
+## Why Test Functions?
+
+Testing ensures:
+
+-   Function does what you think it does
+-   Catches bugs early
+-   Makes debugging easier
+-   Builds confidence in your code
+
+Always test with expected inputs **and** edge cases!
+
+## Documentation Matters {.callout-note}
+
+Good documentation:
+
+-   Explains what the function does
+-   Lists required parameters
+-   Describes what is returned
+-   Provides examples
+-   Helps future you (and others!)
+
+Comments are your friends!
+
+## Formal Documentation
+
+For more complex projects:
+
+-   **roxygen2** package: Write docs alongside code
+-   **testthat** package: Write automated tests
+-   **Packages**: Bundles of functions with docs
+
+`source("functions.R")` is like `library("package")`!
+
+## Building Good Functions {.callout-tip}
+
+Best practices:
+
+-   **Single purpose**: One function, one task
+-   **Clear names**: Describe what it does
+-   **Document**: Comment your code
+-   **Test**: Verify it works correctly
+-   **Defensive**: Check inputs with `stopifnot()`
+-   **Modular**: Build complex from simple
+
+## Why Small Functions? {.callout-note}
+
+Divide programs into small, single-purpose functions because:
+
+-   Easier to understand
+-   Easier to test
+-   Easier to debug
+-   Easier to reuse
+-   Easier to maintain
+
+**Think LEGO blocks, not monoliths!**
+
+## When to Write a Function?
+
+Consider writing a function when:
+
+-   You copy-paste code more than twice
+-   Logic is complex and needs a name
+-   You need to reuse an operation
+-   Code would be clearer with abstraction
+-   You want to test a specific piece
+
+**DRY principle: Don't Repeat Yourself**
+
+## Function Design Process
+
+1.  Write code that works once
+2.  Identify repeated patterns
+3.  Extract into function
+4.  Add parameters for flexibility
+5.  Add defensive checks
+6.  Document and test
+7.  Refine and improve
+
+## Creating a Script File
+
+Organize your functions:
+
+1.  Create a `functions/` directory
+2.  Create `functions-lesson.R` file
+3.  Write all functions there
+4.  Load with `source("functions/functions-lesson.R")`
+
+Keeps workspace clean and organized!
+
+## Key Points
+
+-   Use `function` to define a new function in R
+-   Use parameters to pass values into functions
+-   Use `stopifnot()` to check function arguments
+-   Load functions into programs using `source()`
+-   Functions make code more readable and reusable
+
+## Key Points (Continued)
+
+-   Functions can call other functions
+-   Default values make functions flexible
+-   R uses pass-by-value (copies data)
+-   Variables inside functions have local scope
+-   Always test and document your functions
+
+## Common Mistakes {.callout-warning}
+
+Avoid these pitfalls:
+
+-   Forgetting to use `return()`
+-   Not checking input arguments
+-   Making functions too complex
+-   Poor naming choices
+-   Lack of documentation
+-   Not testing edge cases
+
+## Example: Good vs Bad Names
+
+**Bad names:**
+
+-   `f()`, `my_function()`, `do_stuff()`
+
+**Good names:**
+
+-   `calc_mean()`, `filter_by_year()`, `plot_histogram()`
+
+Names should describe **what** the function does!
+
+## Function Arguments Best Practices
+
+-   **Required arguments first**, optional after
+-   Use **sensible defaults** when possible
+-   **Check arguments** with `stopifnot()`
+-   Use **descriptive parameter names**
+-   Document what **types** are expected
+
+## Composition is Powerful
+
+Build complex operations from simple functions:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Simple functions
+kelvin_to_celsius <- function(temp) { ... }
+fahr_to_kelvin <- function(temp) { ... }
+
+# Composed function
+fahr_to_celsius <- function(temp) {
+  fahr_to_kelvin(temp) %>% kelvin_to_celsius()
+}
+```
+
+## Return Values
+
+What should functions return?
+
+-   **Single value**: Number, string, logical
+-   **Vector**: Multiple values of same type
+-   **List**: Multiple values of different types
+-   **Data frame**: Tabular results
+
+Choose based on what makes sense!
+
+## Advanced Topics (Preview) {.callout-note}
+
+Beyond this lesson:
+
+-   Anonymous functions (lambda)
+-   Functions as arguments
+-   Environments and closures
+-   S3 and S4 object systems
+-   Package development
+
+Resources: R Language Manual, Advanced R by Hadley Wickham
+
+## Practice Exercise
+
+On your own, write a function that:
+
+1.  Takes a data frame and column name
+2.  Calculates summary statistics
+3.  Returns a named vector with min, max, mean, median
+
+Bonus: Add error checking!
+
+## Recap
+
+Today we learned:
+
+-   How to define functions
+-   Function anatomy (name, parameters, body, return)
+-   Combining functions
+-   Defensive programming with `stopifnot()`
+-   Default arguments for flexibility
+-   Testing and documentation
+
+## Remember
+
+**Functions are the building blocks of programming!**
+
+-   Start simple, build complexity gradually
+-   Test early and often
+-   Document for future you
+-   Don't repeat yourself - write functions!
+
+## Resources
+
+-   Software Carpentry: [r-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/)
+-   R Documentation: `?function`, `?stopifnot`
+-   Advanced R by Hadley Wickham
+-   R Language Manual
+
+## Questions?

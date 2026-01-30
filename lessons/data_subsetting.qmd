@@ -1,0 +1,1092 @@
+---
+title: "Subsetting Data in R"
+author: "Samuel Bharti"
+---
+
+## Overview
+
+Today we will learn to:
+
+-   Subset vectors using indices, names, and logical operations
+-   Skip and remove elements from data structures
+-   Subset matrices, lists, and data frames
+-   Handle special values (NA, NaN, Inf)
+-   Combine logical conditions for complex subsetting
+
+## Questions
+
+-   How can I work with subsets of data in R?
+-   What are the different ways to extract data?
+-   How do I use logical operations for subsetting?
+
+## Creating a Sample Vector
+
+Let's start with a simple numeric vector:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+x
+```
+
+## Atomic Vectors {.callout-note}
+
+In R, simple vectors containing:
+
+-   Character strings
+-   Numbers
+-   Logical values
+
+are called **atomic vectors** because they can't be further simplified.
+
+## Accessing Elements by Index
+
+Extract elements using their position (1-indexed):
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[1]  # First element
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[4]  # Fourth element
+```
+
+The `[]` operator is a function that extracts elements.
+
+## Multiple Elements at Once
+
+Extract several elements by combining indices:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[c(1, 3)]  # First and third elements
+```
+
+## Slicing Vectors
+
+Use the `:` operator to create sequences:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[1:4]  # Elements 1 through 4
+```
+
+The `:` operator creates: `c(1, 2, 3, 4)`
+
+## Repeating Elements
+
+You can ask for the same element multiple times:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[c(1, 1, 3)]
+```
+
+## Out of Bounds
+
+Asking for an index beyond the vector length returns NA:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[6]  # Vector only has 5 elements
+```
+
+## The Zero Index
+
+Asking for the 0th element returns an empty vector:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[0]
+```
+
+## Vector Numbering in R {.callout-warning}
+
+**Important:** In R, vector indexing starts at 1, not 0!
+
+-   In C and Python: first element is index 0
+-   In R: first element is index 1
+
+This is a common source of confusion for programmers from other languages.
+
+## Skipping Elements
+
+Use negative indices to exclude elements:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[-2]  # Everything except element 2
+```
+
+## Skipping Multiple Elements
+
+Exclude several elements at once:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[c(-1, -5)]  # or x[-c(1, 5)]
+```
+
+## Order of Operations {.callout-warning}
+
+**Common mistake** - negating a sequence:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x[-1:3]  # Error!
+```
+
+```         
+Error: only 0's may be mixed with negative subscripts
+```
+
+The `:` operator runs first: `-1:3` creates `c(-1, 0, 1, 2, 3)`
+
+## Correct Way to Skip Slices
+
+Wrap the sequence in parentheses:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[-(1:3)]  # Skip elements 1 through 3
+```
+
+Now the `-` operator applies to the entire sequence.
+
+## Removing Elements Permanently
+
+Assign the result back to the variable:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x <- x[-4]  # Remove element 4
+x
+```
+
+## Challenge 1 {.challenge-title}
+
+Given the following code:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+```
+
+Come up with at least **2 different commands** that will produce:
+
+```         
+  b   c   d
+6.2 7.1 4.8
+```
+
+Compare your solutions with your neighbor!
+
+## Challenge 1 Solution {.challenge-title}
+
+Multiple approaches work:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x[2:4]              # By index range
+x[-c(1, 5)]         # By skipping indices
+x[c("b", "c", "d")] # By name
+```
+
+## Subsetting by Name
+
+Extract elements using their names:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x <- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5)
+x[c("a", "c")]
+```
+
+This is more **reliable** than using positions!
+
+## Why Use Names? {.callout-tip}
+
+Names are safer than indices because:
+
+-   Element positions can change during operations
+-   Names remain constant
+-   Code is more readable and self-documenting
+
+Always prefer subsetting by name when possible.
+
+## Subsetting with Logical Vectors
+
+Use TRUE/FALSE vectors to select elements:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[c(FALSE, FALSE, TRUE, FALSE, TRUE)]
+```
+
+Only elements with TRUE are selected.
+
+## Logical Operations for Subsetting
+
+Comparison operators create logical vectors:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x > 7  # Creates logical vector
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[x > 7]  # Use it to subset
+```
+
+## Breaking Down Logical Subsetting
+
+Step by step:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x > 7  # 1. Evaluate condition
+```
+
+This creates: `c(FALSE, FALSE, TRUE, FALSE, TRUE)`
+
+Then R selects elements where TRUE.
+
+## Using == for Subsetting
+
+Find exact matches:
+
+```{r}
+#| eval: true
+#| echo: true
+
+names(x) == "a"
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[names(x) == "a"]
+```
+
+**Remember:** Use `==` for comparison, not `=`
+
+## Combining Logical Conditions
+
+Use `&` (AND) and `|` (OR) to combine conditions:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x > 5 & x < 7  # Both conditions must be TRUE
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[x > 5 & x < 7]
+```
+
+## Logical Operators {.callout-note}
+
+-   `&` - Logical AND: both must be TRUE
+-   `|` - Logical OR: either can be TRUE
+-   `!` - Logical NOT: inverts TRUE/FALSE
+
+**Note:** Avoid `&&` and `||` in data analysis (they only check first element)
+
+## The NOT Operator
+
+Negate conditions with `!`:
+
+```{r}
+#| eval: true
+#| echo: true
+
+!(x > 7)  # Invert the logical vector
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[!(x > 7)]  # Elements NOT greater than 7
+```
+
+## all() and any()
+
+Check entire vectors:
+
+```{r}
+#| eval: true
+#| echo: true
+
+all(x > 4)  # Are ALL elements > 4?
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+any(x > 7)  # Are ANY elements > 7?
+```
+
+## Challenge 2 {.challenge-title}
+
+Given:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+```
+
+Write a subsetting command to return values in x that are **greater than 4 AND less than 7**.
+
+## Challenge 2 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+x[x > 4 & x < 7]
+```
+
+Both conditions must be TRUE for an element to be included.
+
+## Non-Unique Names {.callout-warning}
+
+Multiple elements can have the same name:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x <- 1:3
+names(x) <- c('a', 'a', 'a')
+x['a']  # Only returns first value
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[names(x) == 'a']  # Returns all three
+```
+
+## Getting Help for Operators {.callout-tip}
+
+Wrap operators in quotes to search for help:
+
+```{r}
+#| eval: false
+#| echo: true
+
+help("%in%")
+?"%in%"
+```
+
+## Skipping Named Elements
+
+Can't use negative with names:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5)
+x[-"a"]  # Error!
+```
+
+```         
+Error: invalid argument to unary operator
+```
+
+## Using != to Skip Names
+
+Use the "not equals" operator instead:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x <- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5)
+x[names(x) != "a"]
+```
+
+## Skipping Multiple Names - Wrong Way
+
+This seems logical but has a problem:
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[names(x) != c("a", "c")]
+```
+
+**Warning:** Longer object length is not a multiple of shorter object length
+
+Element "c" is still included - not what we wanted!
+
+## Understanding Recycling
+
+What does `!=` actually do?
+
+```{r}
+#| eval: true
+#| echo: true
+
+names(x) != c("a", "c")
+```
+
+R **recycles** the shorter vector: `c("a", "c", "a", "c", "a")`
+
+This creates incorrect comparisons!
+
+## Recycling Visualization {.callout-warning}
+
+```
+names(x):   a    b    c    d    e
+compared:   a    c    a    c    a  (recycled)
+result:   FALSE TRUE TRUE TRUE TRUE
+```
+
+Element 3 ("c") compared to "a" → TRUE (wrong!)
+
+## The Correct Way: %in%
+
+Use the `%in%` operator for multiple matches:
+
+```{r}
+#| eval: true
+#| echo: true
+
+names(x) %in% c("a", "c")
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+x[!names(x) %in% c("a", "c")]  # Use ! to exclude
+```
+
+## How %in% Works {.callout-note}
+
+The `%in%` operator asks: "Does this element occur in the second vector?"
+
+-   Goes through each element of left vector
+-   Checks if it exists anywhere in right vector
+-   Returns TRUE/FALSE for each element
+-   No recycling problems!
+
+## Challenge 3 {.challenge-title}
+
+Southeast Asia countries:
+
+```{r}
+#| eval: false
+#| echo: true
+
+seAsia <- c("Myanmar","Thailand","Cambodia","Vietnam","Laos")
+gapminder <- read.csv("data/gapminder_data.csv")
+countries <- unique(as.character(gapminder$country))
+```
+
+Create a logical vector that is TRUE for southeast Asian countries.
+
+Come up with 3 approaches:
+
+1.  Wrong way (using only `==`)
+2.  Clunky way (using `==` and `|`)
+3.  Elegant way (using `%in%`)
+
+## Challenge 3 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Wrong - gives warning
+countries == seAsia
+
+# Clunky - works but tedious
+countries == "Myanmar" | countries == "Thailand" | 
+  countries == "Cambodia" | countries == "Vietnam" | 
+  countries == "Laos"
+
+# Elegant - best approach
+countries %in% seAsia
+```
+
+## Handling Special Values
+
+R has special functions for dealing with missing/invalid data:
+
+-   `is.na()` - finds NA or NaN
+-   `is.nan()` - finds NaN only
+-   `is.infinite()` - finds Inf
+-   `is.finite()` - finds normal values (excludes NA, NaN, Inf)
+-   `na.omit()` - removes all missing values
+
+## Factor Subsetting
+
+Factors work like vectors:
+
+```{r}
+#| eval: true
+#| echo: true
+
+f <- factor(c("a", "a", "b", "c", "c", "d"))
+f[f == "a"]
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+f[f %in% c("b", "c")]
+```
+
+## Factors Keep All Levels
+
+Skipping elements doesn't remove levels:
+
+```{r}
+#| eval: true
+#| echo: true
+
+f[-3]  # Removed "b" value
+```
+
+Notice: Levels still shows all 4 levels (a, b, c, d)
+
+## Matrix Subsetting
+
+Matrices use `[row, column]` notation:
+
+```{r}
+#| eval: true
+#| echo: true
+
+set.seed(1)
+m <- matrix(rnorm(6*4), ncol=4, nrow=6)
+m[3:4, c(3,1)]  # Rows 3-4, columns 3 and 1
+```
+
+## Selecting All Rows or Columns
+
+Leave an argument blank to get all:
+
+```{r}
+#| eval: true
+#| echo: true
+
+m[, c(3,4)]  # All rows, columns 3-4
+```
+
+## Matrix to Vector Conversion
+
+Single row/column becomes a vector:
+
+```{r}
+#| eval: true
+#| echo: true
+
+m[3, ]  # Returns a vector
+```
+
+## Preserving Matrix Structure
+
+Use `drop = FALSE` to keep as matrix:
+
+```{r}
+#| eval: true
+#| echo: true
+
+m[3, , drop=FALSE]  # Still a matrix
+```
+
+## Matrix Error Handling
+
+Out-of-bounds access throws an error:
+
+```{r}
+#| eval: false
+#| echo: true
+
+m[, c(3, 6)]  # Only 4 columns!
+```
+
+```         
+Error: subscript out of bounds
+```
+
+Matrices are stricter than vectors.
+
+## Higher Dimensional Arrays {.callout-note}
+
+For 3D arrays:
+
+-   First argument = rows
+-   Second argument = columns
+-   Third argument = depth
+
+Each dimension gets its own argument in `[]`.
+
+## Matrices as Vectors
+
+Matrices can be accessed with single index:
+
+```{r}
+#| eval: true
+#| echo: true
+
+m[5]  # 5th element in column-major order
+```
+
+## Column-Major Format {.callout-note}
+
+Matrices are stored column-wise by default:
+
+```{r}
+#| eval: true
+#| echo: true
+
+matrix(1:6, nrow=2, ncol=3)
+```
+
+Elements fill down columns first, then across.
+
+## Row-Major Format
+
+Use `byrow=TRUE` to fill by rows:
+
+```{r}
+#| eval: true
+#| echo: true
+
+matrix(1:6, nrow=2, ncol=3, byrow=TRUE)
+```
+
+## Challenge 4 {.challenge-title}
+
+Given:
+
+```{r}
+#| eval: false
+#| echo: true
+
+m <- matrix(1:18, nrow=3, ncol=6)
+print(m)
+```
+
+Which command extracts values 11 and 14?
+
+A. `m[2,4,2,5]`  
+B. `m[2:5]`  
+C. `m[4:5,2]`  
+D. `m[2,c(4,5)]`
+
+## Challenge 4 Solution {.challenge-title}
+
+Answer: **D**
+
+```{r}
+#| eval: false
+#| echo: true
+
+m[2, c(4,5)]  # Row 2, columns 4 and 5
+```
+
+-   Row 2, column 4 = 11
+-   Row 2, column 5 = 14
+
+## List Subsetting with []
+
+`[` returns a list:
+
+```{r}
+#| eval: true
+#| echo: true
+
+xlist <- list(a = "Software Carpentry", 
+              b = 1:10, 
+              data = head(mtcars))
+xlist[1]  # Returns list with one element
+```
+
+## List Subsetting Multiple Elements
+
+```{r}
+#| eval: true
+#| echo: true
+
+xlist[1:2]  # Returns list with two elements
+```
+
+## Extracting Elements with [[]]
+
+`[[]]` extracts the actual element:
+
+```{r}
+#| eval: true
+#| echo: true
+
+xlist[[1]]  # Returns the vector itself
+```
+
+Now the result is a character vector, not a list!
+
+## [[]] Limitations
+
+Can't extract multiple elements:
+
+```{r}
+#| eval: false
+#| echo: true
+
+xlist[[1:2]]  # Error!
+```
+
+```         
+Error: subscript out of bounds
+```
+
+Can't skip elements:
+
+```{r}
+#| eval: false
+#| echo: true
+
+xlist[[-1]]  # Error!
+```
+
+## Extracting by Name
+
+Use names with `[[]]`:
+
+```{r}
+#| eval: true
+#| echo: true
+
+xlist[["a"]]
+```
+
+## The $ Shortcut
+
+`$` is shorthand for extracting by name:
+
+```{r}
+#| eval: false
+#| echo: true
+
+xlist$data
+```
+
+Equivalent to `xlist[["data"]]`
+
+## Challenge 5 {.challenge-title}
+
+Given:
+
+```{r}
+#| eval: false
+#| echo: true
+
+xlist <- list(a = "Software Carpentry", 
+              b = 1:10, 
+              data = head(mtcars))
+```
+
+Extract the number **2** from xlist.
+
+Hint: The number 2 is in the "b" item.
+
+## Challenge 5 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+xlist[[2]][2]  # or xlist[["b"]][2] or xlist$b[2]
+```
+
+First `[[2]]` extracts the vector, then `[2]` gets the second element.
+
+## Challenge 6 {.challenge-title}
+
+Given a linear model:
+
+```{r}
+#| eval: false
+#| echo: true
+
+mod <- aov(pop ~ lifeExp, data=gapminder)
+```
+
+Extract the **residual degrees of freedom**.
+
+Hint: `attributes()` will help you!
+
+## Challenge 6 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+attributes(mod)  # See all available attributes
+mod$df.residual
+```
+
+## Data Frame Subsetting: Single Argument
+
+`[` with one argument acts on columns:
+
+```{r}
+#| eval: false
+#| echo: true
+
+gapminder <- read.csv(
+  "https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv"
+)
+
+head(gapminder[3])  # Returns data frame with column 3
+```
+
+## Data Frame Subsetting: [[]]
+
+`[[]]` extracts a column as a vector:
+
+```{r}
+#| eval: false
+#| echo: true
+
+head(gapminder[["lifeExp"]])
+```
+
+## Data Frame Subsetting: $
+
+`$` is the convenient shorthand:
+
+```{r}
+#| eval: false
+#| echo: true
+
+head(gapminder$year)
+```
+
+## Data Frame: Two Arguments
+
+With `[row, column]`, acts like a matrix:
+
+```{r}
+#| eval: false
+#| echo: true
+
+gapminder[1:3, ]  # First 3 rows, all columns
+```
+
+## Single Row Subsetting
+
+Single row returns a data frame:
+
+```{r}
+#| eval: false
+#| echo: true
+
+gapminder[3, ]
+```
+
+Mixed types preserved in data frame structure.
+
+## Challenge 7 {.challenge-title}
+
+Fix these common data frame subsetting errors:
+
+1. Extract observations from 1957:
+```{r}
+#| eval: false
+#| echo: true
+gapminder[gapminder$year = 1957,]
+```
+
+2. Extract all columns except 1 through 4:
+```{r}
+#| eval: false
+#| echo: true
+gapminder[, -1:4]
+```
+
+## Challenge 7 Continued {.challenge-title}
+
+3. Extract rows where life expectancy > 80:
+```{r}
+#| eval: false
+#| echo: true
+gapminder[gapminder$lifeExp > 80]
+```
+
+4. Extract first row, columns 4 and 5:
+```{r}
+#| eval: false
+#| echo: true
+gapminder[1, 4, 5]
+```
+
+5. Extract rows for years 2002 and 2007:
+```{r}
+#| eval: false
+#| echo: true
+gapminder[gapminder$year == 2002 | 2007,]
+```
+
+## Challenge 7 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+# 1. Use == not =
+gapminder[gapminder$year == 1957,]
+
+# 2. Wrap range in parentheses
+gapminder[, -(1:4)]
+
+# 3. Need comma for rows
+gapminder[gapminder$lifeExp > 80, ]
+
+# 4. Use c() for multiple columns
+gapminder[1, c(4, 5)]
+
+# 5. Complete both comparisons
+gapminder[gapminder$year == 2002 | gapminder$year == 2007,]
+# or better:
+gapminder[gapminder$year %in% c(2002, 2007),]
+```
+
+## Challenge 8 {.challenge-title}
+
+1.  Why does `gapminder[1:20]` return an error? How does it differ from `gapminder[1:20, ]`?
+
+2.  Create a new data frame called `gapminder_small` that only contains rows 1 through 9 and 19 through 23. You can do this in one or two steps.
+
+## Challenge 8 Solution {.challenge-title}
+
+```{r}
+#| eval: false
+#| echo: true
+
+# 1. gapminder[1:20] tries to get columns 1-20
+#    gapminder[1:20, ] gets rows 1-20 (correct)
+
+# 2. One step:
+gapminder_small <- gapminder[c(1:9, 19:23), ]
+
+# Two steps:
+gapminder_small <- gapminder[1:9, ]
+gapminder_small <- rbind(gapminder_small, gapminder[19:23, ])
+```
+
+## Key Points
+
+-   Indexing in R starts at 1, not 0
+-   Access individual values by location using `[]`
+-   Access slices of data using `[low:high]`
+-   Access arbitrary sets using `[c(...)]`
+-   Use logical operations to access subsets
+-   `%in%` is essential for matching multiple values
+
+## Key Points (Continued)
+
+-   Negative indices skip elements
+-   `[[]]` extracts list elements, `[]` subsets lists
+-   `$` is shorthand for extracting named elements
+-   Data frames can be subset like lists or matrices
+-   Use `drop=FALSE` to preserve structure
+
+## Common Pitfalls {.callout-warning}
+
+1.  Using `=` instead of `==` for comparison
+2.  Forgetting the comma in `[row, column]`
+3.  Recycling issues with `!=` (use `%in%` instead)
+4.  Forgetting R uses 1-based indexing
+5.  Order of operations with `-` and `:`
+
+## Best Practices {.callout-tip}
+
+-   Subset by name when possible (more reliable)
+-   Use `%in%` for multiple value matching
+-   Check your subset before assigning back
+-   Use `str()` to understand data structure
+-   Combine conditions with `&` and `|` for clarity
+
+## Practice Makes Perfect
+
+Master these six ways to subset:
+
+1.  Positive integers (position)
+2.  Negative integers (exclusion)
+3.  Logical vectors (conditions)
+4.  Named indices (by name)
+5.  Empty (all elements)
+6.  Zero (empty result)
+
+## Resources
+
+-   Software Carpentry: [r-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/)
+-   `?'['` - Help on subsetting
+-   `?'%in%'` - Help on matching operator
+-   RStudio Cheatsheets
+
+## Questions?

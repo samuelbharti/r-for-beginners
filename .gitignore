@@ -11,6 +11,8 @@
 *_cache/
 *_files/
 _freeze/
+lessons/*.html
+lessons/*.md
 
 # Build scripts
 build.ps1

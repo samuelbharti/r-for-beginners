@@ -1,5 +1,292 @@
 [
   {
+    "objectID": "lessons/writing_data.html",
+    "href": "lessons/writing_data.html",
+    "title": "Writing Data in R",
+    "section": "",
+    "text": "Today we will learn to:\n\nSave plots from R to files\nControl plot size and resolution\nWrite data frames to CSV and other formats\nHandle formatting options for data output\nCreate reproducible data-cleaning workflows"
+  },
+  {
+    "objectID": "lessons/writing_data.html#overview",
+    "href": "lessons/writing_data.html#overview",
+    "title": "Writing Data in R",
+    "section": "",
+    "text": "Today we will learn to:\n\nSave plots from R to files\nControl plot size and resolution\nWrite data frames to CSV and other formats\nHandle formatting options for data output\nCreate reproducible data-cleaning workflows"
+  },
+  {
+    "objectID": "lessons/writing_data.html#questions",
+    "href": "lessons/writing_data.html#questions",
+    "title": "Writing Data in R",
+    "section": "Questions",
+    "text": "Questions\n\nHow can I save plots and data created in R?\nWhat formats can I export to?\nHow do I control the output format?"
+  },
+  {
+    "objectID": "lessons/writing_data.html#why-write-data-and-plots",
+    "href": "lessons/writing_data.html#why-write-data-and-plots",
+    "title": "Writing Data in R",
+    "section": "Why Write Data and Plots?",
+    "text": "Why Write Data and Plots?\n\nShare results with colleagues\nArchive your work\nCreate reports with multiple plots\nAutomate workflows without manual clicking\nBatch process multiple files\n\nWriting output is essential for reproducible research!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#saving-plots-quick-method",
+    "href": "lessons/writing_data.html#saving-plots-quick-method",
+    "title": "Writing Data in R",
+    "section": "Saving Plots: Quick Method",
+    "text": "Saving Plots: Quick Method\nThe easiest way - use ggsave() from ggplot2:\n\nggsave(\"My_most_recent_plot.pdf\")\n\nSaves your most recent ggplot to a file."
+  },
+  {
+    "objectID": "lessons/writing_data.html#saving-plots-rstudio-export-button",
+    "href": "lessons/writing_data.html#saving-plots-rstudio-export-button",
+    "title": "Writing Data in R",
+    "section": "Saving Plots: RStudio Export Button",
+    "text": "Saving Plots: RStudio Export Button\nWithin RStudio:\n\nGo to the Plot window\nClick Export\nChoose format: PDF, PNG, JPG, etc.\nSet size and resolution\nClick Save\n\nQuick and interactive!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#when-to-use-manual-methods",
+    "href": "lessons/writing_data.html#when-to-use-manual-methods",
+    "title": "Writing Data in R",
+    "section": "When to Use Manual Methods",
+    "text": "When to Use Manual Methods\nThe Export button works great when:\n\nYou want a quick save\nMaking one or two plots\nInteractively exploring\n\nBut… what if you need to:\n\nCreate a PDF with multiple pages?\nLoop through subsets of data?\nGenerate many plots automatically?\n\nYou need programmatic control!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#using-the-pdf-device",
+    "href": "lessons/writing_data.html#using-the-pdf-device",
+    "title": "Writing Data in R",
+    "section": "Using the pdf() Device",
+    "text": "Using the pdf() Device\nCreate a PDF file programmatically:\n\npdf(\"Life_Exp_vs_time.pdf\", width=12, height=4)\n\n# Your plotting code here\nggplot(data=gapminder, aes(x=year, y=lifeExp, \n                           colour=country)) +\n  geom_line() +\n  theme(legend.position = \"none\")\n\n# Important: Turn off the PDF device!\ndev.off()"
+  },
+  {
+    "objectID": "lessons/writing_data.html#understanding-devices",
+    "href": "lessons/writing_data.html#understanding-devices",
+    "title": "Writing Data in R",
+    "section": "Understanding Devices",
+    "text": "Understanding Devices\nIn R, a “device” is where your plot goes:\n\nScreen device: Default (shows in Plot pane)\nPDF device: Writes to PDF file\nPNG device: Writes to PNG file\nJPEG device: Writes to JPEG file\nOther devices: SVG, BMP, TIFF, etc."
+  },
+  {
+    "objectID": "lessons/writing_data.html#the-pdf-function",
+    "href": "lessons/writing_data.html#the-pdf-function",
+    "title": "Writing Data in R",
+    "section": "The pdf() Function",
+    "text": "The pdf() Function\nParameters for control:\n\npdf(\"filename.pdf\", \n    width = 12,      # Width in inches\n    height = 4,      # Height in inches\n    pointsize = 12,  # Font size\n    family = \"sans\") # Font family"
+  },
+  {
+    "objectID": "lessons/writing_data.html#creating-multi-page-pdfs",
+    "href": "lessons/writing_data.html#creating-multi-page-pdfs",
+    "title": "Writing Data in R",
+    "section": "Creating Multi-Page PDFs",
+    "text": "Creating Multi-Page PDFs\nEach plotting command creates a new page:\n\npdf(\"multi_page.pdf\", width=10, height=6)\n\n# Page 1\nplot(x = 1:10, y = 1:10)\n\n# Page 2\nplot(x = 1:10, y = (1:10)^2)\n\n# Page 3\nplot(x = 1:10, y = sqrt(1:10))\n\ndev.off()  # Close the device\n\nEach call to plot() adds a new page!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#important-dev.off",
+    "href": "lessons/writing_data.html#important-dev.off",
+    "title": "Writing Data in R",
+    "section": "Important: dev.off()",
+    "text": "Important: dev.off()\nAlways remember to call dev.off()!\n\nCloses the output device\nFinalizes the file\nFrees up the device\nFile won’t be complete without it\n\nIf you forget, the file is incomplete or corrupted!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#other-image-formats",
+    "href": "lessons/writing_data.html#other-image-formats",
+    "title": "Writing Data in R",
+    "section": "Other Image Formats",
+    "text": "Other Image Formats\nUse similar functions for different formats:\n\npng(\"plot.png\", width=800, height=600)\n# Your plot code\ndev.off()\n\njpeg(\"plot.jpg\", width=800, height=600)\n# Your plot code\ndev.off()\n\nsvg(\"plot.svg\", width=10, height=8)\n# Your plot code\ndev.off()\n\nSame structure, different output formats!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#png-and-jpeg-parameters",
+    "href": "lessons/writing_data.html#png-and-jpeg-parameters",
+    "title": "Writing Data in R",
+    "section": "PNG and JPEG Parameters",
+    "text": "PNG and JPEG Parameters\nFor bitmap formats, use pixels for size:\n\npng(\"plot.png\", width=800, height=600, res=72)\n# res = resolution in DPI (dots per inch)\n\njpeg(\"plot.jpg\", width=800, height=600, quality=90)\n# quality = 0-100 (higher = better quality, larger file)"
+  },
+  {
+    "objectID": "lessons/writing_data.html#challenge-1",
+    "href": "lessons/writing_data.html#challenge-1",
+    "title": "Writing Data in R",
+    "section": "Challenge 1",
+    "text": "Challenge 1\nWrite a command to create a multi-page PDF showing:\n\nLife expectancy vs. time (line plot) - first page\nSame data with facets by continent (facet_grid) - second page\n\nMake the PDF 12 inches wide and 4 inches tall."
+  },
+  {
+    "objectID": "lessons/writing_data.html#challenge-1-solution",
+    "href": "lessons/writing_data.html#challenge-1-solution",
+    "title": "Writing Data in R",
+    "section": "Challenge 1 Solution",
+    "text": "Challenge 1 Solution\n\npdf(\"Life_Exp_vs_time.pdf\", width=12, height=4)\n\n# Page 1: Line plot\nggplot(data=gapminder, aes(x=year, y=lifeExp, \n                           colour=country)) +\n  geom_line() +\n  theme(legend.position = \"none\")\n\n# Page 2: Faceted plot\nggplot(data=gapminder, aes(x=year, y=lifeExp, \n                           colour=country)) +\n  geom_line() +\n  facet_grid(~continent) +\n  theme(legend.position = \"none\")\n\ndev.off()"
+  },
+  {
+    "objectID": "lessons/writing_data.html#writing-data-introduction",
+    "href": "lessons/writing_data.html#writing-data-introduction",
+    "title": "Writing Data in R",
+    "section": "Writing Data: Introduction",
+    "text": "Writing Data: Introduction\nNow let’s save data (not plots)!\nUse the write.table() function:\n\naust_subset &lt;- gapminder[gapminder$country == \"Australia\", ]\n\nwrite.table(aust_subset,\n  file = \"cleaned-data/gapminder-aus.csv\",\n  sep = \",\"\n)\n\nThis saves a data frame to a file."
+  },
+  {
+    "objectID": "lessons/writing_data.html#first-look-at-output",
+    "href": "lessons/writing_data.html#first-look-at-output",
+    "title": "Writing Data in R",
+    "section": "First Look at Output",
+    "text": "First Look at Output\nLet’s check what was written:\nhead cleaned-data/gapminder-aus.csv\nOutput:\n\"country\",\"year\",\"pop\",\"continent\",\"lifeExp\",\"gdpPercap\"\n\"61\",\"Australia\",1952,8691212,\"Oceania\",69.12,10039.59564\n\"62\",\"Australia\",1957,9712569,\"Oceania\",70.33,10949.64959\nProblem: Lots of unwanted quotation marks and row numbers!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#write.table-default-behavior",
+    "href": "lessons/writing_data.html#write.table-default-behavior",
+    "title": "Writing Data in R",
+    "section": "write.table() Default Behavior",
+    "text": "write.table() Default Behavior\nBy default, write.table():\n\nWraps character vectors in quotes\nIncludes row and column names\nIncludes row numbers\nUses spaces as separator\n\nThis is usually NOT what we want for CSV files!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#fixing-the-output",
+    "href": "lessons/writing_data.html#fixing-the-output",
+    "title": "Writing Data in R",
+    "section": "Fixing the Output",
+    "text": "Fixing the Output\nAdd parameters to control formatting:\n\nwrite.table(\n  gapminder[gapminder$country == \"Australia\", ],\n  file = \"cleaned-data/gapminder-aus.csv\",\n  sep = \",\",\n  quote = FALSE,      # Don't quote strings\n  row.names = FALSE   # Don't include row numbers\n)"
+  },
+  {
+    "objectID": "lessons/writing_data.html#checking-the-fixed-output",
+    "href": "lessons/writing_data.html#checking-the-fixed-output",
+    "title": "Writing Data in R",
+    "section": "Checking the Fixed Output",
+    "text": "Checking the Fixed Output\nhead cleaned-data/gapminder-aus.csv\nOutput:\ncountry,year,pop,continent,lifeExp,gdpPercap\nAustralia,1952,8691212,Oceania,69.12,10039.59564\nAustralia,1957,9712569,Oceania,70.33,10949.64959\nAustralia,1962,10794968,Oceania,70.93,12217.22686\nAustralia,1967,11872264,Oceania,71.1,14526.12465\nPerfect! Clean and readable CSV!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#write.table-parameters",
+    "href": "lessons/writing_data.html#write.table-parameters",
+    "title": "Writing Data in R",
+    "section": "write.table() Parameters",
+    "text": "write.table() Parameters\nKey parameters:\n\nfile: Output filename\nsep: Column separator (\",\" for CSV)\nquote: Wrap strings in quotes? (default TRUE)\nrow.names: Include row numbers? (default TRUE)\ncol.names: Include column names? (default TRUE)\nna: How to represent NA values (default “NA”)"
+  },
+  {
+    "objectID": "lessons/writing_data.html#alternative-write.csv",
+    "href": "lessons/writing_data.html#alternative-write.csv",
+    "title": "Writing Data in R",
+    "section": "Alternative: write.csv()",
+    "text": "Alternative: write.csv()\nUse write.csv() as a shortcut:\n\nwrite.csv(aust_subset,\n  file = \"cleaned-data/gapminder-aus.csv\",\n  row.names = FALSE\n)\n\nwrite.csv() automatically sets:\n\nsep = \",\"\nquote = TRUE (includes headers and factors)"
+  },
+  {
+    "objectID": "lessons/writing_data.html#choosing-between-write.table-and-write.csv",
+    "href": "lessons/writing_data.html#choosing-between-write.table-and-write.csv",
+    "title": "Writing Data in R",
+    "section": "Choosing Between write.table() and write.csv()",
+    "text": "Choosing Between write.table() and write.csv()\nUse write.table() when:\n\nYou need custom separators\nYou want quote = FALSE\nWorking with tab-delimited files\nWant precise control\n\nUse write.csv() when:\n\nCreating standard CSV files\nWant quotes around text\nDon’t need to customize separator"
+  },
+  {
+    "objectID": "lessons/writing_data.html#challenge-2",
+    "href": "lessons/writing_data.html#challenge-2",
+    "title": "Writing Data in R",
+    "section": "Challenge 2",
+    "text": "Challenge 2\nCreate a data-cleaning script that:\n\nLoads the gapminder data\nSubsets it to include only data since 1990\nWrites it to cleaned-data/gapminder-1990-onwards.csv\n\nName the script data-cleaning.R and place it in the root directory."
+  },
+  {
+    "objectID": "lessons/writing_data.html#challenge-2-solution",
+    "href": "lessons/writing_data.html#challenge-2-solution",
+    "title": "Writing Data in R",
+    "section": "Challenge 2 Solution",
+    "text": "Challenge 2 Solution\nCreate data-cleaning.R:\n\n# Load the data\ngapminder &lt;- read.csv(\n  \"data/gapminder_data.csv\"\n)\n\n# Subset data from 1990 onwards\ngapminder_recent &lt;- gapminder[gapminder$year &gt;= 1990, ]\n\n# Write to file\nwrite.csv(gapminder_recent,\n  file = \"cleaned-data/gapminder-1990-onwards.csv\",\n  row.names = FALSE\n)\n\nprint(\"Data cleaning complete!\")\n\nRun it with: source(\"data-cleaning.R\")"
+  },
+  {
+    "objectID": "lessons/writing_data.html#workflow-from-raw-to-clean-data",
+    "href": "lessons/writing_data.html#workflow-from-raw-to-clean-data",
+    "title": "Writing Data in R",
+    "section": "Workflow: From Raw to Clean Data",
+    "text": "Workflow: From Raw to Clean Data\nTypical data processing workflow:\n\nLoad raw data with read.csv()\nExplore structure with str(), head()\nClean by subsetting, transforming\nCheck results with summary(), tail()\nWrite cleaned data with write.csv()"
+  },
+  {
+    "objectID": "lessons/writing_data.html#why-this-workflow",
+    "href": "lessons/writing_data.html#why-this-workflow",
+    "title": "Writing Data in R",
+    "section": "Why This Workflow?",
+    "text": "Why This Workflow?\nThis approach ensures:\n\nReproducibility: Script documents all steps\nTraceability: Can see what changed\nReusability: Run again with new data\nSharing: Others can repeat your process\nAuditability: Archive of transformations"
+  },
+  {
+    "objectID": "lessons/writing_data.html#data-output-formats",
+    "href": "lessons/writing_data.html#data-output-formats",
+    "title": "Writing Data in R",
+    "section": "Data Output Formats",
+    "text": "Data Output Formats\nBeyond CSV, R can write:\n\n# Tab-separated values\nwrite.table(df, \"file.tsv\", sep = \"\\t\", row.names = FALSE)\n\n# Fixed-width format\nwrite.fwf(df, \"file.txt\")\n\n# Other formats (with packages)\nlibrary(readxl)\nwritexl::write_xlsx(df, \"file.xlsx\")\n\nlibrary(haven)\nwrite_sas(df, \"file.sas7bdat\")"
+  },
+  {
+    "objectID": "lessons/writing_data.html#creating-output-directories",
+    "href": "lessons/writing_data.html#creating-output-directories",
+    "title": "Writing Data in R",
+    "section": "Creating Output Directories",
+    "text": "Creating Output Directories\nBefore writing files, ensure directory exists:\n\n# Check if directory exists\nif (!dir.exists(\"cleaned-data\")) {\n  dir.create(\"cleaned-data\")\n}\n\n# Then write your file\nwrite.csv(df, \"cleaned-data/output.csv\")\n\nPrevents “directory not found” errors!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#best-practices-for-output",
+    "href": "lessons/writing_data.html#best-practices-for-output",
+    "title": "Writing Data in R",
+    "section": "Best Practices for Output",
+    "text": "Best Practices for Output\n\nUse descriptive filenames: gapminder-1990-onwards.csv\nInclude dates: results-2026-01-30.csv\nDocument transformations: Comment your code\nSave intermediate steps: For debugging\nUse consistent separators: CSV or TSV\nTurn off row numbers: Unless needed\nQuote only when needed: Smaller files"
+  },
+  {
+    "objectID": "lessons/writing_data.html#combining-saving-plots-and-data",
+    "href": "lessons/writing_data.html#combining-saving-plots-and-data",
+    "title": "Writing Data in R",
+    "section": "Combining Saving Plots and Data",
+    "text": "Combining Saving Plots and Data\nComplete workflow:\n\n# Subset data\nsubset_data &lt;- gapminder[gapminder$year &gt;= 1990, ]\n\n# Create and save plot\npdf(\"plot_recent.pdf\")\nggplot(subset_data, aes(x=year, y=lifeExp)) + geom_point()\ndev.off()\n\n# Save the subset\nwrite.csv(subset_data, \"recent-data.csv\", row.names = FALSE)\n\nprint(\"Analysis complete!\")"
+  },
+  {
+    "objectID": "lessons/writing_data.html#verification-after-saving",
+    "href": "lessons/writing_data.html#verification-after-saving",
+    "title": "Writing Data in R",
+    "section": "Verification After Saving",
+    "text": "Verification After Saving\nAlways verify your output:\n\n# Read it back in\ncheck_data &lt;- read.csv(\"cleaned-data/gapminder-aus.csv\")\n\n# Verify structure\nstr(check_data)\nhead(check_data)\n\n# Compare with original (if needed)\nnrow(check_data)  # Should match what we wrote"
+  },
+  {
+    "objectID": "lessons/writing_data.html#common-mistakes",
+    "href": "lessons/writing_data.html#common-mistakes",
+    "title": "Writing Data in R",
+    "section": "Common Mistakes",
+    "text": "Common Mistakes\n\nForgetting to call dev.off() after plotting\nIncluding row numbers when you don’t want them\nUsing wrong separators (comma vs tab)\nNot creating output directories first\nForgetting quotes around filenames\nNot verifying the output"
+  },
+  {
+    "objectID": "lessons/writing_data.html#file-naming-conventions",
+    "href": "lessons/writing_data.html#file-naming-conventions",
+    "title": "Writing Data in R",
+    "section": "File Naming Conventions",
+    "text": "File Naming Conventions\nGood filenames:\n\ngapminder-cleaned.csv\nresults_2026-01-30.csv\nAfrica_subset_1990-2007.csv\n\nBad filenames:\n\ndata.csv (too generic)\nmy file.csv (spaces problematic)\nFINAL_FINAL_v3.csv (version chaos)\n\nBe descriptive and version-controlled!"
+  },
+  {
+    "objectID": "lessons/writing_data.html#performance-considerations",
+    "href": "lessons/writing_data.html#performance-considerations",
+    "title": "Writing Data in R",
+    "section": "Performance Considerations",
+    "text": "Performance Considerations\nWriting large data frames:\n\n# For large files, specify col.names and row.names explicitly\n# It's faster than letting R figure it out\n\nwrite.csv(large_df, \"output.csv\", \n          row.names = FALSE,\n          col.names = TRUE)\n\nCan also use data.table::fwrite() for even faster writing."
+  },
+  {
+    "objectID": "lessons/writing_data.html#key-points",
+    "href": "lessons/writing_data.html#key-points",
+    "title": "Writing Data in R",
+    "section": "Key Points",
+    "text": "Key Points\n\nSave plots using pdf(), png(), or jpeg() devices\nAlways call dev.off() after saving plots\nUse write.table() or write.csv() to save data\nSet row.names = FALSE and quote = FALSE for clean CSV output\nCreate output directories before writing files"
+  },
+  {
+    "objectID": "lessons/writing_data.html#key-points-continued",
+    "href": "lessons/writing_data.html#key-points-continued",
+    "title": "Writing Data in R",
+    "section": "Key Points (Continued)",
+    "text": "Key Points (Continued)\n\nUse descriptive filenames for clarity\nVerify output after saving\nCombine data cleaning and output in scripts\nDocument transformations with comments\nUse version control for reproducibility"
+  },
+  {
+    "objectID": "lessons/writing_data.html#organizing-your-project",
+    "href": "lessons/writing_data.html#organizing-your-project",
+    "title": "Writing Data in R",
+    "section": "Organizing Your Project",
+    "text": "Organizing Your Project\nTypical structure:\nproject/\n├── data/                    # Raw data\n│   └── gapminder_data.csv\n├── cleaned-data/            # Output data\n│   └── gapminder-clean.csv\n├── figures/                 # Output plots\n│   └── plot.pdf\n├── scripts/                 # Analysis scripts\n│   ├── functions.R\n│   └── data-cleaning.R\n└── README.md               # Documentation"
+  },
+  {
+    "objectID": "lessons/writing_data.html#resources",
+    "href": "lessons/writing_data.html#resources",
+    "title": "Writing Data in R",
+    "section": "Resources",
+    "text": "Resources\n\nSoftware Carpentry: r-novice-gapminder\nR Documentation: ?write.table, ?write.csv, ?pdf\nggplot2 Documentation: ?ggsave\nProject organization best practices"
+  },
+  {
+    "objectID": "lessons/writing_data.html#questions-1",
+    "href": "lessons/writing_data.html#questions-1",
+    "title": "Writing Data in R",
+    "section": "Questions?",
+    "text": "Questions?"
+  },
+  {
     "objectID": "lessons/exploring_dataframes.html",
     "href": "lessons/exploring_dataframes.html",
     "title": "Exploring Data Frames in R",
@@ -221,7 +508,7 @@
     "href": "index.html#available-lessons",
     "title": "R for Novices - Gapminder Lessons",
     "section": "Available Lessons",
-    "text": "Available Lessons\n\nExploring Data Frames - Learn to manipulate and explore data frames in R"
+    "text": "Available Lessons\n\nExploring Data Frames - Learn to manipulate and explore data frames in R\nSubsetting Data - Master techniques for extracting subsets of data\nFunctions Explained - Understand and create your own R functions\nWriting Data - Learn to export and save your data"
   },
   {
     "objectID": "index.html#about",
@@ -236,5 +523,1048 @@
     "title": "R for Novices - Gapminder Lessons",
     "section": "Getting Started",
     "text": "Getting Started\nTo follow along with these lessons, you’ll need:\n\nR (version 4.0 or higher)\nRStudio (recommended)\nThe gapminder package\n\nInstall the gapminder package with:\ninstall.packages(\"gapminder\")"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html",
+    "href": "lessons/data_subsetting.html",
+    "title": "Subsetting Data in R",
+    "section": "",
+    "text": "Today we will learn to:\n\nSubset vectors using indices, names, and logical operations\nSkip and remove elements from data structures\nSubset matrices, lists, and data frames\nHandle special values (NA, NaN, Inf)\nCombine logical conditions for complex subsetting"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#overview",
+    "href": "lessons/data_subsetting.html#overview",
+    "title": "Subsetting Data in R",
+    "section": "",
+    "text": "Today we will learn to:\n\nSubset vectors using indices, names, and logical operations\nSkip and remove elements from data structures\nSubset matrices, lists, and data frames\nHandle special values (NA, NaN, Inf)\nCombine logical conditions for complex subsetting"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#questions",
+    "href": "lessons/data_subsetting.html#questions",
+    "title": "Subsetting Data in R",
+    "section": "Questions",
+    "text": "Questions\n\nHow can I work with subsets of data in R?\nWhat are the different ways to extract data?\nHow do I use logical operations for subsetting?"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#creating-a-sample-vector",
+    "href": "lessons/data_subsetting.html#creating-a-sample-vector",
+    "title": "Subsetting Data in R",
+    "section": "Creating a Sample Vector",
+    "text": "Creating a Sample Vector\nLet’s start with a simple numeric vector:\n\nx &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)\nnames(x) &lt;- c('a', 'b', 'c', 'd', 'e')\nx\n\n  a   b   c   d   e \n5.4 6.2 7.1 4.8 7.5"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#atomic-vectors",
+    "href": "lessons/data_subsetting.html#atomic-vectors",
+    "title": "Subsetting Data in R",
+    "section": "Atomic Vectors",
+    "text": "Atomic Vectors\nIn R, simple vectors containing:\n\nCharacter strings\nNumbers\nLogical values\n\nare called atomic vectors because they can’t be further simplified."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#accessing-elements-by-index",
+    "href": "lessons/data_subsetting.html#accessing-elements-by-index",
+    "title": "Subsetting Data in R",
+    "section": "Accessing Elements by Index",
+    "text": "Accessing Elements by Index\nExtract elements using their position (1-indexed):\n\nx[1]  # First element\n\n  a \n5.4 \n\n\n\nx[4]  # Fourth element\n\n  d \n4.8 \n\n\nThe [] operator is a function that extracts elements."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#multiple-elements-at-once",
+    "href": "lessons/data_subsetting.html#multiple-elements-at-once",
+    "title": "Subsetting Data in R",
+    "section": "Multiple Elements at Once",
+    "text": "Multiple Elements at Once\nExtract several elements by combining indices:\n\nx[c(1, 3)]  # First and third elements\n\n  a   c \n5.4 7.1"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#slicing-vectors",
+    "href": "lessons/data_subsetting.html#slicing-vectors",
+    "title": "Subsetting Data in R",
+    "section": "Slicing Vectors",
+    "text": "Slicing Vectors\nUse the : operator to create sequences:\n\nx[1:4]  # Elements 1 through 4\n\n  a   b   c   d \n5.4 6.2 7.1 4.8 \n\n\nThe : operator creates: c(1, 2, 3, 4)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#repeating-elements",
+    "href": "lessons/data_subsetting.html#repeating-elements",
+    "title": "Subsetting Data in R",
+    "section": "Repeating Elements",
+    "text": "Repeating Elements\nYou can ask for the same element multiple times:\n\nx[c(1, 1, 3)]\n\n  a   a   c \n5.4 5.4 7.1"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#out-of-bounds",
+    "href": "lessons/data_subsetting.html#out-of-bounds",
+    "title": "Subsetting Data in R",
+    "section": "Out of Bounds",
+    "text": "Out of Bounds\nAsking for an index beyond the vector length returns NA:\n\nx[6]  # Vector only has 5 elements\n\n&lt;NA&gt; \n  NA"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#the-zero-index",
+    "href": "lessons/data_subsetting.html#the-zero-index",
+    "title": "Subsetting Data in R",
+    "section": "The Zero Index",
+    "text": "The Zero Index\nAsking for the 0th element returns an empty vector:\n\nx[0]\n\nnamed numeric(0)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#vector-numbering-in-r",
+    "href": "lessons/data_subsetting.html#vector-numbering-in-r",
+    "title": "Subsetting Data in R",
+    "section": "Vector Numbering in R",
+    "text": "Vector Numbering in R\nImportant: In R, vector indexing starts at 1, not 0!\n\nIn C and Python: first element is index 0\nIn R: first element is index 1\n\nThis is a common source of confusion for programmers from other languages."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#skipping-elements",
+    "href": "lessons/data_subsetting.html#skipping-elements",
+    "title": "Subsetting Data in R",
+    "section": "Skipping Elements",
+    "text": "Skipping Elements\nUse negative indices to exclude elements:\n\nx[-2]  # Everything except element 2\n\n  a   c   d   e \n5.4 7.1 4.8 7.5"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#skipping-multiple-elements",
+    "href": "lessons/data_subsetting.html#skipping-multiple-elements",
+    "title": "Subsetting Data in R",
+    "section": "Skipping Multiple Elements",
+    "text": "Skipping Multiple Elements\nExclude several elements at once:\n\nx[c(-1, -5)]  # or x[-c(1, 5)]\n\n  b   c   d \n6.2 7.1 4.8"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#order-of-operations",
+    "href": "lessons/data_subsetting.html#order-of-operations",
+    "title": "Subsetting Data in R",
+    "section": "Order of Operations",
+    "text": "Order of Operations\nCommon mistake - negating a sequence:\n\nx[-1:3]  # Error!\n\nError: only 0's may be mixed with negative subscripts\nThe : operator runs first: -1:3 creates c(-1, 0, 1, 2, 3)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#correct-way-to-skip-slices",
+    "href": "lessons/data_subsetting.html#correct-way-to-skip-slices",
+    "title": "Subsetting Data in R",
+    "section": "Correct Way to Skip Slices",
+    "text": "Correct Way to Skip Slices\nWrap the sequence in parentheses:\n\nx[-(1:3)]  # Skip elements 1 through 3\n\n  d   e \n4.8 7.5 \n\n\nNow the - operator applies to the entire sequence."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#removing-elements-permanently",
+    "href": "lessons/data_subsetting.html#removing-elements-permanently",
+    "title": "Subsetting Data in R",
+    "section": "Removing Elements Permanently",
+    "text": "Removing Elements Permanently\nAssign the result back to the variable:\n\nx &lt;- x[-4]  # Remove element 4\nx\n\n  a   b   c   e \n5.4 6.2 7.1 7.5"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-1",
+    "href": "lessons/data_subsetting.html#challenge-1",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 1",
+    "text": "Challenge 1\nGiven the following code:\n\nx &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)\nnames(x) &lt;- c('a', 'b', 'c', 'd', 'e')\n\nCome up with at least 2 different commands that will produce:\n  b   c   d\n6.2 7.1 4.8\nCompare your solutions with your neighbor!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-1-solution",
+    "href": "lessons/data_subsetting.html#challenge-1-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 1 Solution",
+    "text": "Challenge 1 Solution\nMultiple approaches work:\n\nx[2:4]              # By index range\nx[-c(1, 5)]         # By skipping indices\nx[c(\"b\", \"c\", \"d\")] # By name"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#subsetting-by-name",
+    "href": "lessons/data_subsetting.html#subsetting-by-name",
+    "title": "Subsetting Data in R",
+    "section": "Subsetting by Name",
+    "text": "Subsetting by Name\nExtract elements using their names:\n\nx &lt;- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5)\nx[c(\"a\", \"c\")]\n\n  a   c \n5.4 7.1 \n\n\nThis is more reliable than using positions!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#why-use-names",
+    "href": "lessons/data_subsetting.html#why-use-names",
+    "title": "Subsetting Data in R",
+    "section": "Why Use Names?",
+    "text": "Why Use Names?\nNames are safer than indices because:\n\nElement positions can change during operations\nNames remain constant\nCode is more readable and self-documenting\n\nAlways prefer subsetting by name when possible."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#subsetting-with-logical-vectors",
+    "href": "lessons/data_subsetting.html#subsetting-with-logical-vectors",
+    "title": "Subsetting Data in R",
+    "section": "Subsetting with Logical Vectors",
+    "text": "Subsetting with Logical Vectors\nUse TRUE/FALSE vectors to select elements:\n\nx[c(FALSE, FALSE, TRUE, FALSE, TRUE)]\n\n  c   e \n7.1 7.5 \n\n\nOnly elements with TRUE are selected."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#logical-operations-for-subsetting",
+    "href": "lessons/data_subsetting.html#logical-operations-for-subsetting",
+    "title": "Subsetting Data in R",
+    "section": "Logical Operations for Subsetting",
+    "text": "Logical Operations for Subsetting\nComparison operators create logical vectors:\n\nx &gt; 7  # Creates logical vector\n\n    a     b     c     d     e \nFALSE FALSE  TRUE FALSE  TRUE \n\n\n\nx[x &gt; 7]  # Use it to subset\n\n  c   e \n7.1 7.5"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#breaking-down-logical-subsetting",
+    "href": "lessons/data_subsetting.html#breaking-down-logical-subsetting",
+    "title": "Subsetting Data in R",
+    "section": "Breaking Down Logical Subsetting",
+    "text": "Breaking Down Logical Subsetting\nStep by step:\n\nx &gt; 7  # 1. Evaluate condition\n\n    a     b     c     d     e \nFALSE FALSE  TRUE FALSE  TRUE \n\n\nThis creates: c(FALSE, FALSE, TRUE, FALSE, TRUE)\nThen R selects elements where TRUE."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#using-for-subsetting",
+    "href": "lessons/data_subsetting.html#using-for-subsetting",
+    "title": "Subsetting Data in R",
+    "section": "Using == for Subsetting",
+    "text": "Using == for Subsetting\nFind exact matches:\n\nnames(x) == \"a\"\n\n[1]  TRUE FALSE FALSE FALSE FALSE\n\n\n\nx[names(x) == \"a\"]\n\n  a \n5.4 \n\n\nRemember: Use == for comparison, not ="
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#combining-logical-conditions",
+    "href": "lessons/data_subsetting.html#combining-logical-conditions",
+    "title": "Subsetting Data in R",
+    "section": "Combining Logical Conditions",
+    "text": "Combining Logical Conditions\nUse & (AND) and | (OR) to combine conditions:\n\nx &gt; 5 & x &lt; 7  # Both conditions must be TRUE\n\n    a     b     c     d     e \n TRUE  TRUE FALSE FALSE FALSE \n\n\n\nx[x &gt; 5 & x &lt; 7]\n\n  a   b \n5.4 6.2"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#logical-operators",
+    "href": "lessons/data_subsetting.html#logical-operators",
+    "title": "Subsetting Data in R",
+    "section": "Logical Operators",
+    "text": "Logical Operators\n\n& - Logical AND: both must be TRUE\n| - Logical OR: either can be TRUE\n! - Logical NOT: inverts TRUE/FALSE\n\nNote: Avoid && and || in data analysis (they only check first element)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#the-not-operator",
+    "href": "lessons/data_subsetting.html#the-not-operator",
+    "title": "Subsetting Data in R",
+    "section": "The NOT Operator",
+    "text": "The NOT Operator\nNegate conditions with !:\n\n!(x &gt; 7)  # Invert the logical vector\n\n    a     b     c     d     e \n TRUE  TRUE FALSE  TRUE FALSE \n\n\n\nx[!(x &gt; 7)]  # Elements NOT greater than 7\n\n  a   b   d \n5.4 6.2 4.8"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#all-and-any",
+    "href": "lessons/data_subsetting.html#all-and-any",
+    "title": "Subsetting Data in R",
+    "section": "all() and any()",
+    "text": "all() and any()\nCheck entire vectors:\n\nall(x &gt; 4)  # Are ALL elements &gt; 4?\n\n[1] TRUE\n\n\n\nany(x &gt; 7)  # Are ANY elements &gt; 7?\n\n[1] TRUE"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-2",
+    "href": "lessons/data_subsetting.html#challenge-2",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 2",
+    "text": "Challenge 2\nGiven:\n\nx &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)\nnames(x) &lt;- c('a', 'b', 'c', 'd', 'e')\n\nWrite a subsetting command to return values in x that are greater than 4 AND less than 7."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-2-solution",
+    "href": "lessons/data_subsetting.html#challenge-2-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 2 Solution",
+    "text": "Challenge 2 Solution\n\nx[x &gt; 4 & x &lt; 7]\n\nBoth conditions must be TRUE for an element to be included."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#non-unique-names",
+    "href": "lessons/data_subsetting.html#non-unique-names",
+    "title": "Subsetting Data in R",
+    "section": "Non-Unique Names",
+    "text": "Non-Unique Names\nMultiple elements can have the same name:\n\nx &lt;- 1:3\nnames(x) &lt;- c('a', 'a', 'a')\nx['a']  # Only returns first value\n\na \n1 \n\n\n\nx[names(x) == 'a']  # Returns all three\n\na a a \n1 2 3"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#getting-help-for-operators",
+    "href": "lessons/data_subsetting.html#getting-help-for-operators",
+    "title": "Subsetting Data in R",
+    "section": "Getting Help for Operators",
+    "text": "Getting Help for Operators\nWrap operators in quotes to search for help:\n\nhelp(\"%in%\")\n?\"%in%\""
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#skipping-named-elements",
+    "href": "lessons/data_subsetting.html#skipping-named-elements",
+    "title": "Subsetting Data in R",
+    "section": "Skipping Named Elements",
+    "text": "Skipping Named Elements\nCan’t use negative with names:\n\nx &lt;- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5)\nx[-\"a\"]  # Error!\n\nError: invalid argument to unary operator"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#using-to-skip-names",
+    "href": "lessons/data_subsetting.html#using-to-skip-names",
+    "title": "Subsetting Data in R",
+    "section": "Using != to Skip Names",
+    "text": "Using != to Skip Names\nUse the “not equals” operator instead:\n\nx &lt;- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5)\nx[names(x) != \"a\"]\n\n  b   c   d   e \n6.2 7.1 4.8 7.5"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#skipping-multiple-names---wrong-way",
+    "href": "lessons/data_subsetting.html#skipping-multiple-names---wrong-way",
+    "title": "Subsetting Data in R",
+    "section": "Skipping Multiple Names - Wrong Way",
+    "text": "Skipping Multiple Names - Wrong Way\nThis seems logical but has a problem:\n\nx[names(x) != c(\"a\", \"c\")]\n\nWarning in names(x) != c(\"a\", \"c\"): longer object length is not a multiple of\nshorter object length\n\n\n  b   c   d   e \n6.2 7.1 4.8 7.5 \n\n\nWarning: Longer object length is not a multiple of shorter object length\nElement “c” is still included - not what we wanted!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#understanding-recycling",
+    "href": "lessons/data_subsetting.html#understanding-recycling",
+    "title": "Subsetting Data in R",
+    "section": "Understanding Recycling",
+    "text": "Understanding Recycling\nWhat does != actually do?\n\nnames(x) != c(\"a\", \"c\")\n\nWarning in names(x) != c(\"a\", \"c\"): longer object length is not a multiple of\nshorter object length\n\n\n[1] FALSE  TRUE  TRUE  TRUE  TRUE\n\n\nR recycles the shorter vector: c(\"a\", \"c\", \"a\", \"c\", \"a\")\nThis creates incorrect comparisons!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#recycling-visualization",
+    "href": "lessons/data_subsetting.html#recycling-visualization",
+    "title": "Subsetting Data in R",
+    "section": "Recycling Visualization",
+    "text": "Recycling Visualization\nnames(x):   a    b    c    d    e\ncompared:   a    c    a    c    a  (recycled)\nresult:   FALSE TRUE TRUE TRUE TRUE\nElement 3 (“c”) compared to “a” → TRUE (wrong!)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#the-correct-way-in",
+    "href": "lessons/data_subsetting.html#the-correct-way-in",
+    "title": "Subsetting Data in R",
+    "section": "The Correct Way: %in%",
+    "text": "The Correct Way: %in%\nUse the %in% operator for multiple matches:\n\nnames(x) %in% c(\"a\", \"c\")\n\n[1]  TRUE FALSE  TRUE FALSE FALSE\n\n\n\nx[!names(x) %in% c(\"a\", \"c\")]  # Use ! to exclude\n\n  b   d   e \n6.2 4.8 7.5"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#how-in-works",
+    "href": "lessons/data_subsetting.html#how-in-works",
+    "title": "Subsetting Data in R",
+    "section": "How %in% Works",
+    "text": "How %in% Works\nThe %in% operator asks: “Does this element occur in the second vector?”\n\nGoes through each element of left vector\nChecks if it exists anywhere in right vector\nReturns TRUE/FALSE for each element\nNo recycling problems!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-3",
+    "href": "lessons/data_subsetting.html#challenge-3",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 3",
+    "text": "Challenge 3\nSoutheast Asia countries:\n\nseAsia &lt;- c(\"Myanmar\",\"Thailand\",\"Cambodia\",\"Vietnam\",\"Laos\")\ngapminder &lt;- read.csv(\"data/gapminder_data.csv\")\ncountries &lt;- unique(as.character(gapminder$country))\n\nCreate a logical vector that is TRUE for southeast Asian countries.\nCome up with 3 approaches:\n\nWrong way (using only ==)\nClunky way (using == and |)\nElegant way (using %in%)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-3-solution",
+    "href": "lessons/data_subsetting.html#challenge-3-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 3 Solution",
+    "text": "Challenge 3 Solution\n\n# Wrong - gives warning\ncountries == seAsia\n\n# Clunky - works but tedious\ncountries == \"Myanmar\" | countries == \"Thailand\" | \n  countries == \"Cambodia\" | countries == \"Vietnam\" | \n  countries == \"Laos\"\n\n# Elegant - best approach\ncountries %in% seAsia"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#handling-special-values",
+    "href": "lessons/data_subsetting.html#handling-special-values",
+    "title": "Subsetting Data in R",
+    "section": "Handling Special Values",
+    "text": "Handling Special Values\nR has special functions for dealing with missing/invalid data:\n\nis.na() - finds NA or NaN\nis.nan() - finds NaN only\nis.infinite() - finds Inf\nis.finite() - finds normal values (excludes NA, NaN, Inf)\nna.omit() - removes all missing values"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#factor-subsetting",
+    "href": "lessons/data_subsetting.html#factor-subsetting",
+    "title": "Subsetting Data in R",
+    "section": "Factor Subsetting",
+    "text": "Factor Subsetting\nFactors work like vectors:\n\nf &lt;- factor(c(\"a\", \"a\", \"b\", \"c\", \"c\", \"d\"))\nf[f == \"a\"]\n\n[1] a a\nLevels: a b c d\n\n\n\nf[f %in% c(\"b\", \"c\")]\n\n[1] b c c\nLevels: a b c d"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#factors-keep-all-levels",
+    "href": "lessons/data_subsetting.html#factors-keep-all-levels",
+    "title": "Subsetting Data in R",
+    "section": "Factors Keep All Levels",
+    "text": "Factors Keep All Levels\nSkipping elements doesn’t remove levels:\n\nf[-3]  # Removed \"b\" value\n\n[1] a a c c d\nLevels: a b c d\n\n\nNotice: Levels still shows all 4 levels (a, b, c, d)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#matrix-subsetting",
+    "href": "lessons/data_subsetting.html#matrix-subsetting",
+    "title": "Subsetting Data in R",
+    "section": "Matrix Subsetting",
+    "text": "Matrix Subsetting\nMatrices use [row, column] notation:\n\nset.seed(1)\nm &lt;- matrix(rnorm(6*4), ncol=4, nrow=6)\nm[3:4, c(3,1)]  # Rows 3-4, columns 3 and 1\n\n            [,1]       [,2]\n[1,]  1.12493092 -0.8356286\n[2,] -0.04493361  1.5952808"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#selecting-all-rows-or-columns",
+    "href": "lessons/data_subsetting.html#selecting-all-rows-or-columns",
+    "title": "Subsetting Data in R",
+    "section": "Selecting All Rows or Columns",
+    "text": "Selecting All Rows or Columns\nLeave an argument blank to get all:\n\nm[, c(3,4)]  # All rows, columns 3-4\n\n            [,1]        [,2]\n[1,] -0.62124058  0.82122120\n[2,] -2.21469989  0.59390132\n[3,]  1.12493092  0.91897737\n[4,] -0.04493361  0.78213630\n[5,] -0.01619026  0.07456498\n[6,]  0.94383621 -1.98935170"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#matrix-to-vector-conversion",
+    "href": "lessons/data_subsetting.html#matrix-to-vector-conversion",
+    "title": "Subsetting Data in R",
+    "section": "Matrix to Vector Conversion",
+    "text": "Matrix to Vector Conversion\nSingle row/column becomes a vector:\n\nm[3, ]  # Returns a vector\n\n[1] -0.8356286  0.5757814  1.1249309  0.9189774"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#preserving-matrix-structure",
+    "href": "lessons/data_subsetting.html#preserving-matrix-structure",
+    "title": "Subsetting Data in R",
+    "section": "Preserving Matrix Structure",
+    "text": "Preserving Matrix Structure\nUse drop = FALSE to keep as matrix:\n\nm[3, , drop=FALSE]  # Still a matrix\n\n           [,1]      [,2]     [,3]      [,4]\n[1,] -0.8356286 0.5757814 1.124931 0.9189774"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#matrix-error-handling",
+    "href": "lessons/data_subsetting.html#matrix-error-handling",
+    "title": "Subsetting Data in R",
+    "section": "Matrix Error Handling",
+    "text": "Matrix Error Handling\nOut-of-bounds access throws an error:\n\nm[, c(3, 6)]  # Only 4 columns!\n\nError: subscript out of bounds\nMatrices are stricter than vectors."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#higher-dimensional-arrays",
+    "href": "lessons/data_subsetting.html#higher-dimensional-arrays",
+    "title": "Subsetting Data in R",
+    "section": "Higher Dimensional Arrays",
+    "text": "Higher Dimensional Arrays\nFor 3D arrays:\n\nFirst argument = rows\nSecond argument = columns\nThird argument = depth\n\nEach dimension gets its own argument in []."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#matrices-as-vectors",
+    "href": "lessons/data_subsetting.html#matrices-as-vectors",
+    "title": "Subsetting Data in R",
+    "section": "Matrices as Vectors",
+    "text": "Matrices as Vectors\nMatrices can be accessed with single index:\n\nm[5]  # 5th element in column-major order\n\n[1] 0.3295078"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#column-major-format",
+    "href": "lessons/data_subsetting.html#column-major-format",
+    "title": "Subsetting Data in R",
+    "section": "Column-Major Format",
+    "text": "Column-Major Format\nMatrices are stored column-wise by default:\n\nmatrix(1:6, nrow=2, ncol=3)\n\n     [,1] [,2] [,3]\n[1,]    1    3    5\n[2,]    2    4    6\n\n\nElements fill down columns first, then across."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#row-major-format",
+    "href": "lessons/data_subsetting.html#row-major-format",
+    "title": "Subsetting Data in R",
+    "section": "Row-Major Format",
+    "text": "Row-Major Format\nUse byrow=TRUE to fill by rows:\n\nmatrix(1:6, nrow=2, ncol=3, byrow=TRUE)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-4",
+    "href": "lessons/data_subsetting.html#challenge-4",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 4",
+    "text": "Challenge 4\nGiven:\n\nm &lt;- matrix(1:18, nrow=3, ncol=6)\nprint(m)\n\nWhich command extracts values 11 and 14?\nA. m[2,4,2,5]\nB. m[2:5]\nC. m[4:5,2]\nD. m[2,c(4,5)]"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-4-solution",
+    "href": "lessons/data_subsetting.html#challenge-4-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 4 Solution",
+    "text": "Challenge 4 Solution\nAnswer: D\n\nm[2, c(4,5)]  # Row 2, columns 4 and 5\n\n\nRow 2, column 4 = 11\nRow 2, column 5 = 14"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#list-subsetting-with",
+    "href": "lessons/data_subsetting.html#list-subsetting-with",
+    "title": "Subsetting Data in R",
+    "section": "List Subsetting with []",
+    "text": "List Subsetting with []\n[ returns a list:\n\nxlist &lt;- list(a = \"Software Carpentry\", \n              b = 1:10, \n              data = head(mtcars))\nxlist[1]  # Returns list with one element\n\n$a\n[1] \"Software Carpentry\""
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#list-subsetting-multiple-elements",
+    "href": "lessons/data_subsetting.html#list-subsetting-multiple-elements",
+    "title": "Subsetting Data in R",
+    "section": "List Subsetting Multiple Elements",
+    "text": "List Subsetting Multiple Elements\n\nxlist[1:2]  # Returns list with two elements\n\n$a\n[1] \"Software Carpentry\"\n\n$b\n [1]  1  2  3  4  5  6  7  8  9 10"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#extracting-elements-with",
+    "href": "lessons/data_subsetting.html#extracting-elements-with",
+    "title": "Subsetting Data in R",
+    "section": "Extracting Elements with [[]]",
+    "text": "Extracting Elements with [[]]\n[[]] extracts the actual element:\n\nxlist[[1]]  # Returns the vector itself\n\n[1] \"Software Carpentry\"\n\n\nNow the result is a character vector, not a list!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#limitations",
+    "href": "lessons/data_subsetting.html#limitations",
+    "title": "Subsetting Data in R",
+    "section": "[[]] Limitations",
+    "text": "[[]] Limitations\nCan’t extract multiple elements:\n\nxlist[[1:2]]  # Error!\n\nError: subscript out of bounds\nCan’t skip elements:\n\nxlist[[-1]]  # Error!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#extracting-by-name",
+    "href": "lessons/data_subsetting.html#extracting-by-name",
+    "title": "Subsetting Data in R",
+    "section": "Extracting by Name",
+    "text": "Extracting by Name\nUse names with [[]]:\n\nxlist[[\"a\"]]\n\n[1] \"Software Carpentry\""
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#the-shortcut",
+    "href": "lessons/data_subsetting.html#the-shortcut",
+    "title": "Subsetting Data in R",
+    "section": "The $ Shortcut",
+    "text": "The $ Shortcut\n$ is shorthand for extracting by name:\n\nxlist$data\n\nEquivalent to xlist[[\"data\"]]"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-5",
+    "href": "lessons/data_subsetting.html#challenge-5",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 5",
+    "text": "Challenge 5\nGiven:\n\nxlist &lt;- list(a = \"Software Carpentry\", \n              b = 1:10, \n              data = head(mtcars))\n\nExtract the number 2 from xlist.\nHint: The number 2 is in the “b” item."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-5-solution",
+    "href": "lessons/data_subsetting.html#challenge-5-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 5 Solution",
+    "text": "Challenge 5 Solution\n\nxlist[[2]][2]  # or xlist[[\"b\"]][2] or xlist$b[2]\n\nFirst [[2]] extracts the vector, then [2] gets the second element."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-6",
+    "href": "lessons/data_subsetting.html#challenge-6",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 6",
+    "text": "Challenge 6\nGiven a linear model:\n\nmod &lt;- aov(pop ~ lifeExp, data=gapminder)\n\nExtract the residual degrees of freedom.\nHint: attributes() will help you!"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-6-solution",
+    "href": "lessons/data_subsetting.html#challenge-6-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 6 Solution",
+    "text": "Challenge 6 Solution\n\nattributes(mod)  # See all available attributes\nmod$df.residual"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#data-frame-subsetting-single-argument",
+    "href": "lessons/data_subsetting.html#data-frame-subsetting-single-argument",
+    "title": "Subsetting Data in R",
+    "section": "Data Frame Subsetting: Single Argument",
+    "text": "Data Frame Subsetting: Single Argument\n[ with one argument acts on columns:\n\ngapminder &lt;- read.csv(\n  \"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv\"\n)\n\nhead(gapminder[3])  # Returns data frame with column 3"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#data-frame-subsetting",
+    "href": "lessons/data_subsetting.html#data-frame-subsetting",
+    "title": "Subsetting Data in R",
+    "section": "Data Frame Subsetting: [[]]",
+    "text": "Data Frame Subsetting: [[]]\n[[]] extracts a column as a vector:\n\nhead(gapminder[[\"lifeExp\"]])"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#data-frame-subsetting-1",
+    "href": "lessons/data_subsetting.html#data-frame-subsetting-1",
+    "title": "Subsetting Data in R",
+    "section": "Data Frame Subsetting: $",
+    "text": "Data Frame Subsetting: $\n$ is the convenient shorthand:\n\nhead(gapminder$year)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#data-frame-two-arguments",
+    "href": "lessons/data_subsetting.html#data-frame-two-arguments",
+    "title": "Subsetting Data in R",
+    "section": "Data Frame: Two Arguments",
+    "text": "Data Frame: Two Arguments\nWith [row, column], acts like a matrix:\n\ngapminder[1:3, ]  # First 3 rows, all columns"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#single-row-subsetting",
+    "href": "lessons/data_subsetting.html#single-row-subsetting",
+    "title": "Subsetting Data in R",
+    "section": "Single Row Subsetting",
+    "text": "Single Row Subsetting\nSingle row returns a data frame:\n\ngapminder[3, ]\n\nMixed types preserved in data frame structure."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-7",
+    "href": "lessons/data_subsetting.html#challenge-7",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 7",
+    "text": "Challenge 7\nFix these common data frame subsetting errors:\n\nExtract observations from 1957:\n\n\ngapminder[gapminder$year = 1957,]\n\n\nExtract all columns except 1 through 4:\n\n\ngapminder[, -1:4]"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-7-continued",
+    "href": "lessons/data_subsetting.html#challenge-7-continued",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 7 Continued",
+    "text": "Challenge 7 Continued\n\nExtract rows where life expectancy &gt; 80:\n\n\ngapminder[gapminder$lifeExp &gt; 80]\n\n\nExtract first row, columns 4 and 5:\n\n\ngapminder[1, 4, 5]\n\n\nExtract rows for years 2002 and 2007:\n\n\ngapminder[gapminder$year == 2002 | 2007,]"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-7-solution",
+    "href": "lessons/data_subsetting.html#challenge-7-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 7 Solution",
+    "text": "Challenge 7 Solution\n\n# 1. Use == not =\ngapminder[gapminder$year == 1957,]\n\n# 2. Wrap range in parentheses\ngapminder[, -(1:4)]\n\n# 3. Need comma for rows\ngapminder[gapminder$lifeExp &gt; 80, ]\n\n# 4. Use c() for multiple columns\ngapminder[1, c(4, 5)]\n\n# 5. Complete both comparisons\ngapminder[gapminder$year == 2002 | gapminder$year == 2007,]\n# or better:\ngapminder[gapminder$year %in% c(2002, 2007),]"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-8",
+    "href": "lessons/data_subsetting.html#challenge-8",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 8",
+    "text": "Challenge 8\n\nWhy does gapminder[1:20] return an error? How does it differ from gapminder[1:20, ]?\nCreate a new data frame called gapminder_small that only contains rows 1 through 9 and 19 through 23. You can do this in one or two steps."
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#challenge-8-solution",
+    "href": "lessons/data_subsetting.html#challenge-8-solution",
+    "title": "Subsetting Data in R",
+    "section": "Challenge 8 Solution",
+    "text": "Challenge 8 Solution\n\n# 1. gapminder[1:20] tries to get columns 1-20\n#    gapminder[1:20, ] gets rows 1-20 (correct)\n\n# 2. One step:\ngapminder_small &lt;- gapminder[c(1:9, 19:23), ]\n\n# Two steps:\ngapminder_small &lt;- gapminder[1:9, ]\ngapminder_small &lt;- rbind(gapminder_small, gapminder[19:23, ])"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#key-points",
+    "href": "lessons/data_subsetting.html#key-points",
+    "title": "Subsetting Data in R",
+    "section": "Key Points",
+    "text": "Key Points\n\nIndexing in R starts at 1, not 0\nAccess individual values by location using []\nAccess slices of data using [low:high]\nAccess arbitrary sets using [c(...)]\nUse logical operations to access subsets\n%in% is essential for matching multiple values"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#key-points-continued",
+    "href": "lessons/data_subsetting.html#key-points-continued",
+    "title": "Subsetting Data in R",
+    "section": "Key Points (Continued)",
+    "text": "Key Points (Continued)\n\nNegative indices skip elements\n[[]] extracts list elements, [] subsets lists\n$ is shorthand for extracting named elements\nData frames can be subset like lists or matrices\nUse drop=FALSE to preserve structure"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#common-pitfalls",
+    "href": "lessons/data_subsetting.html#common-pitfalls",
+    "title": "Subsetting Data in R",
+    "section": "Common Pitfalls",
+    "text": "Common Pitfalls\n\nUsing = instead of == for comparison\nForgetting the comma in [row, column]\nRecycling issues with != (use %in% instead)\nForgetting R uses 1-based indexing\nOrder of operations with - and :"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#best-practices",
+    "href": "lessons/data_subsetting.html#best-practices",
+    "title": "Subsetting Data in R",
+    "section": "Best Practices",
+    "text": "Best Practices\n\nSubset by name when possible (more reliable)\nUse %in% for multiple value matching\nCheck your subset before assigning back\nUse str() to understand data structure\nCombine conditions with & and | for clarity"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#practice-makes-perfect",
+    "href": "lessons/data_subsetting.html#practice-makes-perfect",
+    "title": "Subsetting Data in R",
+    "section": "Practice Makes Perfect",
+    "text": "Practice Makes Perfect\nMaster these six ways to subset:\n\nPositive integers (position)\nNegative integers (exclusion)\nLogical vectors (conditions)\nNamed indices (by name)\nEmpty (all elements)\nZero (empty result)"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#resources",
+    "href": "lessons/data_subsetting.html#resources",
+    "title": "Subsetting Data in R",
+    "section": "Resources",
+    "text": "Resources\n\nSoftware Carpentry: r-novice-gapminder\n?'[' - Help on subsetting\n?'%in%' - Help on matching operator\nRStudio Cheatsheets"
+  },
+  {
+    "objectID": "lessons/data_subsetting.html#questions-1",
+    "href": "lessons/data_subsetting.html#questions-1",
+    "title": "Subsetting Data in R",
+    "section": "Questions?",
+    "text": "Questions?"
+  },
+  {
+    "objectID": "lessons/functions.html",
+    "href": "lessons/functions.html",
+    "title": "Functions Explained",
+    "section": "",
+    "text": "Today we will learn to:\n\nDefine a function that takes arguments\nReturn a value from a function\nCheck argument conditions with stopifnot()\nTest a function\nSet default values for function arguments\nDivide programs into small, single-purpose functions"
+  },
+  {
+    "objectID": "lessons/functions.html#overview",
+    "href": "lessons/functions.html#overview",
+    "title": "Functions Explained",
+    "section": "",
+    "text": "Today we will learn to:\n\nDefine a function that takes arguments\nReturn a value from a function\nCheck argument conditions with stopifnot()\nTest a function\nSet default values for function arguments\nDivide programs into small, single-purpose functions"
+  },
+  {
+    "objectID": "lessons/functions.html#questions",
+    "href": "lessons/functions.html#questions",
+    "title": "Functions Explained",
+    "section": "Questions",
+    "text": "Questions\n\nHow can I write a new function in R?\nHow do I make my code more reusable?\nHow can I check that my function is working correctly?"
+  },
+  {
+    "objectID": "lessons/functions.html#why-functions",
+    "href": "lessons/functions.html#why-functions",
+    "title": "Functions Explained",
+    "section": "Why Functions?",
+    "text": "Why Functions?\nIf we only analyze one dataset:\n\nLoad in spreadsheet\nCalculate simple statistics\nDone!\n\nBut what if:\n\nData is updated periodically?\nNeed to re-run analysis?\nGet similar data from different sources?\n\nFunctions let us repeat operations with a single command!"
+  },
+  {
+    "objectID": "lessons/functions.html#what-is-a-function",
+    "href": "lessons/functions.html#what-is-a-function",
+    "title": "Functions Explained",
+    "section": "What is a Function?",
+    "text": "What is a Function?\nFunctions gather a sequence of operations into a whole, providing:\n\nA name we can remember and invoke\nRelief from remembering individual operations\nA defined set of inputs and outputs\nRich connections to the larger programming environment\n\nIf you have written a function, you are a computer programmer!"
+  },
+  {
+    "objectID": "lessons/functions.html#function-structure",
+    "href": "lessons/functions.html#function-structure",
+    "title": "Functions Explained",
+    "section": "Function Structure",
+    "text": "Function Structure\nThe general structure of a function:\n\nmy_function &lt;- function(parameters) {\n  # perform action\n  # return value\n}\n\nThree key parts: name, parameters, and body"
+  },
+  {
+    "objectID": "lessons/functions.html#defining-a-function",
+    "href": "lessons/functions.html#defining-a-function",
+    "title": "Functions Explained",
+    "section": "Defining a Function",
+    "text": "Defining a Function\nConvert Fahrenheit to Kelvin:\n\nfahr_to_kelvin &lt;- function(temp) {\n  kelvin &lt;- ((temp - 32) * (5 / 9)) + 273.15\n  return(kelvin)\n}"
+  },
+  {
+    "objectID": "lessons/functions.html#function-anatomy",
+    "href": "lessons/functions.html#function-anatomy",
+    "title": "Functions Explained",
+    "section": "Function Anatomy",
+    "text": "Function Anatomy\nBreaking down fahr_to_kelvin:\n\nName: fahr_to_kelvin\nParameter: temp (in parentheses)\nBody: Code within curly braces {}\nReturn: Value sent back to caller\n\nIndentation (2 spaces) makes code readable!"
+  },
+  {
+    "objectID": "lessons/functions.html#functions-as-recipes",
+    "href": "lessons/functions.html#functions-as-recipes",
+    "title": "Functions Explained",
+    "section": "Functions as Recipes",
+    "text": "Functions as Recipes\nThink of creating functions like writing a cookbook:\n\nDefine “ingredients” (parameters)\nSay what to do with them (body)\nServe the result (return value)\n\nWhen we call the function, arguments are assigned to parameters."
+  },
+  {
+    "objectID": "lessons/functions.html#return-statement",
+    "href": "lessons/functions.html#return-statement",
+    "title": "Functions Explained",
+    "section": "Return Statement",
+    "text": "Return Statement\nR is unique: The return statement is not required!\nR automatically returns the last line in the function body.\nBut for clarity, we will explicitly use return() statements."
+  },
+  {
+    "objectID": "lessons/functions.html#calling-our-function",
+    "href": "lessons/functions.html#calling-our-function",
+    "title": "Functions Explained",
+    "section": "Calling Our Function",
+    "text": "Calling Our Function\nTest the function with known values:\n\n# Freezing point of water\nfahr_to_kelvin(32)\n\n[1] 273.15\n\n\n\n# Boiling point of water\nfahr_to_kelvin(212)\n\n[1] 373.15"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-1",
+    "href": "lessons/functions.html#challenge-1",
+    "title": "Functions Explained",
+    "section": "Challenge 1",
+    "text": "Challenge 1\nWrite a function called kelvin_to_celsius() that takes a temperature in Kelvin and returns that temperature in Celsius.\nHint: To convert from Kelvin to Celsius you subtract 273.15\nTry it yourself before looking at the solution!"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-1-solution",
+    "href": "lessons/functions.html#challenge-1-solution",
+    "title": "Functions Explained",
+    "section": "Challenge 1 Solution",
+    "text": "Challenge 1 Solution\n\nkelvin_to_celsius &lt;- function(temp) {\n  celsius &lt;- temp - 273.15\n  return(celsius)\n}\n\n# Test it\nkelvin_to_celsius(273.15)  # Should be 0\n\n[1] 0"
+  },
+  {
+    "objectID": "lessons/functions.html#combining-functions",
+    "href": "lessons/functions.html#combining-functions",
+    "title": "Functions Explained",
+    "section": "Combining Functions",
+    "text": "Combining Functions\nThe real power: mixing, matching, and combining functions!\nLet’s define both conversion functions:\n\nfahr_to_kelvin &lt;- function(temp) {\n  kelvin &lt;- ((temp - 32) * (5 / 9)) + 273.15\n  return(kelvin)\n}\n\nkelvin_to_celsius &lt;- function(temp) {\n  celsius &lt;- temp - 273.15\n  return(celsius)\n}"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-2",
+    "href": "lessons/functions.html#challenge-2",
+    "title": "Functions Explained",
+    "section": "Challenge 2",
+    "text": "Challenge 2\nDefine a function to convert directly from Fahrenheit to Celsius, by reusing the two functions above.\nThink about how you can call one function from inside another!"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-2-solution",
+    "href": "lessons/functions.html#challenge-2-solution",
+    "title": "Functions Explained",
+    "section": "Challenge 2 Solution",
+    "text": "Challenge 2 Solution\n\nfahr_to_celsius &lt;- function(temp) {\n  temp_k &lt;- fahr_to_kelvin(temp)\n  result &lt;- kelvin_to_celsius(temp_k)\n  return(result)\n}\n\n# Test it\nfahr_to_celsius(32)   # Freezing point = 0°C\n\n[1] 0\n\nfahr_to_celsius(212)  # Boiling point = 100°C\n\n[1] 100"
+  },
+  {
+    "objectID": "lessons/functions.html#defensive-programming",
+    "href": "lessons/functions.html#defensive-programming",
+    "title": "Functions Explained",
+    "section": "Defensive Programming",
+    "text": "Defensive Programming\nImportant concept: Ensure functions only work in their intended use cases!\nDefensive programming:\n\nFrequently check conditions\nThrow errors if something is wrong\nUse assertion statements\nMake debugging easier"
+  },
+  {
+    "objectID": "lessons/functions.html#problem-with-current-function",
+    "href": "lessons/functions.html#problem-with-current-function",
+    "title": "Functions Explained",
+    "section": "Problem with Current Function",
+    "text": "Problem with Current Function\nWhat happens with bad input?\n\nfahr_to_kelvin(\"hot\")  # A string, not a number\n\nThis will fail with a cryptic error. We should fail early and clearly!"
+  },
+  {
+    "objectID": "lessons/functions.html#using-stop",
+    "href": "lessons/functions.html#using-stop",
+    "title": "Functions Explained",
+    "section": "Using stop()",
+    "text": "Using stop()\nCheck conditions with if statements:\n\nfahr_to_kelvin &lt;- function(temp) {\n  if (!is.numeric(temp)) {\n    stop(\"temp must be a numeric vector.\")\n  }\n  kelvin &lt;- ((temp - 32) * (5 / 9)) + 273.15\n  return(kelvin)\n}"
+  },
+  {
+    "objectID": "lessons/functions.html#the-stopifnot-function",
+    "href": "lessons/functions.html#the-stopifnot-function",
+    "title": "Functions Explained",
+    "section": "The stopifnot() Function",
+    "text": "The stopifnot() Function\nBetter approach for multiple conditions:\n\nfahr_to_kelvin &lt;- function(temp) {\n  stopifnot(is.numeric(temp))\n  kelvin &lt;- ((temp - 32) * (5 / 9)) + 273.15\n  return(kelvin)\n}\n\nstopifnot() lists requirements that should be TRUE"
+  },
+  {
+    "objectID": "lessons/functions.html#testing-stopifnot",
+    "href": "lessons/functions.html#testing-stopifnot",
+    "title": "Functions Explained",
+    "section": "Testing stopifnot()",
+    "text": "Testing stopifnot()\nWorks with proper input:\n\nfahr_to_kelvin(temp = 32)\n\n[1] 273.15"
+  },
+  {
+    "objectID": "lessons/functions.html#testing-stopifnot---error",
+    "href": "lessons/functions.html#testing-stopifnot---error",
+    "title": "Functions Explained",
+    "section": "Testing stopifnot() - Error",
+    "text": "Testing stopifnot() - Error\nFails instantly with improper input:\n\nfahr_to_kelvin(temp = as.factor(32))\n\nError in fahr_to_kelvin():\n! is.numeric(temp) is not TRUE\nClear error message!"
+  },
+  {
+    "objectID": "lessons/functions.html#why-stopifnot",
+    "href": "lessons/functions.html#why-stopifnot",
+    "title": "Functions Explained",
+    "section": "Why stopifnot()?",
+    "text": "Why stopifnot()?\nBenefits of stopifnot():\n\nHandles multiple conditions easily\nActs as extra documentation\nFails fast and clearly\nBetter than cryptic errors later\n\nList all requirements at the start of your function!"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-3",
+    "href": "lessons/functions.html#challenge-3",
+    "title": "Functions Explained",
+    "section": "Challenge 3",
+    "text": "Challenge 3\nUse defensive programming to ensure that fahr_to_celsius() throws an error immediately if the argument temp is specified inappropriately.\nAdd a stopifnot() check to your function!"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-3-solution",
+    "href": "lessons/functions.html#challenge-3-solution",
+    "title": "Functions Explained",
+    "section": "Challenge 3 Solution",
+    "text": "Challenge 3 Solution\n\nfahr_to_celsius &lt;- function(temp) {\n  stopifnot(is.numeric(temp))\n  temp_k &lt;- fahr_to_kelvin(temp)\n  result &lt;- kelvin_to_celsius(temp_k)\n  return(result)\n}"
+  },
+  {
+    "objectID": "lessons/functions.html#more-complex-functions",
+    "href": "lessons/functions.html#more-complex-functions",
+    "title": "Functions Explained",
+    "section": "More Complex Functions",
+    "text": "More Complex Functions\nLet’s work with the gapminder dataset!\nDefine a function to calculate GDP:\n\n# Takes a dataset and multiplies the population column\n# with the GDP per capita column.\ncalcGDP &lt;- function(dat) {\n  gdp &lt;- dat$pop * dat$gdpPercap\n  return(gdp)\n}"
+  },
+  {
+    "objectID": "lessons/functions.html#function-structure-review",
+    "href": "lessons/functions.html#function-structure-review",
+    "title": "Functions Explained",
+    "section": "Function Structure Review",
+    "text": "Function Structure Review\nBreaking down calcGDP:\n\nArgument: dat (a data frame)\nBody: Multiply population by GDP per capita\nReturn: The calculated GDP values\n\nIndentation makes code readable!"
+  },
+  {
+    "objectID": "lessons/functions.html#testing-calcgdp",
+    "href": "lessons/functions.html#testing-calcgdp",
+    "title": "Functions Explained",
+    "section": "Testing calcGDP",
+    "text": "Testing calcGDP\nLoad the gapminder data and test:\n\ngapminder &lt;- read.csv(\n  \"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv\"\n)\n\ncalcGDP(head(gapminder))\n\nOutput: [1] 6567086330 7585448670 8758855797 9648014150 9678553274 11697659231\nNot very informative!"
+  },
+  {
+    "objectID": "lessons/functions.html#adding-more-arguments",
+    "href": "lessons/functions.html#adding-more-arguments",
+    "title": "Functions Explained",
+    "section": "Adding More Arguments",
+    "text": "Adding More Arguments\nMake it more flexible with optional arguments:\n\ncalcGDP &lt;- function(dat, year=NULL, country=NULL) {\n  if(!is.null(year)) {\n    dat &lt;- dat[dat$year %in% year, ]\n  }\n  if (!is.null(country)) {\n    dat &lt;- dat[dat$country %in% country, ]\n  }\n  gdp &lt;- dat$pop * dat$gdpPercap\n  \n  new &lt;- cbind(dat, gdp=gdp)\n  return(new)\n}"
+  },
+  {
+    "objectID": "lessons/functions.html#default-arguments",
+    "href": "lessons/functions.html#default-arguments",
+    "title": "Functions Explained",
+    "section": "Default Arguments",
+    "text": "Default Arguments\nNotice year=NULL and country=NULL:\n\nThese are default values\nUsed if user doesn’t specify\nMakes function more flexible\nUse = in function definition for defaults"
+  },
+  {
+    "objectID": "lessons/functions.html#loading-functions",
+    "href": "lessons/functions.html#loading-functions",
+    "title": "Functions Explained",
+    "section": "Loading Functions",
+    "text": "Loading Functions\nSave functions to a file, then load them:\n\nsource(\"functions/functions-lesson.R\")\n\nLoads all functions from that file into your session!"
+  },
+  {
+    "objectID": "lessons/functions.html#how-calcgdp-works",
+    "href": "lessons/functions.html#how-calcgdp-works",
+    "title": "Functions Explained",
+    "section": "How calcGDP Works",
+    "text": "How calcGDP Works\nPlain English explanation:\n\nSubset by year (if provided)\nSubset by country (if provided)\nCalculate GDP on the subset\nAdd GDP as new column\nReturn the enhanced data frame\n\nMuch more informative than just numbers!"
+  },
+  {
+    "objectID": "lessons/functions.html#testing-with-year",
+    "href": "lessons/functions.html#testing-with-year",
+    "title": "Functions Explained",
+    "section": "Testing with Year",
+    "text": "Testing with Year\nExtract data for a specific year:\n\nhead(calcGDP(gapminder, year=2007))\n\nOutput includes country, year, population, continent, life expectancy, GDP per capita, and calculated GDP!"
+  },
+  {
+    "objectID": "lessons/functions.html#testing-with-country",
+    "href": "lessons/functions.html#testing-with-country",
+    "title": "Functions Explained",
+    "section": "Testing with Country",
+    "text": "Testing with Country\nExtract data for a specific country:\n\ncalcGDP(gapminder, country=\"Australia\")\n\nReturns all years for Australia with calculated GDP."
+  },
+  {
+    "objectID": "lessons/functions.html#testing-with-both",
+    "href": "lessons/functions.html#testing-with-both",
+    "title": "Functions Explained",
+    "section": "Testing with Both",
+    "text": "Testing with Both\nCombine year and country:\n\ncalcGDP(gapminder, year=2007, country=\"Australia\")\n\nReturns just one row: Australia in 2007!"
+  },
+  {
+    "objectID": "lessons/functions.html#understanding-null-checks",
+    "href": "lessons/functions.html#understanding-null-checks",
+    "title": "Functions Explained",
+    "section": "Understanding NULL Checks",
+    "text": "Understanding NULL Checks\nThe condition checks:\n\nif(!is.null(year)) {\n  dat &lt;- dat[dat$year %in% year, ]\n}\n\n\nCheck if argument was provided\nIf yes: subset the data\nIf no: use full dataset"
+  },
+  {
+    "objectID": "lessons/functions.html#function-flexibility",
+    "href": "lessons/functions.html#function-flexibility",
+    "title": "Functions Explained",
+    "section": "Function Flexibility",
+    "text": "Function Flexibility\nNow calcGDP can calculate GDP for:\n\nThe whole dataset\nA single year\nA single country\nA combination of year and country\nMultiple years or countries (using %in%)\n\nBuilding in conditionals makes functions flexible!"
+  },
+  {
+    "objectID": "lessons/functions.html#pass-by-value",
+    "href": "lessons/functions.html#pass-by-value",
+    "title": "Functions Explained",
+    "section": "Pass by Value",
+    "text": "Pass by Value\nImportant: Functions in R make copies of data!\n\nWhen we modify dat inside the function\nWe modify a copy, not the original\nOriginal variable remains unchanged\n\nThis is “pass-by-value” - makes coding safer!"
+  },
+  {
+    "objectID": "lessons/functions.html#function-scope",
+    "href": "lessons/functions.html#function-scope",
+    "title": "Functions Explained",
+    "section": "Function Scope",
+    "text": "Function Scope\nScoping: Variables created inside a function only exist during execution!\nWhen we call calcGDP():\n\ndat, gdp, new only exist inside the function\nDon’t affect variables outside the function\nEven if they have the same names!"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-4",
+    "href": "lessons/functions.html#challenge-4",
+    "title": "Functions Explained",
+    "section": "Challenge 4",
+    "text": "Challenge 4\nTest out your GDP function by calculating the GDP for New Zealand in 1987.\nHow does this differ from New Zealand’s GDP in 1952?"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-4-solution",
+    "href": "lessons/functions.html#challenge-4-solution",
+    "title": "Functions Explained",
+    "section": "Challenge 4 Solution",
+    "text": "Challenge 4 Solution\n\ncalcGDP(gapminder, year=1987, country=\"New Zealand\")\ncalcGDP(gapminder, year=1952, country=\"New Zealand\")\n\n# Or compare both:\ncalcGDP(gapminder, year=c(1952, 1987), \n        country=\"New Zealand\")"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-5",
+    "href": "lessons/functions.html#challenge-5",
+    "title": "Functions Explained",
+    "section": "Challenge 5",
+    "text": "Challenge 5\nThe paste() function combines text together:\n\nbest_practice &lt;- c(\"Write\", \"programs\", \"for\", \n                   \"people\", \"not\", \"computers\")\npaste(best_practice, collapse=\" \")\n\n[1] \"Write programs for people not computers\"\n\n\nWrite a function called fence() that takes two vectors: text and wrapper, and prints the text wrapped with the wrapper."
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-5-expected-output",
+    "href": "lessons/functions.html#challenge-5-expected-output",
+    "title": "Functions Explained",
+    "section": "Challenge 5 Expected Output",
+    "text": "Challenge 5 Expected Output\nExpected output:\n\nfence(text=best_practice, wrapper=\"***\")\n\nShould produce:\n[1] \"*** Write programs for people not computers ***\"\nHint: paste() has a sep argument for separators!"
+  },
+  {
+    "objectID": "lessons/functions.html#challenge-5-solution",
+    "href": "lessons/functions.html#challenge-5-solution",
+    "title": "Functions Explained",
+    "section": "Challenge 5 Solution",
+    "text": "Challenge 5 Solution\n\nfence &lt;- function(text, wrapper) {\n  text_combined &lt;- paste(text, collapse=\" \")\n  result &lt;- paste(wrapper, text_combined, wrapper, sep=\"\")\n  return(result)\n}\n\n# Test it\nfence(text=best_practice, wrapper=\"***\")\n\n[1] \"***Write programs for people not computers***\""
+  },
+  {
+    "objectID": "lessons/functions.html#testing-and-documenting",
+    "href": "lessons/functions.html#testing-and-documenting",
+    "title": "Functions Explained",
+    "section": "Testing and Documenting",
+    "text": "Testing and Documenting\nEssential practices for functions:\n\nWrite a function\nComment parts to document behavior\nLoad the source file\nExperiment in console to test\nFix any bugs\nRepeat until it works!"
+  },
+  {
+    "objectID": "lessons/functions.html#why-test-functions",
+    "href": "lessons/functions.html#why-test-functions",
+    "title": "Functions Explained",
+    "section": "Why Test Functions?",
+    "text": "Why Test Functions?\nTesting ensures:\n\nFunction does what you think it does\nCatches bugs early\nMakes debugging easier\nBuilds confidence in your code\n\nAlways test with expected inputs and edge cases!"
+  },
+  {
+    "objectID": "lessons/functions.html#documentation-matters",
+    "href": "lessons/functions.html#documentation-matters",
+    "title": "Functions Explained",
+    "section": "Documentation Matters",
+    "text": "Documentation Matters\nGood documentation:\n\nExplains what the function does\nLists required parameters\nDescribes what is returned\nProvides examples\nHelps future you (and others!)\n\nComments are your friends!"
+  },
+  {
+    "objectID": "lessons/functions.html#formal-documentation",
+    "href": "lessons/functions.html#formal-documentation",
+    "title": "Functions Explained",
+    "section": "Formal Documentation",
+    "text": "Formal Documentation\nFor more complex projects:\n\nroxygen2 package: Write docs alongside code\ntestthat package: Write automated tests\nPackages: Bundles of functions with docs\n\nsource(\"functions.R\") is like library(\"package\")!"
+  },
+  {
+    "objectID": "lessons/functions.html#building-good-functions",
+    "href": "lessons/functions.html#building-good-functions",
+    "title": "Functions Explained",
+    "section": "Building Good Functions",
+    "text": "Building Good Functions\nBest practices:\n\nSingle purpose: One function, one task\nClear names: Describe what it does\nDocument: Comment your code\nTest: Verify it works correctly\nDefensive: Check inputs with stopifnot()\nModular: Build complex from simple"
+  },
+  {
+    "objectID": "lessons/functions.html#why-small-functions",
+    "href": "lessons/functions.html#why-small-functions",
+    "title": "Functions Explained",
+    "section": "Why Small Functions?",
+    "text": "Why Small Functions?\nDivide programs into small, single-purpose functions because:\n\nEasier to understand\nEasier to test\nEasier to debug\nEasier to reuse\nEasier to maintain\n\nThink LEGO blocks, not monoliths!"
+  },
+  {
+    "objectID": "lessons/functions.html#when-to-write-a-function",
+    "href": "lessons/functions.html#when-to-write-a-function",
+    "title": "Functions Explained",
+    "section": "When to Write a Function?",
+    "text": "When to Write a Function?\nConsider writing a function when:\n\nYou copy-paste code more than twice\nLogic is complex and needs a name\nYou need to reuse an operation\nCode would be clearer with abstraction\nYou want to test a specific piece\n\nDRY principle: Don’t Repeat Yourself"
+  },
+  {
+    "objectID": "lessons/functions.html#function-design-process",
+    "href": "lessons/functions.html#function-design-process",
+    "title": "Functions Explained",
+    "section": "Function Design Process",
+    "text": "Function Design Process\n\nWrite code that works once\nIdentify repeated patterns\nExtract into function\nAdd parameters for flexibility\nAdd defensive checks\nDocument and test\nRefine and improve"
+  },
+  {
+    "objectID": "lessons/functions.html#creating-a-script-file",
+    "href": "lessons/functions.html#creating-a-script-file",
+    "title": "Functions Explained",
+    "section": "Creating a Script File",
+    "text": "Creating a Script File\nOrganize your functions:\n\nCreate a functions/ directory\nCreate functions-lesson.R file\nWrite all functions there\nLoad with source(\"functions/functions-lesson.R\")\n\nKeeps workspace clean and organized!"
+  },
+  {
+    "objectID": "lessons/functions.html#key-points",
+    "href": "lessons/functions.html#key-points",
+    "title": "Functions Explained",
+    "section": "Key Points",
+    "text": "Key Points\n\nUse function to define a new function in R\nUse parameters to pass values into functions\nUse stopifnot() to check function arguments\nLoad functions into programs using source()\nFunctions make code more readable and reusable"
+  },
+  {
+    "objectID": "lessons/functions.html#key-points-continued",
+    "href": "lessons/functions.html#key-points-continued",
+    "title": "Functions Explained",
+    "section": "Key Points (Continued)",
+    "text": "Key Points (Continued)\n\nFunctions can call other functions\nDefault values make functions flexible\nR uses pass-by-value (copies data)\nVariables inside functions have local scope\nAlways test and document your functions"
+  },
+  {
+    "objectID": "lessons/functions.html#common-mistakes",
+    "href": "lessons/functions.html#common-mistakes",
+    "title": "Functions Explained",
+    "section": "Common Mistakes",
+    "text": "Common Mistakes\nAvoid these pitfalls:\n\nForgetting to use return()\nNot checking input arguments\nMaking functions too complex\nPoor naming choices\nLack of documentation\nNot testing edge cases"
+  },
+  {
+    "objectID": "lessons/functions.html#example-good-vs-bad-names",
+    "href": "lessons/functions.html#example-good-vs-bad-names",
+    "title": "Functions Explained",
+    "section": "Example: Good vs Bad Names",
+    "text": "Example: Good vs Bad Names\nBad names:\n\nf(), my_function(), do_stuff()\n\nGood names:\n\ncalc_mean(), filter_by_year(), plot_histogram()\n\nNames should describe what the function does!"
+  },
+  {
+    "objectID": "lessons/functions.html#function-arguments-best-practices",
+    "href": "lessons/functions.html#function-arguments-best-practices",
+    "title": "Functions Explained",
+    "section": "Function Arguments Best Practices",
+    "text": "Function Arguments Best Practices\n\nRequired arguments first, optional after\nUse sensible defaults when possible\nCheck arguments with stopifnot()\nUse descriptive parameter names\nDocument what types are expected"
+  },
+  {
+    "objectID": "lessons/functions.html#composition-is-powerful",
+    "href": "lessons/functions.html#composition-is-powerful",
+    "title": "Functions Explained",
+    "section": "Composition is Powerful",
+    "text": "Composition is Powerful\nBuild complex operations from simple functions:\n\n# Simple functions\nkelvin_to_celsius &lt;- function(temp) { ... }\nfahr_to_kelvin &lt;- function(temp) { ... }\n\n# Composed function\nfahr_to_celsius &lt;- function(temp) {\n  fahr_to_kelvin(temp) %&gt;% kelvin_to_celsius()\n}"
+  },
+  {
+    "objectID": "lessons/functions.html#return-values",
+    "href": "lessons/functions.html#return-values",
+    "title": "Functions Explained",
+    "section": "Return Values",
+    "text": "Return Values\nWhat should functions return?\n\nSingle value: Number, string, logical\nVector: Multiple values of same type\nList: Multiple values of different types\nData frame: Tabular results\n\nChoose based on what makes sense!"
+  },
+  {
+    "objectID": "lessons/functions.html#advanced-topics-preview",
+    "href": "lessons/functions.html#advanced-topics-preview",
+    "title": "Functions Explained",
+    "section": "Advanced Topics (Preview)",
+    "text": "Advanced Topics (Preview)\nBeyond this lesson:\n\nAnonymous functions (lambda)\nFunctions as arguments\nEnvironments and closures\nS3 and S4 object systems\nPackage development\n\nResources: R Language Manual, Advanced R by Hadley Wickham"
+  },
+  {
+    "objectID": "lessons/functions.html#practice-exercise",
+    "href": "lessons/functions.html#practice-exercise",
+    "title": "Functions Explained",
+    "section": "Practice Exercise",
+    "text": "Practice Exercise\nOn your own, write a function that:\n\nTakes a data frame and column name\nCalculates summary statistics\nReturns a named vector with min, max, mean, median\n\nBonus: Add error checking!"
+  },
+  {
+    "objectID": "lessons/functions.html#recap",
+    "href": "lessons/functions.html#recap",
+    "title": "Functions Explained",
+    "section": "Recap",
+    "text": "Recap\nToday we learned:\n\nHow to define functions\nFunction anatomy (name, parameters, body, return)\nCombining functions\nDefensive programming with stopifnot()\nDefault arguments for flexibility\nTesting and documentation"
+  },
+  {
+    "objectID": "lessons/functions.html#remember",
+    "href": "lessons/functions.html#remember",
+    "title": "Functions Explained",
+    "section": "Remember",
+    "text": "Remember\nFunctions are the building blocks of programming!\n\nStart simple, build complexity gradually\nTest early and often\nDocument for future you\nDon’t repeat yourself - write functions!"
+  },
+  {
+    "objectID": "lessons/functions.html#resources",
+    "href": "lessons/functions.html#resources",
+    "title": "Functions Explained",
+    "section": "Resources",
+    "text": "Resources\n\nSoftware Carpentry: r-novice-gapminder\nR Documentation: ?function, ?stopifnot\nAdvanced R by Hadley Wickham\nR Language Manual"
+  },
+  {
+    "objectID": "lessons/functions.html#questions-1",
+    "href": "lessons/functions.html#questions-1",
+    "title": "Functions Explained",
+    "section": "Questions?",
+    "text": "Questions?"
   }
 ]

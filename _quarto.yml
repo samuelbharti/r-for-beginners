@@ -15,6 +15,12 @@ website:
         text: Home
       - href: lessons/exploring_dataframes.html
         text: Exploring Data Frames
+      - href: lessons/data_subsetting.html
+        text: Subsetting Data
+      - href: lessons/functions.html
+        text: Functions
+      - href: lessons/writing_data.html
+        text: Writing Data
     right:
       - icon: github
         href: https://github.com/samuelbharti/sw-r-novice-gapminder-lessons
@@ -27,3 +33,4 @@ format:
     theme: cosmo
     toc: true
     code-copy: true
+    css: custom.css

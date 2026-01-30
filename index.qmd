@@ -11,6 +11,9 @@ These lessons are designed to help you learn R programming fundamentals through 
 ## Available Lessons
 
 1. [Exploring Data Frames](lessons/exploring_dataframes.html) - Learn to manipulate and explore data frames in R
+2. [Subsetting Data](lessons/data_subsetting.html) - Master techniques for extracting subsets of data
+3. [Functions Explained](lessons/functions.html) - Understand and create your own R functions
+4. [Writing Data](lessons/writing_data.html) - Learn to export and save your data
 
 ## About
 

@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Samuel Bharti">
+
+<title>Functions Explained – R for Novices - Gapminder Lessons</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9859d952baf36b9a7db628bbb9f3169e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R for Novices - Gapminder Lessons</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/exploring_dataframes.html"> 
+<span class="menu-text">Exploring Data Frames</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/data_subsetting.html"> 
+<span class="menu-text">Subsetting Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../lessons/functions.html" aria-current="page"> 
+<span class="menu-text">Functions</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/writing_data.html"> 
+<span class="menu-text">Writing Data</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/samuelbharti/sw-r-novice-gapminder-lessons"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  <li><a href="#why-functions" id="toc-why-functions" class="nav-link" data-scroll-target="#why-functions">Why Functions?</a></li>
+  <li><a href="#what-is-a-function" id="toc-what-is-a-function" class="nav-link" data-scroll-target="#what-is-a-function">What is a Function?</a></li>
+  <li><a href="#function-structure" id="toc-function-structure" class="nav-link" data-scroll-target="#function-structure">Function Structure</a></li>
+  <li><a href="#defining-a-function" id="toc-defining-a-function" class="nav-link" data-scroll-target="#defining-a-function">Defining a Function</a></li>
+  <li><a href="#function-anatomy" id="toc-function-anatomy" class="nav-link" data-scroll-target="#function-anatomy">Function Anatomy</a></li>
+  <li><a href="#functions-as-recipes" id="toc-functions-as-recipes" class="nav-link" data-scroll-target="#functions-as-recipes">Functions as Recipes</a></li>
+  <li><a href="#return-statement" id="toc-return-statement" class="nav-link" data-scroll-target="#return-statement">Return Statement</a></li>
+  <li><a href="#calling-our-function" id="toc-calling-our-function" class="nav-link" data-scroll-target="#calling-our-function">Calling Our Function</a></li>
+  <li><a href="#challenge-1" id="toc-challenge-1" class="nav-link" data-scroll-target="#challenge-1">Challenge 1</a></li>
+  <li><a href="#challenge-1-solution" id="toc-challenge-1-solution" class="nav-link" data-scroll-target="#challenge-1-solution">Challenge 1 Solution</a></li>
+  <li><a href="#combining-functions" id="toc-combining-functions" class="nav-link" data-scroll-target="#combining-functions">Combining Functions</a></li>
+  <li><a href="#challenge-2" id="toc-challenge-2" class="nav-link" data-scroll-target="#challenge-2">Challenge 2</a></li>
+  <li><a href="#challenge-2-solution" id="toc-challenge-2-solution" class="nav-link" data-scroll-target="#challenge-2-solution">Challenge 2 Solution</a></li>
+  <li><a href="#defensive-programming" id="toc-defensive-programming" class="nav-link" data-scroll-target="#defensive-programming">Defensive Programming</a></li>
+  <li><a href="#problem-with-current-function" id="toc-problem-with-current-function" class="nav-link" data-scroll-target="#problem-with-current-function">Problem with Current Function</a></li>
+  <li><a href="#using-stop" id="toc-using-stop" class="nav-link" data-scroll-target="#using-stop">Using stop()</a></li>
+  <li><a href="#the-stopifnot-function" id="toc-the-stopifnot-function" class="nav-link" data-scroll-target="#the-stopifnot-function">The stopifnot() Function</a></li>
+  <li><a href="#testing-stopifnot" id="toc-testing-stopifnot" class="nav-link" data-scroll-target="#testing-stopifnot">Testing stopifnot()</a></li>
+  <li><a href="#testing-stopifnot---error" id="toc-testing-stopifnot---error" class="nav-link" data-scroll-target="#testing-stopifnot---error">Testing stopifnot() - Error</a></li>
+  <li><a href="#why-stopifnot" id="toc-why-stopifnot" class="nav-link" data-scroll-target="#why-stopifnot">Why stopifnot()?</a></li>
+  <li><a href="#challenge-3" id="toc-challenge-3" class="nav-link" data-scroll-target="#challenge-3">Challenge 3</a></li>
+  <li><a href="#challenge-3-solution" id="toc-challenge-3-solution" class="nav-link" data-scroll-target="#challenge-3-solution">Challenge 3 Solution</a></li>
+  <li><a href="#more-complex-functions" id="toc-more-complex-functions" class="nav-link" data-scroll-target="#more-complex-functions">More Complex Functions</a></li>
+  <li><a href="#function-structure-review" id="toc-function-structure-review" class="nav-link" data-scroll-target="#function-structure-review">Function Structure Review</a></li>
+  <li><a href="#testing-calcgdp" id="toc-testing-calcgdp" class="nav-link" data-scroll-target="#testing-calcgdp">Testing calcGDP</a></li>
+  <li><a href="#adding-more-arguments" id="toc-adding-more-arguments" class="nav-link" data-scroll-target="#adding-more-arguments">Adding More Arguments</a></li>
+  <li><a href="#default-arguments" id="toc-default-arguments" class="nav-link" data-scroll-target="#default-arguments">Default Arguments</a></li>
+  <li><a href="#loading-functions" id="toc-loading-functions" class="nav-link" data-scroll-target="#loading-functions">Loading Functions</a></li>
+  <li><a href="#how-calcgdp-works" id="toc-how-calcgdp-works" class="nav-link" data-scroll-target="#how-calcgdp-works">How calcGDP Works</a></li>
+  <li><a href="#testing-with-year" id="toc-testing-with-year" class="nav-link" data-scroll-target="#testing-with-year">Testing with Year</a></li>
+  <li><a href="#testing-with-country" id="toc-testing-with-country" class="nav-link" data-scroll-target="#testing-with-country">Testing with Country</a></li>
+  <li><a href="#testing-with-both" id="toc-testing-with-both" class="nav-link" data-scroll-target="#testing-with-both">Testing with Both</a></li>
+  <li><a href="#understanding-null-checks" id="toc-understanding-null-checks" class="nav-link" data-scroll-target="#understanding-null-checks">Understanding NULL Checks</a></li>
+  <li><a href="#function-flexibility" id="toc-function-flexibility" class="nav-link" data-scroll-target="#function-flexibility">Function Flexibility</a></li>
+  <li><a href="#pass-by-value" id="toc-pass-by-value" class="nav-link" data-scroll-target="#pass-by-value">Pass by Value</a></li>
+  <li><a href="#function-scope" id="toc-function-scope" class="nav-link" data-scroll-target="#function-scope">Function Scope</a></li>
+  <li><a href="#challenge-4" id="toc-challenge-4" class="nav-link" data-scroll-target="#challenge-4">Challenge 4</a></li>
+  <li><a href="#challenge-4-solution" id="toc-challenge-4-solution" class="nav-link" data-scroll-target="#challenge-4-solution">Challenge 4 Solution</a></li>
+  <li><a href="#challenge-5" id="toc-challenge-5" class="nav-link" data-scroll-target="#challenge-5">Challenge 5</a></li>
+  <li><a href="#challenge-5-expected-output" id="toc-challenge-5-expected-output" class="nav-link" data-scroll-target="#challenge-5-expected-output">Challenge 5 Expected Output</a></li>
+  <li><a href="#challenge-5-solution" id="toc-challenge-5-solution" class="nav-link" data-scroll-target="#challenge-5-solution">Challenge 5 Solution</a></li>
+  <li><a href="#testing-and-documenting" id="toc-testing-and-documenting" class="nav-link" data-scroll-target="#testing-and-documenting">Testing and Documenting</a></li>
+  <li><a href="#why-test-functions" id="toc-why-test-functions" class="nav-link" data-scroll-target="#why-test-functions">Why Test Functions?</a></li>
+  <li><a href="#documentation-matters" id="toc-documentation-matters" class="nav-link" data-scroll-target="#documentation-matters">Documentation Matters</a></li>
+  <li><a href="#formal-documentation" id="toc-formal-documentation" class="nav-link" data-scroll-target="#formal-documentation">Formal Documentation</a></li>
+  <li><a href="#building-good-functions" id="toc-building-good-functions" class="nav-link" data-scroll-target="#building-good-functions">Building Good Functions</a></li>
+  <li><a href="#why-small-functions" id="toc-why-small-functions" class="nav-link" data-scroll-target="#why-small-functions">Why Small Functions?</a></li>
+  <li><a href="#when-to-write-a-function" id="toc-when-to-write-a-function" class="nav-link" data-scroll-target="#when-to-write-a-function">When to Write a Function?</a></li>
+  <li><a href="#function-design-process" id="toc-function-design-process" class="nav-link" data-scroll-target="#function-design-process">Function Design Process</a></li>
+  <li><a href="#creating-a-script-file" id="toc-creating-a-script-file" class="nav-link" data-scroll-target="#creating-a-script-file">Creating a Script File</a></li>
+  <li><a href="#key-points" id="toc-key-points" class="nav-link" data-scroll-target="#key-points">Key Points</a></li>
+  <li><a href="#key-points-continued" id="toc-key-points-continued" class="nav-link" data-scroll-target="#key-points-continued">Key Points (Continued)</a></li>
+  <li><a href="#common-mistakes" id="toc-common-mistakes" class="nav-link" data-scroll-target="#common-mistakes">Common Mistakes</a></li>
+  <li><a href="#example-good-vs-bad-names" id="toc-example-good-vs-bad-names" class="nav-link" data-scroll-target="#example-good-vs-bad-names">Example: Good vs Bad Names</a></li>
+  <li><a href="#function-arguments-best-practices" id="toc-function-arguments-best-practices" class="nav-link" data-scroll-target="#function-arguments-best-practices">Function Arguments Best Practices</a></li>
+  <li><a href="#composition-is-powerful" id="toc-composition-is-powerful" class="nav-link" data-scroll-target="#composition-is-powerful">Composition is Powerful</a></li>
+  <li><a href="#return-values" id="toc-return-values" class="nav-link" data-scroll-target="#return-values">Return Values</a></li>
+  <li><a href="#advanced-topics-preview" id="toc-advanced-topics-preview" class="nav-link" data-scroll-target="#advanced-topics-preview">Advanced Topics (Preview)</a></li>
+  <li><a href="#practice-exercise" id="toc-practice-exercise" class="nav-link" data-scroll-target="#practice-exercise">Practice Exercise</a></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
+  <li><a href="#remember" id="toc-remember" class="nav-link" data-scroll-target="#remember">Remember</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#questions-1" id="toc-questions-1" class="nav-link" data-scroll-target="#questions-1">Questions?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Functions Explained</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Samuel Bharti </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Today we will learn to:</p>
+<ul>
+<li>Define a function that takes arguments</li>
+<li>Return a value from a function</li>
+<li>Check argument conditions with <code>stopifnot()</code></li>
+<li>Test a function</li>
+<li>Set default values for function arguments</li>
+<li>Divide programs into small, single-purpose functions</li>
+</ul>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<ul>
+<li>How can I write a new function in R?</li>
+<li>How do I make my code more reusable?</li>
+<li>How can I check that my function is working correctly?</li>
+</ul>
+</section>
+<section id="why-functions" class="level2">
+<h2 class="anchored" data-anchor-id="why-functions">Why Functions?</h2>
+<p>If we only analyze one dataset:</p>
+<ul>
+<li>Load in spreadsheet</li>
+<li>Calculate simple statistics</li>
+<li>Done!</li>
+</ul>
+<p>But what if:</p>
+<ul>
+<li>Data is updated periodically?</li>
+<li>Need to re-run analysis?</li>
+<li>Get similar data from different sources?</li>
+</ul>
+<p><strong>Functions let us repeat operations with a single command!</strong></p>
+</section>
+<section id="what-is-a-function" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="what-is-a-function">What is a Function?</h2>
+<p>Functions gather a sequence of operations into a whole, providing:</p>
+<ul>
+<li>A <strong>name</strong> we can remember and invoke</li>
+<li>Relief from remembering individual operations</li>
+<li>A defined set of <strong>inputs</strong> and <strong>outputs</strong></li>
+<li>Rich connections to the larger programming environment</li>
+</ul>
+<p>If you have written a function, <strong>you are a computer programmer!</strong></p>
+</section>
+<section id="function-structure" class="level2">
+<h2 class="anchored" data-anchor-id="function-structure">Function Structure</h2>
+<p>The general structure of a function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(parameters) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># perform action</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return value</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Three key parts: name, parameters, and body</p>
+</section>
+<section id="defining-a-function" class="level2">
+<h2 class="anchored" data-anchor-id="defining-a-function">Defining a Function</h2>
+<p>Convert Fahrenheit to Kelvin:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fahr_to_kelvin <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  kelvin <span class="ot">&lt;-</span> ((temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> (<span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span>)) <span class="sc">+</span> <span class="fl">273.15</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(kelvin)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="function-anatomy" class="level2">
+<h2 class="anchored" data-anchor-id="function-anatomy">Function Anatomy</h2>
+<p>Breaking down <code>fahr_to_kelvin</code>:</p>
+<ul>
+<li><strong>Name</strong>: <code>fahr_to_kelvin</code></li>
+<li><strong>Parameter</strong>: <code>temp</code> (in parentheses)</li>
+<li><strong>Body</strong>: Code within curly braces <code>{}</code></li>
+<li><strong>Return</strong>: Value sent back to caller</li>
+</ul>
+<p>Indentation (2 spaces) makes code readable!</p>
+</section>
+<section id="functions-as-recipes" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="functions-as-recipes">Functions as Recipes</h2>
+<p>Think of creating functions like writing a cookbook:</p>
+<ol type="1">
+<li>Define “ingredients” (parameters)</li>
+<li>Say what to do with them (body)</li>
+<li>Serve the result (return value)</li>
+</ol>
+<p>When we call the function, arguments are assigned to parameters.</p>
+</section>
+<section id="return-statement" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="return-statement">Return Statement</h2>
+<p><strong>R is unique:</strong> The return statement is not required!</p>
+<p>R automatically returns the last line in the function body.</p>
+<p><strong>But for clarity</strong>, we will explicitly use <code>return()</code> statements.</p>
+</section>
+<section id="calling-our-function" class="level2">
+<h2 class="anchored" data-anchor-id="calling-our-function">Calling Our Function</h2>
+<p>Test the function with known values:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Freezing point of water</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fahr_to_kelvin</span>(<span class="dv">32</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 273.15</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boiling point of water</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fahr_to_kelvin</span>(<span class="dv">212</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 373.15</code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-1" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-1">Challenge 1</h2>
+<p>Write a function called <code>kelvin_to_celsius()</code> that takes a temperature in <strong>Kelvin</strong> and returns that temperature in <strong>Celsius</strong>.</p>
+<p><strong>Hint:</strong> To convert from Kelvin to Celsius you subtract 273.15</p>
+<p>Try it yourself before looking at the solution!</p>
+</section>
+<section id="challenge-1-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-1-solution">Challenge 1 Solution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>kelvin_to_celsius <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  celsius <span class="ot">&lt;-</span> temp <span class="sc">-</span> <span class="fl">273.15</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(celsius)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test it</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kelvin_to_celsius</span>(<span class="fl">273.15</span>)  <span class="co"># Should be 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="combining-functions" class="level2">
+<h2 class="anchored" data-anchor-id="combining-functions">Combining Functions</h2>
+<p>The real power: mixing, matching, and combining functions!</p>
+<p>Let’s define both conversion functions:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fahr_to_kelvin <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  kelvin <span class="ot">&lt;-</span> ((temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> (<span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span>)) <span class="sc">+</span> <span class="fl">273.15</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(kelvin)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>kelvin_to_celsius <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  celsius <span class="ot">&lt;-</span> temp <span class="sc">-</span> <span class="fl">273.15</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(celsius)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="challenge-2" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-2">Challenge 2</h2>
+<p>Define a function to convert directly from <strong>Fahrenheit to Celsius</strong>, by <strong>reusing</strong> the two functions above.</p>
+<p>Think about how you can call one function from inside another!</p>
+</section>
+<section id="challenge-2-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-2-solution">Challenge 2 Solution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fahr_to_celsius <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  temp_k <span class="ot">&lt;-</span> <span class="fu">fahr_to_kelvin</span>(temp)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">kelvin_to_celsius</span>(temp_k)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test it</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">fahr_to_celsius</span>(<span class="dv">32</span>)   <span class="co"># Freezing point = 0°C</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fahr_to_celsius</span>(<span class="dv">212</span>)  <span class="co"># Boiling point = 100°C</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+</div>
+</section>
+<section id="defensive-programming" class="level2">
+<h2 class="anchored" data-anchor-id="defensive-programming">Defensive Programming</h2>
+<p><strong>Important concept:</strong> Ensure functions only work in their intended use cases!</p>
+<p>Defensive programming:</p>
+<ul>
+<li>Frequently check conditions</li>
+<li>Throw errors if something is wrong</li>
+<li>Use <strong>assertion statements</strong></li>
+<li>Make debugging easier</li>
+</ul>
+</section>
+<section id="problem-with-current-function" class="level2">
+<h2 class="anchored" data-anchor-id="problem-with-current-function">Problem with Current Function</h2>
+<p>What happens with bad input?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fahr_to_kelvin</span>(<span class="st">"hot"</span>)  <span class="co"># A string, not a number</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This will fail with a cryptic error. We should fail <strong>early</strong> and <strong>clearly</strong>!</p>
+</section>
+<section id="using-stop" class="level2">
+<h2 class="anchored" data-anchor-id="using-stop">Using stop()</h2>
+<p>Check conditions with <code>if</code> statements:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fahr_to_kelvin <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(temp)) {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"temp must be a numeric vector."</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  kelvin <span class="ot">&lt;-</span> ((temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> (<span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span>)) <span class="sc">+</span> <span class="fl">273.15</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(kelvin)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-stopifnot-function" class="level2">
+<h2 class="anchored" data-anchor-id="the-stopifnot-function">The stopifnot() Function</h2>
+<p>Better approach for multiple conditions:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fahr_to_kelvin <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(temp))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  kelvin <span class="ot">&lt;-</span> ((temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> (<span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span>)) <span class="sc">+</span> <span class="fl">273.15</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(kelvin)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>stopifnot()</code> lists requirements that should be TRUE</p>
+</section>
+<section id="testing-stopifnot" class="level2">
+<h2 class="anchored" data-anchor-id="testing-stopifnot">Testing stopifnot()</h2>
+<p>Works with proper input:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fahr_to_kelvin</span>(<span class="at">temp =</span> <span class="dv">32</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 273.15</code></pre>
+</div>
+</div>
+</section>
+<section id="testing-stopifnot---error" class="level2">
+<h2 class="anchored" data-anchor-id="testing-stopifnot---error">Testing stopifnot() - Error</h2>
+<p>Fails instantly with improper input:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fahr_to_kelvin</span>(<span class="at">temp =</span> <span class="fu">as.factor</span>(<span class="dv">32</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Error in fahr_to_kelvin():
+! is.numeric(temp) is not TRUE</code></pre>
+<p>Clear error message!</p>
+</section>
+<section id="why-stopifnot" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="why-stopifnot">Why stopifnot()?</h2>
+<p>Benefits of <code>stopifnot()</code>:</p>
+<ul>
+<li>Handles multiple conditions easily</li>
+<li>Acts as extra documentation</li>
+<li>Fails fast and clearly</li>
+<li>Better than cryptic errors later</li>
+</ul>
+<p>List all requirements at the start of your function!</p>
+</section>
+<section id="challenge-3" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-3">Challenge 3</h2>
+<p>Use defensive programming to ensure that <code>fahr_to_celsius()</code> throws an error immediately if the argument <code>temp</code> is specified inappropriately.</p>
+<p>Add a <code>stopifnot()</code> check to your function!</p>
+</section>
+<section id="challenge-3-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-3-solution">Challenge 3 Solution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fahr_to_celsius <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(temp))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  temp_k <span class="ot">&lt;-</span> <span class="fu">fahr_to_kelvin</span>(temp)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">kelvin_to_celsius</span>(temp_k)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="more-complex-functions" class="level2">
+<h2 class="anchored" data-anchor-id="more-complex-functions">More Complex Functions</h2>
+<p>Let’s work with the gapminder dataset!</p>
+<p>Define a function to calculate GDP:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes a dataset and multiplies the population column</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with the GDP per capita column.</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>calcGDP <span class="ot">&lt;-</span> <span class="cf">function</span>(dat) {</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  gdp <span class="ot">&lt;-</span> dat<span class="sc">$</span>pop <span class="sc">*</span> dat<span class="sc">$</span>gdpPercap</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(gdp)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="function-structure-review" class="level2">
+<h2 class="anchored" data-anchor-id="function-structure-review">Function Structure Review</h2>
+<p>Breaking down <code>calcGDP</code>:</p>
+<ul>
+<li><strong>Argument</strong>: <code>dat</code> (a data frame)</li>
+<li><strong>Body</strong>: Multiply population by GDP per capita</li>
+<li><strong>Return</strong>: The calculated GDP values</li>
+</ul>
+<p>Indentation makes code readable!</p>
+</section>
+<section id="testing-calcgdp" class="level2">
+<h2 class="anchored" data-anchor-id="testing-calcgdp">Testing calcGDP</h2>
+<p>Load the gapminder data and test:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv"</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">calcGDP</span>(<span class="fu">head</span>(gapminder))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Output: <code>[1] 6567086330 7585448670 8758855797 9648014150 9678553274 11697659231</code></p>
+<p>Not very informative!</p>
+</section>
+<section id="adding-more-arguments" class="level2">
+<h2 class="anchored" data-anchor-id="adding-more-arguments">Adding More Arguments</h2>
+<p>Make it more flexible with optional arguments:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>calcGDP <span class="ot">&lt;-</span> <span class="cf">function</span>(dat, <span class="at">year=</span><span class="cn">NULL</span>, <span class="at">country=</span><span class="cn">NULL</span>) {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(year)) {</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    dat <span class="ot">&lt;-</span> dat[dat<span class="sc">$</span>year <span class="sc">%in%</span> year, ]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(country)) {</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    dat <span class="ot">&lt;-</span> dat[dat<span class="sc">$</span>country <span class="sc">%in%</span> country, ]</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  gdp <span class="ot">&lt;-</span> dat<span class="sc">$</span>pop <span class="sc">*</span> dat<span class="sc">$</span>gdpPercap</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  new <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dat, <span class="at">gdp=</span>gdp)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(new)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="default-arguments" class="level2">
+<h2 class="anchored" data-anchor-id="default-arguments">Default Arguments</h2>
+<p>Notice <code>year=NULL</code> and <code>country=NULL</code>:</p>
+<ul>
+<li>These are <strong>default values</strong></li>
+<li>Used if user doesn’t specify</li>
+<li>Makes function more flexible</li>
+<li>Use <code>=</code> in function definition for defaults</li>
+</ul>
+</section>
+<section id="loading-functions" class="level2">
+<h2 class="anchored" data-anchor-id="loading-functions">Loading Functions</h2>
+<p>Save functions to a file, then load them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"functions/functions-lesson.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Loads all functions from that file into your session!</p>
+</section>
+<section id="how-calcgdp-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-calcgdp-works">How calcGDP Works</h2>
+<p>Plain English explanation:</p>
+<ol type="1">
+<li>Subset by year (if provided)</li>
+<li>Subset by country (if provided)</li>
+<li>Calculate GDP on the subset</li>
+<li>Add GDP as new column</li>
+<li>Return the enhanced data frame</li>
+</ol>
+<p>Much more informative than just numbers!</p>
+</section>
+<section id="testing-with-year" class="level2">
+<h2 class="anchored" data-anchor-id="testing-with-year">Testing with Year</h2>
+<p>Extract data for a specific year:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">calcGDP</span>(gapminder, <span class="at">year=</span><span class="dv">2007</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Output includes country, year, population, continent, life expectancy, GDP per capita, and calculated GDP!</p>
+</section>
+<section id="testing-with-country" class="level2">
+<h2 class="anchored" data-anchor-id="testing-with-country">Testing with Country</h2>
+<p>Extract data for a specific country:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calcGDP</span>(gapminder, <span class="at">country=</span><span class="st">"Australia"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Returns all years for Australia with calculated GDP.</p>
+</section>
+<section id="testing-with-both" class="level2">
+<h2 class="anchored" data-anchor-id="testing-with-both">Testing with Both</h2>
+<p>Combine year and country:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calcGDP</span>(gapminder, <span class="at">year=</span><span class="dv">2007</span>, <span class="at">country=</span><span class="st">"Australia"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Returns just one row: Australia in 2007!</p>
+</section>
+<section id="understanding-null-checks" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-null-checks">Understanding NULL Checks</h2>
+<p>The condition checks:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(year)) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> dat[dat<span class="sc">$</span>year <span class="sc">%in%</span> year, ]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Check if argument was provided</li>
+<li>If yes: subset the data</li>
+<li>If no: use full dataset</li>
+</ul>
+</section>
+<section id="function-flexibility" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="function-flexibility">Function Flexibility</h2>
+<p>Now <code>calcGDP</code> can calculate GDP for:</p>
+<ul>
+<li>The whole dataset</li>
+<li>A single year</li>
+<li>A single country</li>
+<li>A combination of year and country</li>
+<li><strong>Multiple</strong> years or countries (using <code>%in%</code>)</li>
+</ul>
+<p>Building in conditionals makes functions flexible!</p>
+</section>
+<section id="pass-by-value" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="pass-by-value">Pass by Value</h2>
+<p><strong>Important:</strong> Functions in R make <strong>copies</strong> of data!</p>
+<ul>
+<li>When we modify <code>dat</code> inside the function</li>
+<li>We modify a <strong>copy</strong>, not the original</li>
+<li>Original variable remains unchanged</li>
+</ul>
+<p>This is “pass-by-value” - makes coding safer!</p>
+</section>
+<section id="function-scope" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="function-scope">Function Scope</h2>
+<p><strong>Scoping:</strong> Variables created inside a function only exist during execution!</p>
+<p>When we call <code>calcGDP()</code>:</p>
+<ul>
+<li><code>dat</code>, <code>gdp</code>, <code>new</code> only exist inside the function</li>
+<li>Don’t affect variables outside the function</li>
+<li>Even if they have the same names!</li>
+</ul>
+</section>
+<section id="challenge-4" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-4">Challenge 4</h2>
+<p>Test out your GDP function by calculating the GDP for <strong>New Zealand</strong> in <strong>1987</strong>.</p>
+<p>How does this differ from New Zealand’s GDP in <strong>1952</strong>?</p>
+</section>
+<section id="challenge-4-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-4-solution">Challenge 4 Solution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calcGDP</span>(gapminder, <span class="at">year=</span><span class="dv">1987</span>, <span class="at">country=</span><span class="st">"New Zealand"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">calcGDP</span>(gapminder, <span class="at">year=</span><span class="dv">1952</span>, <span class="at">country=</span><span class="st">"New Zealand"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or compare both:</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">calcGDP</span>(gapminder, <span class="at">year=</span><span class="fu">c</span>(<span class="dv">1952</span>, <span class="dv">1987</span>), </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">country=</span><span class="st">"New Zealand"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="challenge-5" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-5">Challenge 5</h2>
+<p>The <code>paste()</code> function combines text together:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>best_practice <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Write"</span>, <span class="st">"programs"</span>, <span class="st">"for"</span>, </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"people"</span>, <span class="st">"not"</span>, <span class="st">"computers"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(best_practice, <span class="at">collapse=</span><span class="st">" "</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Write programs for people not computers"</code></pre>
+</div>
+</div>
+<p>Write a function called <code>fence()</code> that takes two vectors: <code>text</code> and <code>wrapper</code>, and prints the text wrapped with the wrapper.</p>
+</section>
+<section id="challenge-5-expected-output" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-5-expected-output">Challenge 5 Expected Output</h2>
+<p>Expected output:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fence</span>(<span class="at">text=</span>best_practice, <span class="at">wrapper=</span><span class="st">"***"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Should produce:</p>
+<pre><code>[1] "*** Write programs for people not computers ***"</code></pre>
+<p><strong>Hint:</strong> <code>paste()</code> has a <code>sep</code> argument for separators!</p>
+</section>
+<section id="challenge-5-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-5-solution">Challenge 5 Solution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fence <span class="ot">&lt;-</span> <span class="cf">function</span>(text, wrapper) {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  text_combined <span class="ot">&lt;-</span> <span class="fu">paste</span>(text, <span class="at">collapse=</span><span class="st">" "</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">paste</span>(wrapper, text_combined, wrapper, <span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test it</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">fence</span>(<span class="at">text=</span>best_practice, <span class="at">wrapper=</span><span class="st">"***"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "***Write programs for people not computers***"</code></pre>
+</div>
+</div>
+</section>
+<section id="testing-and-documenting" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="testing-and-documenting">Testing and Documenting</h2>
+<p>Essential practices for functions:</p>
+<ol type="1">
+<li><strong>Write</strong> a function</li>
+<li><strong>Comment</strong> parts to document behavior</li>
+<li><strong>Load</strong> the source file</li>
+<li><strong>Experiment</strong> in console to test</li>
+<li><strong>Fix</strong> any bugs</li>
+<li><strong>Repeat</strong> until it works!</li>
+</ol>
+</section>
+<section id="why-test-functions" class="level2">
+<h2 class="anchored" data-anchor-id="why-test-functions">Why Test Functions?</h2>
+<p>Testing ensures:</p>
+<ul>
+<li>Function does what you think it does</li>
+<li>Catches bugs early</li>
+<li>Makes debugging easier</li>
+<li>Builds confidence in your code</li>
+</ul>
+<p>Always test with expected inputs <strong>and</strong> edge cases!</p>
+</section>
+<section id="documentation-matters" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="documentation-matters">Documentation Matters</h2>
+<p>Good documentation:</p>
+<ul>
+<li>Explains what the function does</li>
+<li>Lists required parameters</li>
+<li>Describes what is returned</li>
+<li>Provides examples</li>
+<li>Helps future you (and others!)</li>
+</ul>
+<p>Comments are your friends!</p>
+</section>
+<section id="formal-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="formal-documentation">Formal Documentation</h2>
+<p>For more complex projects:</p>
+<ul>
+<li><strong>roxygen2</strong> package: Write docs alongside code</li>
+<li><strong>testthat</strong> package: Write automated tests</li>
+<li><strong>Packages</strong>: Bundles of functions with docs</li>
+</ul>
+<p><code>source("functions.R")</code> is like <code>library("package")</code>!</p>
+</section>
+<section id="building-good-functions" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="building-good-functions">Building Good Functions</h2>
+<p>Best practices:</p>
+<ul>
+<li><strong>Single purpose</strong>: One function, one task</li>
+<li><strong>Clear names</strong>: Describe what it does</li>
+<li><strong>Document</strong>: Comment your code</li>
+<li><strong>Test</strong>: Verify it works correctly</li>
+<li><strong>Defensive</strong>: Check inputs with <code>stopifnot()</code></li>
+<li><strong>Modular</strong>: Build complex from simple</li>
+</ul>
+</section>
+<section id="why-small-functions" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="why-small-functions">Why Small Functions?</h2>
+<p>Divide programs into small, single-purpose functions because:</p>
+<ul>
+<li>Easier to understand</li>
+<li>Easier to test</li>
+<li>Easier to debug</li>
+<li>Easier to reuse</li>
+<li>Easier to maintain</li>
+</ul>
+<p><strong>Think LEGO blocks, not monoliths!</strong></p>
+</section>
+<section id="when-to-write-a-function" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-write-a-function">When to Write a Function?</h2>
+<p>Consider writing a function when:</p>
+<ul>
+<li>You copy-paste code more than twice</li>
+<li>Logic is complex and needs a name</li>
+<li>You need to reuse an operation</li>
+<li>Code would be clearer with abstraction</li>
+<li>You want to test a specific piece</li>
+</ul>
+<p><strong>DRY principle: Don’t Repeat Yourself</strong></p>
+</section>
+<section id="function-design-process" class="level2">
+<h2 class="anchored" data-anchor-id="function-design-process">Function Design Process</h2>
+<ol type="1">
+<li>Write code that works once</li>
+<li>Identify repeated patterns</li>
+<li>Extract into function</li>
+<li>Add parameters for flexibility</li>
+<li>Add defensive checks</li>
+<li>Document and test</li>
+<li>Refine and improve</li>
+</ol>
+</section>
+<section id="creating-a-script-file" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-script-file">Creating a Script File</h2>
+<p>Organize your functions:</p>
+<ol type="1">
+<li>Create a <code>functions/</code> directory</li>
+<li>Create <code>functions-lesson.R</code> file</li>
+<li>Write all functions there</li>
+<li>Load with <code>source("functions/functions-lesson.R")</code></li>
+</ol>
+<p>Keeps workspace clean and organized!</p>
+</section>
+<section id="key-points" class="level2">
+<h2 class="anchored" data-anchor-id="key-points">Key Points</h2>
+<ul>
+<li>Use <code>function</code> to define a new function in R</li>
+<li>Use parameters to pass values into functions</li>
+<li>Use <code>stopifnot()</code> to check function arguments</li>
+<li>Load functions into programs using <code>source()</code></li>
+<li>Functions make code more readable and reusable</li>
+</ul>
+</section>
+<section id="key-points-continued" class="level2">
+<h2 class="anchored" data-anchor-id="key-points-continued">Key Points (Continued)</h2>
+<ul>
+<li>Functions can call other functions</li>
+<li>Default values make functions flexible</li>
+<li>R uses pass-by-value (copies data)</li>
+<li>Variables inside functions have local scope</li>
+<li>Always test and document your functions</li>
+</ul>
+</section>
+<section id="common-mistakes" class="level2 callout-warning">
+<h2 class="callout-warning anchored" data-anchor-id="common-mistakes">Common Mistakes</h2>
+<p>Avoid these pitfalls:</p>
+<ul>
+<li>Forgetting to use <code>return()</code></li>
+<li>Not checking input arguments</li>
+<li>Making functions too complex</li>
+<li>Poor naming choices</li>
+<li>Lack of documentation</li>
+<li>Not testing edge cases</li>
+</ul>
+</section>
+<section id="example-good-vs-bad-names" class="level2">
+<h2 class="anchored" data-anchor-id="example-good-vs-bad-names">Example: Good vs Bad Names</h2>
+<p><strong>Bad names:</strong></p>
+<ul>
+<li><code>f()</code>, <code>my_function()</code>, <code>do_stuff()</code></li>
+</ul>
+<p><strong>Good names:</strong></p>
+<ul>
+<li><code>calc_mean()</code>, <code>filter_by_year()</code>, <code>plot_histogram()</code></li>
+</ul>
+<p>Names should describe <strong>what</strong> the function does!</p>
+</section>
+<section id="function-arguments-best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="function-arguments-best-practices">Function Arguments Best Practices</h2>
+<ul>
+<li><strong>Required arguments first</strong>, optional after</li>
+<li>Use <strong>sensible defaults</strong> when possible</li>
+<li><strong>Check arguments</strong> with <code>stopifnot()</code></li>
+<li>Use <strong>descriptive parameter names</strong></li>
+<li>Document what <strong>types</strong> are expected</li>
+</ul>
+</section>
+<section id="composition-is-powerful" class="level2">
+<h2 class="anchored" data-anchor-id="composition-is-powerful">Composition is Powerful</h2>
+<p>Build complex operations from simple functions:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple functions</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>kelvin_to_celsius <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) { ... }</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>fahr_to_kelvin <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) { ... }</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Composed function</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>fahr_to_celsius <span class="ot">&lt;-</span> <span class="cf">function</span>(temp) {</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fahr_to_kelvin</span>(temp) <span class="sc">%&gt;%</span> <span class="fu">kelvin_to_celsius</span>()</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="return-values" class="level2">
+<h2 class="anchored" data-anchor-id="return-values">Return Values</h2>
+<p>What should functions return?</p>
+<ul>
+<li><strong>Single value</strong>: Number, string, logical</li>
+<li><strong>Vector</strong>: Multiple values of same type</li>
+<li><strong>List</strong>: Multiple values of different types</li>
+<li><strong>Data frame</strong>: Tabular results</li>
+</ul>
+<p>Choose based on what makes sense!</p>
+</section>
+<section id="advanced-topics-preview" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="advanced-topics-preview">Advanced Topics (Preview)</h2>
+<p>Beyond this lesson:</p>
+<ul>
+<li>Anonymous functions (lambda)</li>
+<li>Functions as arguments</li>
+<li>Environments and closures</li>
+<li>S3 and S4 object systems</li>
+<li>Package development</li>
+</ul>
+<p>Resources: R Language Manual, Advanced R by Hadley Wickham</p>
+</section>
+<section id="practice-exercise" class="level2">
+<h2 class="anchored" data-anchor-id="practice-exercise">Practice Exercise</h2>
+<p>On your own, write a function that:</p>
+<ol type="1">
+<li>Takes a data frame and column name</li>
+<li>Calculates summary statistics</li>
+<li>Returns a named vector with min, max, mean, median</li>
+</ol>
+<p>Bonus: Add error checking!</p>
+</section>
+<section id="recap" class="level2">
+<h2 class="anchored" data-anchor-id="recap">Recap</h2>
+<p>Today we learned:</p>
+<ul>
+<li>How to define functions</li>
+<li>Function anatomy (name, parameters, body, return)</li>
+<li>Combining functions</li>
+<li>Defensive programming with <code>stopifnot()</code></li>
+<li>Default arguments for flexibility</li>
+<li>Testing and documentation</li>
+</ul>
+</section>
+<section id="remember" class="level2">
+<h2 class="anchored" data-anchor-id="remember">Remember</h2>
+<p><strong>Functions are the building blocks of programming!</strong></p>
+<ul>
+<li>Start simple, build complexity gradually</li>
+<li>Test early and often</li>
+<li>Document for future you</li>
+<li>Don’t repeat yourself - write functions!</li>
+</ul>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li>Software Carpentry: <a href="https://swcarpentry.github.io/r-novice-gapminder/">r-novice-gapminder</a></li>
+<li>R Documentation: <code>?function</code>, <code>?stopifnot</code></li>
+<li>Advanced R by Hadley Wickham</li>
+<li>R Language Manual</li>
+</ul>
+</section>
+<section id="questions-1" class="level2">
+<h2 class="anchored" data-anchor-id="questions-1">Questions?</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

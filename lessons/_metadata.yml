@@ -1,13 +1,8 @@
-output-dir: "../docs/lessons"
-
 format:
   html:
     theme: cosmo
     toc: true
     code-copy: true
-
-execute:
-  freeze: auto
 
 knitr:
   opts_knit:

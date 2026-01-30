@@ -1,0 +1,9 @@
+.reveal h1 {
+  white-space: nowrap;
+  font-size: 2.5em;
+}
+
+.reveal .challenge-title h2 {
+  color: darkred;
+}
+
