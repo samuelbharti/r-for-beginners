@@ -3,7 +3,7 @@ project:
   output-dir: docs
   render:
     - index.qmd
-    - src/*.qmd
+    - lessons/*.qmd
   resources:
     - .nojekyll
 
@@ -20,7 +20,7 @@ website:
         href: https://github.com/samuelbharti/sw-r-novice-gapminder-lessons
 
 metadata-files:
-  - src/_metadata.yml
+  - lessons/_metadata.yml
 
 format:
   html:

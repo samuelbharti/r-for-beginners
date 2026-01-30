@@ -28,7 +28,7 @@ Load data from CSV files:
 #| eval: true
 #| echo: true
 
-cats <- read.csv("data/feline-data.csv")
+cats <- read.csv("../data/feline-data.csv")
 cats
 ```
 

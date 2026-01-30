@@ -4,7 +4,7 @@
 
 ```
 ├── index.qmd              # Homepage (renders to docs/index.html)
-├── src/                   # Lesson source files (.qmd)
+├── lessons/               # Lesson source files (.qmd)
 │   └── exploring_dataframes.qmd
 ├── docs/                  # Generated website (for GitHub Pages)
 │   ├── index.html
@@ -41,6 +41,6 @@ Your site will be at: `https://samuelbharti.github.io/sw-r-novice-gapminder-less
 
 ## Add More Lessons
 
-1. Create new `.qmd` file in `src/` directory
+1. Create new `.qmd` file in `lessons/` directory
 2. Add to navbar in `_quarto.yml`
 3. Run `quarto render`
