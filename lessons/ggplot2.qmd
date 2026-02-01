@@ -1,6 +1,6 @@
 ---
 title: "Creating Publication-Quality Graphics with ggplot2"
-author: "Samuel Bharti"
+subtitle: "Adapted from Software Carpentry by Samuel Bharti"
 ---
 
 ## Overview

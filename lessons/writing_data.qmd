@@ -1,6 +1,6 @@
 ---
 title: "Writing Data in R"
-author: "Samuel Bharti"
+subtitle: "Adapted from Software Carpentry by Samuel Bharti"
 ---
 
 ## Overview
