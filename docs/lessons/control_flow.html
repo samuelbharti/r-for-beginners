@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Samuel Bharti">
+
+<title>Control Flow in R – R for Novices - Gapminder Lessons</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9859d952baf36b9a7db628bbb9f3169e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../custom.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R for Novices - Gapminder Lessons</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/exploring_dataframes.html"> 
+<span class="menu-text">Exploring Data Frames</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/data_subsetting.html"> 
+<span class="menu-text">Subsetting Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../lessons/control_flow.html" aria-current="page"> 
+<span class="menu-text">Control Flow</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/ggplot2.html"> 
+<span class="menu-text">ggplot2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/functions.html"> 
+<span class="menu-text">Functions</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/writing_data.html"> 
+<span class="menu-text">Writing Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons/dplyr.html"> 
+<span class="menu-text">dplyr</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/samuelbharti/sw-r-novice-gapminder-lessons"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  <li><a href="#why-control-flow" id="toc-why-control-flow" class="nav-link" data-scroll-target="#why-control-flow">Why Control Flow?</a></li>
+  <li><a href="#conditional-statements" id="toc-conditional-statements" class="nav-link" data-scroll-target="#conditional-statements">Conditional Statements</a></li>
+  <li><a href="#simple-if-statement" id="toc-simple-if-statement" class="nav-link" data-scroll-target="#simple-if-statement">Simple if Statement</a></li>
+  <li><a href="#adding-else" id="toc-adding-else" class="nav-link" data-scroll-target="#adding-else">Adding else</a></li>
+  <li><a href="#multiple-conditions-with-else-if" id="toc-multiple-conditions-with-else-if" class="nav-link" data-scroll-target="#multiple-conditions-with-else-if">Multiple Conditions with else if</a></li>
+  <li><a href="#logical-elements-in-conditions" id="toc-logical-elements-in-conditions" class="nav-link" data-scroll-target="#logical-elements-in-conditions">Logical Elements in Conditions</a></li>
+  <li><a href="#understanding-the-condition" id="toc-understanding-the-condition" class="nav-link" data-scroll-target="#understanding-the-condition">Understanding the Condition</a></li>
+  <li><a href="#challenge-1" id="toc-challenge-1" class="nav-link" data-scroll-target="#challenge-1">Challenge 1</a></li>
+  <li><a href="#challenge-1-solution" id="toc-challenge-1-solution" class="nav-link" data-scroll-target="#challenge-1-solution">Challenge 1 Solution</a></li>
+  <li><a href="#challenge-1-solution-continued" id="toc-challenge-1-solution-continued" class="nav-link" data-scroll-target="#challenge-1-solution-continued">Challenge 1 Solution (continued)</a></li>
+  <li><a href="#challenge-1-solution-for-2012" id="toc-challenge-1-solution-for-2012" class="nav-link" data-scroll-target="#challenge-1-solution-for-2012">Challenge 1 Solution (for 2012)</a></li>
+  <li><a href="#common-mistake-with-if" id="toc-common-mistake-with-if" class="nav-link" data-scroll-target="#common-mistake-with-if">Common Mistake with if()</a></li>
+  <li><a href="#the-ifelse-function" id="toc-the-ifelse-function" class="nav-link" data-scroll-target="#the-ifelse-function">The ifelse() Function</a></li>
+  <li><a href="#ifelse-example" id="toc-ifelse-example" class="nav-link" data-scroll-target="#ifelse-example">ifelse() Example</a></li>
+  <li><a href="#any-and-all-functions" id="toc-any-and-all-functions" class="nav-link" data-scroll-target="#any-and-all-functions">any() and all() Functions</a></li>
+  <li><a href="#using-any-with-data" id="toc-using-any-with-data" class="nav-link" data-scroll-target="#using-any-with-data">Using any() with Data</a></li>
+  <li><a href="#repeating-operations-for-loops" id="toc-repeating-operations-for-loops" class="nav-link" data-scroll-target="#repeating-operations-for-loops">Repeating Operations: for Loops</a></li>
+  <li><a href="#basic-for-loop" id="toc-basic-for-loop" class="nav-link" data-scroll-target="#basic-for-loop">Basic for Loop</a></li>
+  <li><a href="#iterating-over-any-vector" id="toc-iterating-over-any-vector" class="nav-link" data-scroll-target="#iterating-over-any-vector">Iterating Over Any Vector</a></li>
+  <li><a href="#nested-for-loops" id="toc-nested-for-loops" class="nav-link" data-scroll-target="#nested-for-loops">Nested for Loops</a></li>
+  <li><a href="#understanding-nested-loops" id="toc-understanding-nested-loops" class="nav-link" data-scroll-target="#understanding-nested-loops">Understanding Nested Loops</a></li>
+  <li><a href="#storing-loop-results" id="toc-storing-loop-results" class="nav-link" data-scroll-target="#storing-loop-results">Storing Loop Results</a></li>
+  <li><a href="#dont-grow-your-results" id="toc-dont-grow-your-results" class="nav-link" data-scroll-target="#dont-grow-your-results">Don’t Grow Your Results!</a></li>
+  <li><a href="#better-approach-pre-allocate" id="toc-better-approach-pre-allocate" class="nav-link" data-scroll-target="#better-approach-pre-allocate">Better Approach: Pre-allocate</a></li>
+  <li><a href="#challenge-2" id="toc-challenge-2" class="nav-link" data-scroll-target="#challenge-2">Challenge 2</a></li>
+  <li><a href="#challenge-2-solution" id="toc-challenge-2-solution" class="nav-link" data-scroll-target="#challenge-2-solution">Challenge 2 Solution</a></li>
+  <li><a href="#challenge-2-solution-continued" id="toc-challenge-2-solution-continued" class="nav-link" data-scroll-target="#challenge-2-solution-continued">Challenge 2 Solution (continued)</a></li>
+  <li><a href="#while-loops" id="toc-while-loops" class="nav-link" data-scroll-target="#while-loops">while Loops</a></li>
+  <li><a href="#while-loop-example" id="toc-while-loop-example" class="nav-link" data-scroll-target="#while-loop-example">while Loop Example</a></li>
+  <li><a href="#while-loop-warning" id="toc-while-loop-warning" class="nav-link" data-scroll-target="#while-loop-warning">while Loop Warning</a></li>
+  <li><a href="#challenge-3" id="toc-challenge-3" class="nav-link" data-scroll-target="#challenge-3">Challenge 3</a></li>
+  <li><a href="#challenge-3-solution" id="toc-challenge-3-solution" class="nav-link" data-scroll-target="#challenge-3-solution">Challenge 3 Solution</a></li>
+  <li><a href="#challenge-3-solution-continued" id="toc-challenge-3-solution-continued" class="nav-link" data-scroll-target="#challenge-3-solution-continued">Challenge 3 Solution (continued)</a></li>
+  <li><a href="#challenge-4" id="toc-challenge-4" class="nav-link" data-scroll-target="#challenge-4">Challenge 4</a></li>
+  <li><a href="#challenge-4-solution" id="toc-challenge-4-solution" class="nav-link" data-scroll-target="#challenge-4-solution">Challenge 4 Solution</a></li>
+  <li><a href="#challenge-5---advanced" id="toc-challenge-5---advanced" class="nav-link" data-scroll-target="#challenge-5---advanced">Challenge 5 - Advanced</a></li>
+  <li><a href="#challenge-5-solution" id="toc-challenge-5-solution" class="nav-link" data-scroll-target="#challenge-5-solution">Challenge 5 Solution</a></li>
+  <li><a href="#challenge-5-solution-continued" id="toc-challenge-5-solution-continued" class="nav-link" data-scroll-target="#challenge-5-solution-continued">Challenge 5 Solution (continued)</a></li>
+  <li><a href="#when-to-use-for-loops" id="toc-when-to-use-for-loops" class="nav-link" data-scroll-target="#when-to-use-for-loops">When to Use for Loops</a></li>
+  <li><a href="#key-points" id="toc-key-points" class="nav-link" data-scroll-target="#key-points">Key Points</a></li>
+  <li><a href="#important-reminders" id="toc-important-reminders" class="nav-link" data-scroll-target="#important-reminders">Important Reminders</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#questions-1" id="toc-questions-1" class="nav-link" data-scroll-target="#questions-1">Questions?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Control Flow in R</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Samuel Bharti </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Today we will learn to:</p>
+<ul>
+<li>Make data-dependent choices with <code>if...else</code> statements</li>
+<li>Use the <code>ifelse()</code> function for vectorized conditions</li>
+<li>Write and understand <code>for()</code> loops</li>
+<li>Repeat operations using <code>while()</code> loops</li>
+</ul>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<ul>
+<li>How can I make data-dependent choices in R?</li>
+<li>How can I repeat operations in R?</li>
+</ul>
+</section>
+<section id="why-control-flow" class="level2">
+<h2 class="anchored" data-anchor-id="why-control-flow">Why Control Flow?</h2>
+<p>Often when coding, we want to control the flow of our actions:</p>
+<ul>
+<li>Set actions to occur only if a condition is met</li>
+<li>Set an action to occur a particular number of times</li>
+<li>Make decisions based on data values</li>
+</ul>
+<p>Control flow is essential for automating complex analyses!</p>
+</section>
+<section id="conditional-statements" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-statements">Conditional Statements</h2>
+<p>The most common approaches for conditional statements:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (condition is true) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  perform action</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if ... else</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (condition is true) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  perform action</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {  <span class="co"># that is, if the condition is false,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  perform alternative action</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="simple-if-statement" class="level2">
+<h2 class="anchored" data-anchor-id="simple-if-statement">Simple if Statement</h2>
+<p>Print a message if a variable has a particular value:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;=</span> <span class="dv">10</span>) {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is greater than or equal to 10"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+</div>
+<p>The print statement doesn’t appear because x is not greater than 10.</p>
+</section>
+<section id="adding-else" class="level2">
+<h2 class="anchored" data-anchor-id="adding-else">Adding else</h2>
+<p>To print a message for numbers less than 10, add <code>else</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;=</span> <span class="dv">10</span>) {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is greater than or equal to 10"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is less than 10"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x is less than 10"</code></pre>
+</div>
+</div>
+</section>
+<section id="multiple-conditions-with-else-if" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-conditions-with-else-if">Multiple Conditions with else if</h2>
+<p>Test multiple conditions using <code>else if</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;=</span> <span class="dv">10</span>) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is greater than or equal to 10"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">5</span>) {</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is greater than 5, but less than 10"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is less than 5"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x is greater than 5, but less than 10"</code></pre>
+</div>
+</div>
+</section>
+<section id="logical-elements-in-conditions" class="level2 callout-warning">
+<h2 class="callout-warning anchored" data-anchor-id="logical-elements-in-conditions">Logical Elements in Conditions</h2>
+<p><strong>Important:</strong> R looks for a logical element (<code>TRUE</code> or <code>FALSE</code>) inside <code>if()</code> statements.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">==</span> <span class="dv">3</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x) {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 equals 3"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4 does not equal 3"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "4 does not equal 3"</code></pre>
+</div>
+</div>
+</section>
+<section id="understanding-the-condition" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-condition">Understanding the Condition</h2>
+<p>The “not equal” message was printed because <code>x</code> is <code>FALSE</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">==</span> <span class="dv">3</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-1" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-1">Challenge 1</h2>
+<p>Use an <code>if()</code> statement to print a suitable message reporting whether there are any records from 2002 in the <code>gapminder</code> dataset.</p>
+<p>Now do the same for 2012.</p>
+<p><strong>Hint:</strong> Think about how to check if any values match a condition!</p>
+</section>
+<section id="challenge-1-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-1-solution">Challenge 1 Solution</h2>
+<p>First, let’s load the data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="challenge-1-solution-continued" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-1-solution-continued">Challenge 1 Solution (continued)</h2>
+<p>Check for records from 2002:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">any</span>(gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2002</span>)) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"Record(s) for the year 2002 found."</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Record(s) for the year 2002 found."</code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-1-solution-for-2012" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-1-solution-for-2012">Challenge 1 Solution (for 2012)</h2>
+<p>Did you try this for 2012?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2012</span>) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"Record(s) for the year 2012 found."</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You may have received a warning or error!</p>
+</section>
+<section id="common-mistake-with-if" class="level2 callout-warning">
+<h2 class="callout-warning anchored" data-anchor-id="common-mistake-with-if">Common Mistake with if()</h2>
+<p>The <code>if()</code> function only accepts singular (length 1) inputs:</p>
+<pre><code>Error in `if (gapminder$year == 2012) ...`:
+! the condition has length &gt; 1</code></pre>
+<p>The <code>if()</code> function will only evaluate the condition in the <strong>first element</strong> of the vector.</p>
+<p>To use <code>if()</code>, make sure your input is singular (length 1)!</p>
+</section>
+<section id="the-ifelse-function" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="the-ifelse-function">The ifelse() Function</h2>
+<p>R’s built-in <code>ifelse()</code> function accepts both singular and vector inputs:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ifelse function</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(condition is true, perform action, perform alternative action)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>First argument: condition(s) to be met</li>
+<li>Second argument: evaluated when <code>TRUE</code></li>
+<li>Third argument: evaluated when <code>FALSE</code></li>
+</ul>
+</section>
+<section id="ifelse-example" class="level2">
+<h2 class="anchored" data-anchor-id="ifelse-example">ifelse() Example</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(y <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="st">"y is a negative number"</span>, <span class="st">"y is either positive or zero"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "y is a negative number"</code></pre>
+</div>
+</div>
+<p>Works with vectors too!</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">8</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(values <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="st">"negative"</span>, <span class="st">"non-negative"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "negative"     "non-negative" "non-negative" "negative"     "non-negative"</code></pre>
+</div>
+</div>
+</section>
+<section id="any-and-all-functions" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="any-and-all-functions">any() and all() Functions</h2>
+<p>Two useful functions for checking conditions on vectors:</p>
+<ul>
+<li><code>any()</code> - returns <code>TRUE</code> if <strong>at least one</strong> <code>TRUE</code> value is found</li>
+<li><code>all()</code> - returns <code>TRUE</code> only if <strong>all</strong> values are <code>TRUE</code></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(x)  <span class="co"># TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(x)  <span class="co"># FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="using-any-with-data" class="level2">
+<h2 class="anchored" data-anchor-id="using-any-with-data">Using any() with Data</h2>
+<p>Check if any records exist for a year:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2002</span>)  <span class="co"># TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2012</span>)  <span class="co"># FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Similar to the <code>%in%</code> operator!</p>
+</section>
+<section id="repeating-operations-for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="repeating-operations-for-loops">Repeating Operations: for Loops</h2>
+<p>If you want to iterate over a set of values and perform the same operation on each, use a <code>for()</code> loop:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (iterator <span class="cf">in</span> set of values) {</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  do a thing</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="basic-for-loop" class="level2">
+<h2 class="anchored" data-anchor-id="basic-for-loop">Basic for Loop</h2>
+<p>Print numbers 1 through 10:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10</code></pre>
+</div>
+</div>
+<p>The <code>1:10</code> creates a vector on the fly.</p>
+</section>
+<section id="iterating-over-any-vector" class="level2">
+<h2 class="anchored" data-anchor-id="iterating-over-any-vector">Iterating Over Any Vector</h2>
+<p>You can iterate over any vector:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (color <span class="cf">in</span> colors) {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(color)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "red"
+[1] "green"
+[1] "blue"</code></pre>
+</div>
+</div>
+</section>
+<section id="nested-for-loops" class="level2">
+<h2 class="anchored" data-anchor-id="nested-for-loops">Nested for Loops</h2>
+<p>Use a <code>for()</code> loop nested within another to iterate over two things:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>)) {</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(i, j))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1 a"
+[1] "1 b"
+[1] "1 c"
+[1] "2 a"
+[1] "2 b"
+[1] "2 c"
+[1] "3 a"
+[1] "3 b"
+[1] "3 c"</code></pre>
+</div>
+</div>
+</section>
+<section id="understanding-nested-loops" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-nested-loops">Understanding Nested Loops</h2>
+<p>When the first index (<code>i</code>) is set to 1:</p>
+<ul>
+<li>The second index (<code>j</code>) iterates through its full set</li>
+<li>Once <code>j</code> is complete, <code>i</code> is incremented</li>
+<li>Process continues until all indices are used</li>
+</ul>
+</section>
+<section id="storing-loop-results" class="level2">
+<h2 class="anchored" data-anchor-id="storing-loop-results">Storing Loop Results</h2>
+<p>Write loop output to a new object:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>output_vector <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>)) {</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    temp_output <span class="ot">&lt;-</span> <span class="fu">paste</span>(i, j)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    output_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(output_vector, temp_output)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>output_vector</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "1 a" "1 b" "1 c" "1 d" "1 e" "2 a" "2 b" "2 c" "2 d" "2 e" "3 a" "3 b"
+[13] "3 c" "3 d" "3 e" "4 a" "4 b" "4 c" "4 d" "4 e" "5 a" "5 b" "5 c" "5 d"
+[25] "5 e"</code></pre>
+</div>
+</div>
+</section>
+<section id="dont-grow-your-results" class="level2 callout-warning">
+<h2 class="callout-warning anchored" data-anchor-id="dont-grow-your-results">Don’t Grow Your Results!</h2>
+<p>“Growing” results (building the result object incrementally) is computationally <strong>inefficient</strong>.</p>
+<p>The problem:</p>
+<ul>
+<li>Computers are bad at handling this</li>
+<li>Calculations can quickly slow to a crawl</li>
+</ul>
+<p><strong>Better approach:</strong> Define an empty results object with appropriate dimensions before filling in values.</p>
+</section>
+<section id="better-approach-pre-allocate" class="level2">
+<h2 class="anchored" data-anchor-id="better-approach-pre-allocate">Better Approach: Pre-allocate</h2>
+<p>Define your output object before filling values:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>output_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>j_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>, <span class="st">'e'</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    temp_j_value <span class="ot">&lt;-</span> j_vector[j]</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    temp_output <span class="ot">&lt;-</span> <span class="fu">paste</span>(i, temp_j_value)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    output_matrix[i, j] <span class="ot">&lt;-</span> temp_output</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>output_vector2 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(output_matrix)</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>output_vector2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "1 a" "2 a" "3 a" "4 a" "5 a" "1 b" "2 b" "3 b" "4 b" "5 b" "1 c" "2 c"
+[13] "3 c" "4 c" "5 c" "1 d" "2 d" "3 d" "4 d" "5 d" "1 e" "2 e" "3 e" "4 e"
+[25] "5 e"</code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-2" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-2">Challenge 2</h2>
+<p>Compare the objects <code>output_vector</code> and <code>output_vector2</code>.</p>
+<ul>
+<li>Are they the same?</li>
+<li>If not, why not?</li>
+<li>How would you change the last block of code to make <code>output_vector2</code> the same as <code>output_vector</code>?</li>
+</ul>
+</section>
+<section id="challenge-2-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-2-solution">Challenge 2 Solution</h2>
+<p>Check if they’re identical:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(output_vector <span class="sc">==</span> output_vector2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>They’re not the same! But all elements exist in both:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(output_vector <span class="sc">%in%</span> output_vector2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-2-solution-continued" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-2-solution-continued">Challenge 2 Solution (continued)</h2>
+<p>The elements are sorted in different order because <code>as.vector()</code> outputs elements by <strong>column</strong>.</p>
+<p><strong>Fix:</strong> Transpose the output matrix:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>output_vector2 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">t</span>(output_matrix))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(output_vector <span class="sc">==</span> output_vector2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="while-loops" class="level2 callout-tip">
+<h2 class="callout-tip anchored" data-anchor-id="while-loops">while Loops</h2>
+<p>Sometimes you need to repeat an operation as long as a condition is met:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (this condition is true) {</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  do a thing</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>R interprets a condition being met as <code>TRUE</code>.</p>
+</section>
+<section id="while-loop-example" class="level2">
+<h2 class="anchored" data-anchor-id="while-loop-example">while Loop Example</h2>
+<p>Generate random numbers until you get one less than 0.1:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (z <span class="sc">&gt;</span> <span class="fl">0.1</span>) {</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(z, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.914806 
+0.9370754 
+0.2861395 
+0.8304476 
+0.6417455 
+0.5190959 
+0.7365883 
+0.1346666 
+0.6569923 
+0.7050648 
+0.4577418 
+0.7191123 
+0.9346722 
+0.2554288 
+0.4622928 
+0.9400145 
+0.9782264 
+0.1174874 
+0.4749971 
+0.5603327 
+0.9040314 
+0.1387102 
+0.9888917 
+0.9466682 
+0.08243756 </code></pre>
+</div>
+</div>
+</section>
+<section id="while-loop-warning" class="level2 callout-warning">
+<h2 class="callout-warning anchored" data-anchor-id="while-loop-warning">while Loop Warning</h2>
+<p>Be careful with <code>while()</code> loops!</p>
+<ul>
+<li>Ensure your condition will eventually be <code>FALSE</code></li>
+<li>Otherwise you’ll be stuck in an <strong>infinite loop</strong></li>
+<li>The loop never terminates if the condition is always met</li>
+</ul>
+</section>
+<section id="challenge-3" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-3">Challenge 3</h2>
+<p>Write a script that loops through the <code>gapminder</code> data by continent and prints out whether the mean life expectancy is smaller or larger than 50 years.</p>
+<p><strong>Hint:</strong> Use <code>unique()</code> to get continent names, then subset and calculate means.</p>
+</section>
+<section id="challenge-3-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-3-solution">Challenge 3 Solution</h2>
+<p>Step 1: Get unique continents:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(gapminder<span class="sc">$</span>continent)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Asia"     "Europe"   "Africa"   "Americas" "Oceania" </code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-3-solution-continued" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-3-solution-continued">Challenge 3 Solution (continued)</h2>
+<p>Step 2: Loop and calculate:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>thresholdValue <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (iContinent <span class="cf">in</span> <span class="fu">unique</span>(gapminder<span class="sc">$</span>continent)) {</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">mean</span>(gapminder[gapminder<span class="sc">$</span>continent <span class="sc">==</span> iContinent, <span class="st">"lifeExp"</span>])</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tmp <span class="sc">&lt;</span> thresholdValue) {</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Average Life Expectancy in"</span>, iContinent, <span class="st">"is less than"</span>, thresholdValue, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Average Life Expectancy in"</span>, iContinent, <span class="st">"is greater than"</span>, thresholdValue, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(tmp)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Average Life Expectancy in Asia is greater than 50 
+Average Life Expectancy in Europe is greater than 50 
+Average Life Expectancy in Africa is less than 50 
+Average Life Expectancy in Americas is greater than 50 
+Average Life Expectancy in Oceania is greater than 50 </code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-4" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-4">Challenge 4</h2>
+<p>Modify the script from Challenge 3 to loop over each <strong>country</strong>.</p>
+<p>This time print out whether the life expectancy is:</p>
+<ul>
+<li>smaller than 50</li>
+<li>between 50 and 70</li>
+<li>greater than 70</li>
+</ul>
+</section>
+<section id="challenge-4-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-4-solution">Challenge 4 Solution</h2>
+<p>Add two thresholds and extend the if-else statements:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>lowerThreshold <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>upperThreshold <span class="ot">&lt;-</span> <span class="dv">70</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (iCountry <span class="cf">in</span> <span class="fu">unique</span>(gapminder<span class="sc">$</span>country)) {</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">mean</span>(gapminder[gapminder<span class="sc">$</span>country <span class="sc">==</span> iCountry, <span class="st">"lifeExp"</span>])</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tmp <span class="sc">&lt;</span> lowerThreshold) {</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Average Life Expectancy in"</span>, iCountry, <span class="st">"is less than"</span>, lowerThreshold, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (tmp <span class="sc">&gt;</span> lowerThreshold <span class="sc">&amp;&amp;</span> tmp <span class="sc">&lt;</span> upperThreshold) {</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Average Life Expectancy in"</span>, iCountry, <span class="st">"is between"</span>, lowerThreshold, <span class="st">"and"</span>, upperThreshold, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Average Life Expectancy in"</span>, iCountry, <span class="st">"is greater than"</span>, upperThreshold, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(tmp)</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="challenge-5---advanced" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-5---advanced">Challenge 5 - Advanced</h2>
+<p>Write a script that loops over each country in the <code>gapminder</code> dataset:</p>
+<ol type="1">
+<li>Tests whether the country starts with a ‘B’</li>
+<li>Graphs life expectancy against time as a line graph if the mean life expectancy is under 50 years</li>
+</ol>
+<p><strong>Hint:</strong> Use <code>grep()</code> with <code>value = TRUE</code> to find countries starting with “B”.</p>
+</section>
+<section id="challenge-5-solution" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-5-solution">Challenge 5 Solution</h2>
+<p>Find countries starting with “B”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">"^B"</span>, <span class="fu">unique</span>(gapminder<span class="sc">$</span>country), <span class="at">value =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Bahrain"                "Bangladesh"             "Belgium"               
+ [4] "Benin"                  "Bolivia"                "Bosnia and Herzegovina"
+ [7] "Botswana"               "Brazil"                 "Bulgaria"              
+[10] "Burkina Faso"           "Burundi"               </code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-5-solution-continued" class="level2 challenge-title">
+<h2 class="challenge-title anchored" data-anchor-id="challenge-5-solution-continued">Challenge 5 Solution (continued)</h2>
+<p>Complete solution:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>thresholdValue <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>candidateCountries <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"^B"</span>, <span class="fu">unique</span>(gapminder<span class="sc">$</span>country), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (iCountry <span class="cf">in</span> candidateCountries) {</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">mean</span>(gapminder[gapminder<span class="sc">$</span>country <span class="sc">==</span> iCountry, <span class="st">"lifeExp"</span>])</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tmp <span class="sc">&lt;</span> thresholdValue) {</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Average Life Expectancy in"</span>, iCountry, <span class="st">"is less than"</span>, thresholdValue, </span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"- plotting life expectancy graph...</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with</span>(<span class="fu">subset</span>(gapminder, country <span class="sc">==</span> iCountry),</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>         <span class="fu">plot</span>(year, lifeExp,</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">type =</span> <span class="st">"o"</span>,</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Life Expectancy in"</span>, iCountry, <span class="st">"over time"</span>),</span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">ylab =</span> <span class="st">"Life Expectancy"</span>,</span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">xlab =</span> <span class="st">"Year"</span></span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Average Life Expectancy in Bangladesh is less than 50 - plotting life expectancy graph...</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="control_flow_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Average Life Expectancy in Benin is less than 50 - plotting life expectancy graph...</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="control_flow_files/figure-html/unnamed-chunk-30-2.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Average Life Expectancy in Burkina Faso is less than 50 - plotting life expectancy graph...</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="control_flow_files/figure-html/unnamed-chunk-30-3.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Average Life Expectancy in Burundi is less than 50 - plotting life expectancy graph...</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="control_flow_files/figure-html/unnamed-chunk-30-4.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="when-to-use-for-loops" class="level2 callout-note">
+<h2 class="callout-note anchored" data-anchor-id="when-to-use-for-loops">When to Use for Loops</h2>
+<p>The advice of many R users:</p>
+<ul>
+<li>Learn about <code>for()</code> loops</li>
+<li>But avoid them unless order of iteration is important</li>
+<li>i.e., when calculations depend on previous iterations</li>
+</ul>
+<p>If order doesn’t matter, consider vectorized alternatives like the <code>purrr</code> package for better computational efficiency.</p>
+</section>
+<section id="key-points" class="level2">
+<h2 class="anchored" data-anchor-id="key-points">Key Points</h2>
+<ul>
+<li>Use <code>if</code> and <code>else</code> to make choices</li>
+<li>Use <code>for</code> to repeat operations</li>
+<li>Use <code>while</code> for condition-based repetition</li>
+<li>Pre-allocate results objects for efficiency</li>
+<li>Consider vectorized alternatives when possible</li>
+</ul>
+</section>
+<section id="important-reminders" class="level2">
+<h2 class="anchored" data-anchor-id="important-reminders">Important Reminders</h2>
+<ul>
+<li><code>if()</code> expects a single logical value (length 1)</li>
+<li>Use <code>any()</code> or <code>all()</code> to summarize logical vectors</li>
+<li>Use <code>ifelse()</code> for vectorized conditional operations</li>
+<li>Avoid growing results inside loops</li>
+<li>Be careful not to create infinite <code>while</code> loops</li>
+</ul>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li>Software Carpentry: <a href="https://swcarpentry.github.io/r-novice-gapminder/">r-novice-gapminder</a></li>
+<li>R Documentation: <code>?if</code>, <code>?for</code>, <code>?while</code></li>
+<li>RStudio Cheatsheets</li>
+</ul>
+</section>
+<section id="questions-1" class="level2">
+<h2 class="anchored" data-anchor-id="questions-1">Questions?</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
