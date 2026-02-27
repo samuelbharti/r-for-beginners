@@ -39,6 +39,20 @@ These materials are designed as a **supplementary resource** for R programming w
 
 Use whichever format works best for your learning style!
 
+## About Quarto & the Slides
+
+This whole site is built with [Quarto](https://quarto.org/) — an open-source publishing system that turns plain text into websites, slides, PDFs, and more. Think of it as a modern, flexible way to write and share content without needing separate tools for each format.
+
+The slide decks use **Quarto's reveal.js format**, and they're honestly pretty cool:
+
+- Navigate **horizontally** through main topics or **vertically** through sub-topics
+- Press **F** to go full screen
+- Press **S** to open **speaker/presentation mode** (with notes and a timer)
+- Hit **E** to switch to a **PDF-friendly view**, then print or save as PDF
+- Built-in **chalkboard** to draw on slides during a live session
+
+It's an excellent setup for teaching — everything lives in one place, looks clean, and just works in the browser. No PowerPoint needed.
+
 ## Who Is This For?
 
 - **Instructors**: Use these materials for teaching R programming workshops
