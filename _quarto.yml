@@ -15,6 +15,8 @@ website:
         text: Home
       - href: lessons/rstudio-intro.html
         text: Introduction to RStudio
+      - href: lessons/project-management.html
+        text: Project Management
       - href: lessons/exploring_dataframes.html
         text: Exploring Data Frames
       - href: lessons/data_subsetting.html
