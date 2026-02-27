@@ -1393,6 +1393,13 @@
     "text": "Available Lessons\n\nIntroduction to RStudio (Slides) - Get familiar with the RStudio interface and R fundamentals\nProject Management with RStudio (Slides) - Organize your work with RStudio projects and best practices\nSeeking Help (Slides) - Learn how to find answers and get help when you’re stuck\nData Structures (Slides) - Understand R’s core data types and structures\nExploring Data Frames (Slides) - Learn to manipulate and explore data frames in R\nSubsetting Data (Slides) - Master techniques for extracting subsets of data\nControl Flow (Slides) - Make decisions with if/else statements and repeat operations with loops\nCreating Publication-Quality Graphics with ggplot2 (Slides) - Build professional visualizations using the grammar of graphics\nVectorization (Slides) - Operate on all elements of a vector at once for efficient code\nFunctions Explained (Slides) - Understand and create your own R functions\nWriting Data (Slides) - Learn to export and save your data\nData Frame Manipulation with dplyr (Slides) - Master data wrangling with dplyr verbs and pipes\nProducing Reports With knitr (Slides) - Create reproducible reports integrating code and narrative\nWriting Good Software (Slides) - Apply best practices for readable, reusable R code"
   },
   {
+    "objectID": "index.html#about-the-slides",
+    "href": "index.html#about-the-slides",
+    "title": "R for Novices - Gapminder Lessons",
+    "section": "About the Slides",
+    "text": "About the Slides\nThe slides on this site are built with Quarto, an open-source publishing system that lets you write content in plain text and turn it into websites, slides, PDFs, and more — all from the same source.\nThe slide decks use Quarto’s reveal.js format, and they’re honestly pretty cool. You can:\n\nNavigate horizontally through main topics or vertically through sub-topics\nPress F to go full screen\nPress S to open speaker/presentation mode (with notes and a timer)\nHit E to switch to a PDF-friendly view, then print or save as PDF\nUse the built-in chalkboard to draw on slides during a live session\n\nIt’s an excellent setup for teaching — everything lives in one place, looks clean, and just works in the browser. No PowerPoint, no extra software."
+  },
+  {
     "objectID": "index.html#about",
     "href": "index.html#about",
     "title": "R for Novices - Gapminder Lessons",
