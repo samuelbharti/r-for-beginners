@@ -102,17 +102,27 @@ Quick notes for contributors:
 
 ## Build the Website
 
-Run in PowerShell or Terminal:
+Render the lesson pages:
 ```bash
 quarto render
 ```
 
-To build lessons and slides together:
-```powershell
-./build.ps1
+Then render the slides:
+```bash
+cd slides
+quarto render
+cd ..
 ```
 
-Or in RStudio: Open `index.qmd` and click **Render**
+Or do both in one go:
+```bash
+# Bash
+quarto render && cd slides && quarto render && cd ..
+```
+```powershell
+# PowerShell
+quarto render; Push-Location slides; quarto render; Pop-Location
+```
 
 ## Deploy to GitHub Pages
 
