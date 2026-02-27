@@ -15,13 +15,20 @@ This website presents R programming lessons in a decluttered, streamlined format
 
 ## Lessons
 
-1. **[Exploring Data Frames](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/exploring_dataframes.html)** - Learn to manipulate and explore data frames in R
-2. **[Subsetting Data](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/data_subsetting.html)** - Master techniques for extracting subsets of data
-3. **[Control Flow](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/control_flow.html)** - Make decisions with if/else statements and repeat operations with loops
-4. **[Creating Publication-Quality Graphics with ggplot2](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/ggplot2.html)** - Build professional visualizations using the grammar of graphics
-5. **[Functions Explained](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/functions.html)** - Understand and create your own R functions
-6. **[Writing Data](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/writing_data.html)** - Learn to export and save your data
-7. **[Data Frame Manipulation with dplyr](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/dplyr.html)** - Master data wrangling with dplyr verbs and pipes
+1. **Intro to R** - Get oriented with R and RStudio ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/rstudio-intro.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/rstudio-intro.html))
+2. **Projects** - Organize your work with projects ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/project-management.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/project-management.html))
+3. **Seeking Help** - Learn to find and use help effectively ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/seeking-help.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/seeking-help.html))
+4. **Data Structures** - Understand vectors, lists, and data frames ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/data-structures.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/data-structures.html))
+5. **Exploring Data Frames** - Explore and inspect data frames in R ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/exploring_dataframes.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/exploring_dataframes.html))
+6. **Subsetting Data** - Extract subsets of data with base R ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/data_subsetting.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/data_subsetting.html))
+7. **Control Flow** - Use conditionals and loops ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/control_flow.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/control_flow.html))
+8. **ggplot2** - Create clear and effective graphics ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/ggplot2.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/ggplot2.html))
+9. **Vectorization** - Write faster, cleaner code ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/vectorization.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/vectorization.html))
+10. **Functions** - Build and use your own functions ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/functions.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/functions.html))
+11. **Writing Data** - Export and save your data ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/writing_data.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/writing_data.html))
+12. **dplyr** - Wrangle data with verbs and pipes ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/dplyr.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/dplyr.html))
+13. **R Markdown** - Create reports with code and text ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/knitr-markdown.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/knitr-markdown.html))
+14. **Writing Good Software** - Write readable, maintainable code ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/writing-good-software.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/writing-good-software.html))
 
 ## Who Is This For?
 
