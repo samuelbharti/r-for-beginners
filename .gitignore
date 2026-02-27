@@ -28,4 +28,3 @@ Thumbs.db
 *.swp
 
 # Note: docs/ is NOT ignored - it's needed for GitHub Pages deployment
-/docs/slides/site_libs
