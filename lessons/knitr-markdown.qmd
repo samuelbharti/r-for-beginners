@@ -1,6 +1,8 @@
 ---
 title: "Producing Reports With knitr"
 author: "Samuel Bharti"
+execute:
+   eval: false
 ---
 
 ## Overview
@@ -298,7 +300,11 @@ You can review all of the R chunk options by navigating to the **"R Markdown Che
 
 ## Inline R Code
 
-You can make every number in your report reproducible. Use `` `r ` `` and `` ` `` for an in-line code chunk, like so: `` `r round(some_value, 2)` ``. The code will be executed and replaced with the value of the result.
+You can make every number in your report reproducible. Inline code chunks look like this:
+
+```text
+r round(some_value, 2)
+```
 
 Don't let these in-line chunks get split across lines.
 
@@ -316,7 +322,11 @@ Try out a bit of in-line R code.
 ::: {.callout-tip collapse="true"}
 ## Solution to Challenge 4
 
-Here's some inline code to determine that 2 + 2 = `` `r 2 + 2` ``.
+Here's some inline code to determine that 2 + 2 equals:
+
+```text
+r 2 + 2
+```
 
 Example in context:
 
@@ -325,7 +335,13 @@ Example in context:
 n_countries <- length(unique(gapminder$country))
 ```
 
-The gapminder dataset contains data for `r n_countries` countries.
+The gapminder dataset contains data for:
+
+```text
+r n_countries
+```
+
+countries.
 ````
 
 When knitted, this would display: "The gapminder dataset contains data for 142 countries."
