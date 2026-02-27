@@ -16,7 +16,7 @@ website:
         text: Data Structures
       - href: data_subsetting.html
         text: Subsetting
-      - href: data_subsetting.html
+      - href: exploring_dataframes.html
         text: Data Frames
       - href: dplyr.html
         text: dplyr
@@ -52,7 +52,7 @@ execute:
 
 format:
   revealjs:
-    theme: black
+    theme: white
     transition: slide
     background-transition: fade
     slide-number: true
