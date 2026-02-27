@@ -30,6 +30,15 @@ This website presents R programming lessons in a decluttered, streamlined format
 13. **R Markdown** - Create reports with code and text ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/knitr-markdown.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/knitr-markdown.html))
 14. **Writing Good Software** - Write readable, maintainable code ([Page](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/lessons/writing-good-software.html), [Slides](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/slides/writing-good-software.html))
 
+## About These Lessons
+
+These materials are designed as a **supplementary resource** for R programming workshops and independent learning. Whether you're an instructor teaching a workshop or a student learning on your own, you'll find:
+
+- **Web pages** - Perfect for reading and reference
+- **Slides** - Great for following along during live instruction
+
+Use whichever format works best for your learning style!
+
 ## Who Is This For?
 
 - **Instructors**: Use these materials for teaching R programming workshops

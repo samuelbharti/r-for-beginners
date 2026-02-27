@@ -6,24 +6,28 @@ title: "R for Novices - Gapminder Lessons"
 
 Welcome to the R for Novices lesson series using the Gapminder dataset.
 
-This is an adapted version of the [Software Carpentry R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience. These lessons can be used by instructors for teaching side-by-side or by students to follow along independently.
+This is an adapted version of the [Software Carpentry R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience. These lessons are a **supplementary resource** for R programming workshops and independent learning—use them to supplement your teaching or guide your learning journey.
+
+**Each lesson is available in two formats:**
+- **Page** - Detailed content for reading and reference
+- **Slides** - Presentation format for following along in workshops or for teaching
 
 ## Available Lessons
 
-1. [Introduction to RStudio](lessons/rstudio-intro.html) - Get familiar with the RStudio interface and R fundamentals
-2. [Project Management with RStudio](lessons/project-management.html) - Organize your work with RStudio projects and best practices
-3. [Seeking Help](lessons/seeking-help.html) - Learn how to find answers and get help when you're stuck
-4. [Data Structures](lessons/data-structures.html) - Understand R's core data types and structures
-5. [Exploring Data Frames](lessons/exploring_dataframes.html) - Learn to manipulate and explore data frames in R
-6. [Subsetting Data](lessons/data_subsetting.html) - Master techniques for extracting subsets of data
-7. [Control Flow](lessons/control_flow.html) - Make decisions with if/else statements and repeat operations with loops
-8. [Creating Publication-Quality Graphics with ggplot2](lessons/ggplot2.html) - Build professional visualizations using the grammar of graphics
-9. [Vectorization](lessons/vectorization.html) - Operate on all elements of a vector at once for efficient code
-10. [Functions Explained](lessons/functions.html) - Understand and create your own R functions
-11. [Writing Data](lessons/writing_data.html) - Learn to export and save your data
-12. [Data Frame Manipulation with dplyr](lessons/dplyr.html) - Master data wrangling with dplyr verbs and pipes
-13. [Producing Reports With knitr](lessons/knitr-markdown.html) - Create reproducible reports integrating code and narrative
-14. [Writing Good Software](lessons/writing-good-software.html) - Apply best practices for readable, reusable R code
+1. [Introduction to RStudio](lessons/rstudio-intro.html) ([Slides](slides/rstudio-intro.html)) - Get familiar with the RStudio interface and R fundamentals
+2. [Project Management with RStudio](lessons/project-management.html) ([Slides](slides/project-management.html)) - Organize your work with RStudio projects and best practices
+3. [Seeking Help](lessons/seeking-help.html) ([Slides](slides/seeking-help.html)) - Learn how to find answers and get help when you're stuck
+4. [Data Structures](lessons/data-structures.html) ([Slides](slides/data-structures.html)) - Understand R's core data types and structures
+5. [Exploring Data Frames](lessons/exploring_dataframes.html) ([Slides](slides/exploring_dataframes.html)) - Learn to manipulate and explore data frames in R
+6. [Subsetting Data](lessons/data_subsetting.html) ([Slides](slides/data_subsetting.html)) - Master techniques for extracting subsets of data
+7. [Control Flow](lessons/control_flow.html) ([Slides](slides/control_flow.html)) - Make decisions with if/else statements and repeat operations with loops
+8. [Creating Publication-Quality Graphics with ggplot2](lessons/ggplot2.html) ([Slides](slides/ggplot2.html)) - Build professional visualizations using the grammar of graphics
+9. [Vectorization](lessons/vectorization.html) ([Slides](slides/vectorization.html)) - Operate on all elements of a vector at once for efficient code
+10. [Functions Explained](lessons/functions.html) ([Slides](slides/functions.html)) - Understand and create your own R functions
+11. [Writing Data](lessons/writing_data.html) ([Slides](slides/writing_data.html)) - Learn to export and save your data
+12. [Data Frame Manipulation with dplyr](lessons/dplyr.html) ([Slides](slides/dplyr.html)) - Master data wrangling with dplyr verbs and pipes
+13. [Producing Reports With knitr](lessons/knitr-markdown.html) ([Slides](slides/knitr-markdown.html)) - Create reproducible reports integrating code and narrative
+14. [Writing Good Software](lessons/writing-good-software.html) ([Slides](slides/writing-good-software.html)) - Apply best practices for readable, reusable R code
 
 ## About
 
