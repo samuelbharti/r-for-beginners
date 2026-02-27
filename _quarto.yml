@@ -13,6 +13,8 @@ website:
     left:
       - href: index.html
         text: Home
+      - href: lessons/rstudio-intro.html
+        text: Introduction to RStudio
       - href: lessons/exploring_dataframes.html
         text: Exploring Data Frames
       - href: lessons/data_subsetting.html
