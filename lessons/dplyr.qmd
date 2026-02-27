@@ -1,6 +1,6 @@
 ---
 title: "Data Frame Manipulation with dplyr"
-subtitle: "Adapted from Software Carpentry by Samuel Bharti"
+subtitle: "Adapted from Software Carpentry"
 ---
 
 ## Overview

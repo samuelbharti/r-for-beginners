@@ -1,6 +1,6 @@
 ---
 title: "Control Flow in R"
-subtitle: "Adapted from Software Carpentry by Samuel Bharti"
+subtitle: "Adapted from Software Carpentry"
 ---
 
 ## Overview
