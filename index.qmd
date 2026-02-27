@@ -17,9 +17,11 @@ This is an adapted version of the [Software Carpentry R-novice-gapminder](https:
 5. [Subsetting Data](lessons/data_subsetting.html) - Master techniques for extracting subsets of data
 6. [Control Flow](lessons/control_flow.html) - Make decisions with if/else statements and repeat operations with loops
 7. [Creating Publication-Quality Graphics with ggplot2](lessons/ggplot2.html) - Build professional visualizations using the grammar of graphics
-8. [Functions Explained](lessons/functions.html) - Understand and create your own R functions
-9. [Writing Data](lessons/writing_data.html) - Learn to export and save your data
-10. [Data Frame Manipulation with dplyr](lessons/dplyr.html) - Master data wrangling with dplyr verbs and pipes
+8. [Vectorization](lessons/vectorization.html) - Operate on all elements of a vector at once for efficient code
+9. [Functions Explained](lessons/functions.html) - Understand and create your own R functions
+10. [Writing Data](lessons/writing_data.html) - Learn to export and save your data
+11. [Data Frame Manipulation with dplyr](lessons/dplyr.html) - Master data wrangling with dplyr verbs and pipes
+12. [Producing Reports With knitr](lessons/knitr-markdown.html) - Create reproducible reports integrating code and narrative
 
 ## About
 

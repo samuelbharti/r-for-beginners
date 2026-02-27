@@ -27,12 +27,16 @@ website:
         text: Control Flow
       - href: lessons/ggplot2.html
         text: ggplot2
+      - href: lessons/vectorization.html
+        text: Vectorization
       - href: lessons/functions.html
         text: Functions
       - href: lessons/writing_data.html
         text: Writing Data
       - href: lessons/dplyr.html
         text: dplyr
+      - href: lessons/knitr-markdown.html
+        text: knitr & R Markdown
     right:
       - icon: github
         href: https://github.com/samuelbharti/sw-r-novice-gapminder-lessons
