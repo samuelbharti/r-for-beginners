@@ -12,13 +12,14 @@ This is an adapted version of the [Software Carpentry R-novice-gapminder](https:
 
 1. [Introduction to RStudio](lessons/rstudio-intro.html) - Get familiar with the RStudio interface and R fundamentals
 2. [Project Management with RStudio](lessons/project-management.html) - Organize your work with RStudio projects and best practices
-3. [Exploring Data Frames](lessons/exploring_dataframes.html) - Learn to manipulate and explore data frames in R
-4. [Subsetting Data](lessons/data_subsetting.html) - Master techniques for extracting subsets of data
-5. [Control Flow](lessons/control_flow.html) - Make decisions with if/else statements and repeat operations with loops
-6. [Creating Publication-Quality Graphics with ggplot2](lessons/ggplot2.html) - Build professional visualizations using the grammar of graphics
-7. [Functions Explained](lessons/functions.html) - Understand and create your own R functions
-8. [Writing Data](lessons/writing_data.html) - Learn to export and save your data
-9. [Data Frame Manipulation with dplyr](lessons/dplyr.html) - Master data wrangling with dplyr verbs and pipes
+3. [Seeking Help](lessons/seeking-help.html) - Learn how to find answers and get help when you're stuck
+4. [Exploring Data Frames](lessons/exploring_dataframes.html) - Learn to manipulate and explore data frames in R
+5. [Subsetting Data](lessons/data_subsetting.html) - Master techniques for extracting subsets of data
+6. [Control Flow](lessons/control_flow.html) - Make decisions with if/else statements and repeat operations with loops
+7. [Creating Publication-Quality Graphics with ggplot2](lessons/ggplot2.html) - Build professional visualizations using the grammar of graphics
+8. [Functions Explained](lessons/functions.html) - Understand and create your own R functions
+9. [Writing Data](lessons/writing_data.html) - Learn to export and save your data
+10. [Data Frame Manipulation with dplyr](lessons/dplyr.html) - Master data wrangling with dplyr verbs and pipes
 
 ## About
 
