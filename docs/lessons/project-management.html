@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Samuel Bharti">
 
 <title>Project Management With RStudio – R for Novices - Gapminder Lessons</title>
 <style>
@@ -20,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -175,17 +209,15 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#a-possible-solution" id="toc-a-possible-solution" class="nav-link" data-scroll-target="#a-possible-solution">A Possible Solution</a></li>
+  <li><a href="#why-project-structure-matters" id="toc-why-project-structure-matters" class="nav-link" data-scroll-target="#why-project-structure-matters">Why Project Structure Matters</a></li>
+  <li><a href="#creating-a-project" id="toc-creating-a-project" class="nav-link" data-scroll-target="#creating-a-project">Creating a Project</a></li>
   <li><a href="#best-practices-for-project-organization" id="toc-best-practices-for-project-organization" class="nav-link" data-scroll-target="#best-practices-for-project-organization">Best Practices for Project Organization</a>
   <ul class="collapse">
-  <li><a href="#treat-data-as-read-only" id="toc-treat-data-as-read-only" class="nav-link" data-scroll-target="#treat-data-as-read-only">Treat Data as Read Only</a></li>
+  <li><a href="#data-is-read-only" id="toc-data-is-read-only" class="nav-link" data-scroll-target="#data-is-read-only">Data is Read-Only</a></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
-  <li><a href="#treat-generated-output-as-disposable" id="toc-treat-generated-output-as-disposable" class="nav-link" data-scroll-target="#treat-generated-output-as-disposable">Treat Generated Output as Disposable</a></li>
-  <li><a href="#separate-function-definition-and-application" id="toc-separate-function-definition-and-application" class="nav-link" data-scroll-target="#separate-function-definition-and-application">Separate Function Definition and Application</a></li>
-  <li><a href="#save-the-data-in-the-data-directory" id="toc-save-the-data-in-the-data-directory" class="nav-link" data-scroll-target="#save-the-data-in-the-data-directory">Save the Data in the Data Directory</a></li>
+  <li><a href="#generated-output-is-disposable" id="toc-generated-output-is-disposable" class="nav-link" data-scroll-target="#generated-output-is-disposable">Generated Output is Disposable</a></li>
+  <li><a href="#separate-functions-and-applications" id="toc-separate-functions-and-applications" class="nav-link" data-scroll-target="#separate-functions-and-applications">Separate Functions and Applications</a></li>
   <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory">Working Directory</a></li>
-  <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">Version Control</a></li>
   </ul></li>
   <li><a href="#key-points" id="toc-key-points" class="nav-link" data-scroll-target="#key-points">Key Points</a></li>
   </ul>
@@ -197,18 +229,13 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Project Management With RStudio</h1>
+<p class="subtitle lead">Adapted from Software Carpentry</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Samuel Bharti </p>
-          </div>
-  </div>
     
   
     
@@ -223,219 +250,94 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p><strong>Questions:</strong></p>
 <ul>
-<li>How can I manage my projects in R?</li>
+<li>How can I organize my R projects?</li>
 </ul>
 <p><strong>Objectives:</strong></p>
 <ul>
 <li>Create self-contained projects in RStudio</li>
+<li>Organize project files effectively</li>
 </ul>
 </section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The scientific process is naturally incremental, and many projects start life as random notes, some code, then a manuscript, and eventually everything is a bit mixed together.</p>
-<p>Most people tend to organize their projects like this:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://swcarpentry.github.io/r-novice-gapminder/fig/bad_layout.png" class="img-fluid figure-img"></p>
-<figcaption>Bad project organization</figcaption>
-</figure>
-</div>
-<p>There are many reasons why we should <strong>ALWAYS</strong> avoid this:</p>
-<ol type="1">
-<li>It is really hard to tell which version of your data is the original and which is the modified</li>
-<li>It gets really messy because it mixes files with various extensions together</li>
-<li>It probably takes you a lot of time to actually find things, and relate the correct figures to the exact code that has been used to generate it</li>
-</ol>
-<p>A good project layout will ultimately make your life easier:</p>
+<section id="why-project-structure-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-project-structure-matters">Why Project Structure Matters</h2>
+<p>Poor organization mixes files, makes it hard to find things, and complicates sharing. Good structure:</p>
 <ul>
-<li>It will help ensure the integrity of your data</li>
-<li>It makes it simpler to share your code with someone else (a lab-mate, collaborator, or supervisor)</li>
-<li>It allows you to easily upload your code with your manuscript submission</li>
-<li>It makes it easier to pick the project back up after a break</li>
+<li>Protects data integrity</li>
+<li>Makes collaboration easier<br>
+</li>
+<li>Aids reproducibility</li>
+<li>Helps you find what you need</li>
 </ul>
 </section>
-<section id="a-possible-solution" class="level2">
-<h2 class="anchored" data-anchor-id="a-possible-solution">A Possible Solution</h2>
-<p>Fortunately, there are tools and packages which can help you manage your work effectively.</p>
-<p>One of the most powerful and useful aspects of RStudio is its project management functionality. We’ll be using this today to create a self-contained, reproducible project.</p>
+<section id="creating-a-project" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-project">Creating a Project</h2>
+<p>RStudio’s project feature creates a self-contained, reproducible workspace:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Challenge 1: Creating a Self-Contained Project
+<span class="screen-reader-only">Note</span>Challenge 1: Create an RStudio Project
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We’re going to create a new project in RStudio:</p>
 <ol type="1">
-<li>Click the “File” menu button, then “New Project”</li>
+<li>Click File → New Project</li>
 <li>Click “New Directory”</li>
 <li>Click “New Project”</li>
-<li>Type in the name of the directory to store your project, e.g.&nbsp;“my_project”</li>
-<li>If available, select the checkbox for “Create a git repository”</li>
-<li>Click the “Create Project” button</li>
+<li>Name your project (e.g., “my_project”)</li>
+<li>Check “Create a git repository” if available</li>
+<li>Click “Create Project”</li>
 </ol>
-<p>The simplest way to open an RStudio project once it has been created is to click through your file system to get to the directory where it was saved and double click on the <code>.Rproj</code> file. This will open RStudio and start your R session in the same directory as the <code>.Rproj</code> file. All your data, plots and scripts will now be relative to the project directory. RStudio projects have the added benefit of allowing you to open multiple projects at the same time each open to its own project directory. This allows you to keep multiple projects open without them interfering with each other.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Challenge 2: Opening an RStudio Project Through the File System
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Exit RStudio</li>
-<li>Navigate to the directory where you created a project in Challenge 1</li>
-<li>Double click on the <code>.Rproj</code> file in that directory</li>
-</ol>
+<p>A <code>.Rproj</code> file will be created. Double-click it to open the project and set R’s working directory to the project folder.</p>
 </div>
 </div>
 </section>
 <section id="best-practices-for-project-organization" class="level2">
 <h2 class="anchored" data-anchor-id="best-practices-for-project-organization">Best Practices for Project Organization</h2>
-<p>Although there is no “best” way to lay out a project, there are some general principles to adhere to that will make project management easier:</p>
-<section id="treat-data-as-read-only" class="level3">
-<h3 class="anchored" data-anchor-id="treat-data-as-read-only">Treat Data as Read Only</h3>
-<p>This is probably the most important goal of setting up a project. Data is typically time consuming and/or expensive to collect. Working with them interactively (e.g., in Excel) where they can be modified means you are never sure of where the data came from, or how it has been modified since collection. It is therefore a good idea to treat your data as “read-only”.</p>
+<section id="data-is-read-only" class="level3">
+<h3 class="anchored" data-anchor-id="data-is-read-only">Data is Read-Only</h3>
+<p>Raw data is valuable and time-consuming to collect. Treat it as read-only to ensure you know the original source and all modifications made.</p>
 </section>
 <section id="data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h3>
-<p>In many cases your data will be “dirty”: it will need significant preprocessing to get into a format R (or any other programming language) will find useful. This task is sometimes called “data munging”. Storing these scripts in a separate folder, and creating a second “read-only” data folder to hold the “cleaned” data sets can prevent confusion between the two sets.</p>
+<p>Store preprocessing scripts separately from raw data. Keep cleaned data in a separate output folder to avoid confusion.</p>
 </section>
-<section id="treat-generated-output-as-disposable" class="level3">
-<h3 class="anchored" data-anchor-id="treat-generated-output-as-disposable">Treat Generated Output as Disposable</h3>
-<p>Anything generated by your scripts should be treated as disposable: it should all be able to be regenerated from your scripts.</p>
-<p>There are lots of different ways to manage this output. Having an output folder with different sub-directories for each separate analysis makes it easier later. Since many analyses are exploratory and don’t end up being used in the final project, and some of the analyses get shared between projects.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Good Enough Practices for Scientific Computing
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/good-enough-practices-for-scientific-computing.pdf">Good Enough Practices for Scientific Computing</a> gives the following recommendations for project organization:</p>
-<ol type="1">
-<li>Put each project in its own directory, which is named after the project</li>
-<li>Put text documents associated with the project in the <code>doc</code> directory</li>
-<li>Put raw data and metadata in the <code>data</code> directory, and files generated during cleanup and analysis in a <code>results</code> directory</li>
-<li>Put source for the project’s scripts and programs in the <code>src</code> directory, and programs brought in from elsewhere or compiled locally in the <code>bin</code> directory</li>
-<li>Name all files to reflect their content or function</li>
-</ol>
-</div>
-</div>
+<section id="generated-output-is-disposable" class="level3">
+<h3 class="anchored" data-anchor-id="generated-output-is-disposable">Generated Output is Disposable</h3>
+<p>Scripts should regenerate all outputs. Organize outputs by analysis type in subdirectories for easier management later.</p>
 </section>
-<section id="separate-function-definition-and-application" class="level3">
-<h3 class="anchored" data-anchor-id="separate-function-definition-and-application">Separate Function Definition and Application</h3>
-<p>One of the more effective ways to work with R is to start by writing the code you want to run directly in a .R script, and then running the selected lines (either using the keyboard shortcuts in RStudio or clicking the “Run” button) in the interactive R console.</p>
-<p>When your project is in its early stages, the initial .R script file usually contains many lines of directly executed code. As it matures, reusable chunks get pulled into their own functions. It’s a good idea to separate these functions into two separate folders; one to store useful functions that you’ll reuse across analyses and projects, and one to store the analysis scripts.</p>
-</section>
-<section id="save-the-data-in-the-data-directory" class="level3">
-<h3 class="anchored" data-anchor-id="save-the-data-in-the-data-directory">Save the Data in the Data Directory</h3>
-<p>Now we have a good directory structure we will now place/save the data file in the <code>data/</code> directory.</p>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Challenge 3: Download the Gapminder Data
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Download the gapminder data from <a href="https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_data.csv">this link to a csv file</a>.</p>
-<ol type="1">
-<li>Download the file (right mouse click on the link above → “Save link as” / “Save file as”, or click on the link and after the page loads, press Ctrl+S or choose File → “Save page as”)</li>
-<li>Make sure it’s saved under the name <code>gapminder_data.csv</code></li>
-<li>Save the file in the <code>data/</code> folder within your project</li>
-</ol>
-<p>We will load and inspect these data later.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Challenge 4: Exploring the Dataset from Command Line
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>It is useful to get some general idea about the dataset, directly from the command line, before loading it into R. Understanding the dataset better will come in handy when making decisions on how to load it in R. Use the command-line shell to answer the following questions:</p>
-<ol type="1">
-<li>What is the size of the file?</li>
-<li>How many rows of data does it contain?</li>
-<li>What kinds of values are stored in this file?</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Command Line in RStudio
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The Terminal tab in the console pane provides a convenient place directly within RStudio to interact directly with the command line.</p>
-</div>
-</div>
+<section id="separate-functions-and-applications" class="level3">
+<h3 class="anchored" data-anchor-id="separate-functions-and-applications">Separate Functions and Applications</h3>
+<p>Create separate folders for: - Reusable functions (used across analyses) - Analysis scripts (project-specific workflows)</p>
 </section>
 <section id="working-directory" class="level3">
 <h3 class="anchored" data-anchor-id="working-directory">Working Directory</h3>
-<p>Knowing R’s current working directory is important because when you need to access other files (for example, to import a data file), R will look for them relative to the current working directory.</p>
-<p>Each time you create a new RStudio Project, it will create a new directory for that project. When you open an existing <code>.Rproj</code> file, it will open that project and set R’s working directory to the folder that file is in.</p>
+<p>Check your working directory:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()        <span class="co"># check current directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"path"</span>)  <span class="co"># change directory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Challenge 5: Working with Working Directories
+<span class="screen-reader-only">Note</span>Challenge 2: Working Directories
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You can check the current working directory with the <code>getwd()</code> command, or by using the menus in RStudio.</p>
 <ol type="1">
-<li>In the console, type <code>getwd()</code> (“wd” is short for “working directory”) and hit Enter</li>
-<li>In the Files pane, double click on the <code>data</code> folder to open it (or navigate to any other folder you wish). To get the Files pane back to the current working directory, click “More” and then select “Go To Working Directory”</li>
-</ol>
-<p>You can change the working directory with <code>setwd()</code>, or by using RStudio menus.</p>
-<ol type="1">
-<li>In the console, type <code>setwd("data")</code> and hit Enter. Type <code>getwd()</code> and hit Enter to see the new working directory</li>
-<li>In the menus at the top of the RStudio window, click the “Session” menu button, and then select “Set Working Directory” and then “Choose Directory”. Next, in the windows navigator that opens, navigate back to the project directory, and click “Open”. Note that a <code>setwd</code> command will automatically appear in the console</li>
+<li>Type <code>getwd()</code> in the console</li>
+<li>Use Files pane to navigate to the <code>data</code> folder</li>
+<li>Change directory: <code>setwd("data")</code></li>
+<li>Check new directory: <code>getwd()</code></li>
+<li>Return: <code>setwd("..")</code></li>
 </ol>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>File Does Not Exist Errors
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>When you’re attempting to reference a file in your R code and you’re getting errors saying the file doesn’t exist, it’s a good idea to check your working directory. You need to either provide an absolute path to the file, or you need to make sure the file is saved in the working directory (or a subfolder of the working directory) and provide a relative path.</p>
-</div>
-</div>
-</section>
-<section id="version-control" class="level3">
-<h3 class="anchored" data-anchor-id="version-control">Version Control</h3>
-<p>It is important to use version control with projects. Go <a href="https://swcarpentry.github.io/git-novice/14-supplemental-rstudio.html">here for a good lesson which describes using Git with RStudio</a>.</p>
 </section>
 </section>
 <section id="key-points" class="level2">
