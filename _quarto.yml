@@ -19,6 +19,8 @@ website:
         text: Project Management
       - href: lessons/seeking-help.html
         text: Seeking Help
+      - href: lessons/data-structures.html
+        text: Data Structures
       - href: lessons/exploring_dataframes.html
         text: Exploring Data Frames
       - href: lessons/data_subsetting.html
@@ -37,6 +39,8 @@ website:
         text: dplyr
       - href: lessons/knitr-markdown.html
         text: knitr & R Markdown
+      - href: lessons/writing-good-software.html
+        text: Writing Good Software
     right:
       - icon: github
         href: https://github.com/samuelbharti/sw-r-novice-gapminder-lessons
