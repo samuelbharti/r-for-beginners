@@ -12,7 +12,7 @@
 *_files/
 _freeze/
 lessons_old/
-lessons/*.html
+#lessons/*.html
 lessons/*.md
 
 # Build scripts

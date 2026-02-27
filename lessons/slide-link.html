@@ -1,0 +1,54 @@
+<div class="slide-link" id="slide-link-wrap">
+  <a id="slide-link" href="#" target="_blank" rel="noopener">
+    Prefer a slide view for teaching or as a student? Click here.
+  </a>
+</div>
+
+<script>
+  (function () {
+    var path = window.location.pathname;
+    var file = path.substring(path.lastIndexOf("/") + 1);
+    if (!file || file.indexOf(".html") === -1) {
+      return;
+    }
+    var link = document.getElementById("slide-link");
+    var wrap = document.getElementById("slide-link-wrap");
+    if (!link || !wrap) {
+      return;
+    }
+    link.href = "../slides/" + file;
+
+    // Move link to sit right after the subtitle in the title block.
+    var subtitle = document.querySelector(".quarto-title-block .subtitle");
+    if (subtitle && subtitle.parentNode) {
+      subtitle.parentNode.insertBefore(wrap, subtitle.nextSibling);
+      return;
+    }
+    var titleBlock = document.querySelector(".quarto-title-block");
+    if (titleBlock && titleBlock.parentNode) {
+      titleBlock.parentNode.insertBefore(wrap, titleBlock.nextSibling);
+    }
+  })();
+</script>
+
+<style>
+  .slide-link {
+    margin: 0.35rem 0 1rem 0;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+  .slide-link a {
+    display: inline-block;
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.3rem;
+    background: var(--bs-primary, #0d6efd);
+    color: var(--bs-white, #fff);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .slide-link a:hover,
+  .slide-link a:focus {
+    background: var(--bs-primary-bg-subtle, #0b5ed7);
+    color: var(--bs-white, #fff);
+  }
+</style>
