@@ -13,18 +13,20 @@ website:
     left:
       - href: index.html
         text: Home
-      - href: lessons/rstudio-intro.html
-        text: Introduction to RStudio
-      - href: lessons/project-management.html
-        text: Project Management
-      - href: lessons/seeking-help.html
-        text: Seeking Help
+      - text: Introduction
+        menu:
+          - text: Intro to R
+            href: lessons/rstudio-intro.html
+          - text: Projects
+            href: lessons/project-management.html
+          - text: Help
+            href: lessons/seeking-help.html
       - href: lessons/data-structures.html
         text: Data Structures
       - href: lessons/exploring_dataframes.html
-        text: Exploring Data Frames
+        text: Data Frames
       - href: lessons/data_subsetting.html
-        text: Subsetting Data
+        text: Subsetting
       - href: lessons/control_flow.html
         text: Control Flow
       - href: lessons/ggplot2.html
@@ -34,13 +36,13 @@ website:
       - href: lessons/functions.html
         text: Functions
       - href: lessons/writing_data.html
-        text: Writing Data
+        text: Write Data
       - href: lessons/dplyr.html
         text: dplyr
       - href: lessons/knitr-markdown.html
-        text: knitr & R Markdown
+        text: R Markdown
       - href: lessons/writing-good-software.html
-        text: Writing Good Software
+        text: Style
     right:
       - icon: github
         href: https://github.com/samuelbharti/sw-r-novice-gapminder-lessons
