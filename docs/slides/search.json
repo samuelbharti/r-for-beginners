@@ -354,14 +354,35 @@
     "href": "rstudio-intro.html#getting-started",
     "title": "Introduction to R and RStudio",
     "section": "Getting Started",
-    "text": "Getting Started\nRStudio is a free, open-source IDE that makes R easier to use. It provides an editor, integrated console, and project management tools.\nRStudio Layout\nWhen RStudio opens, you’ll see:\n\nConsole (left): Interactive R session where code runs\nEnvironment/History (upper right): Variables and command history\nFiles/Plots/Packages/Help (lower right): File browser, plots, installed packages\n\nR scripts (.R files) can be opened in the editor panel (top left).\nWorkflow\nYou can work in two ways:\n\nInteractive: Type code in the console, save useful lines to a .R file\nScript-based: Write code in a .R file, use Ctrl+Return to run lines\n\n\n\n\n\n\n\nRunning Code in RStudio\n\n\nTo run the current line: click Run or press Ctrl+Return (Windows/Linux) or ⌘+Return (Mac).\nTo run a code block: select it and click Run."
+    "text": "Getting Started\nRStudio is a free, open-source IDE that makes R easier to use. It provides an editor, integrated console, and project management tools."
+  },
+  {
+    "objectID": "rstudio-intro.html#rstudio-layout",
+    "href": "rstudio-intro.html#rstudio-layout",
+    "title": "Introduction to R and RStudio",
+    "section": "RStudio Layout",
+    "text": "RStudio Layout\nWhen RStudio opens, you’ll see:\n\nConsole (left): Interactive R session where code runs\nEnvironment/History (upper right): Variables and command history\nFiles/Plots/Packages/Help (lower right): File browser, plots, installed packages\n\nR scripts (.R files) can be opened in the editor panel (top left)."
+  },
+  {
+    "objectID": "rstudio-intro.html#workflow",
+    "href": "rstudio-intro.html#workflow",
+    "title": "Introduction to R and RStudio",
+    "section": "Workflow",
+    "text": "Workflow\nYou can work in two ways:\n\nInteractive: Type code in the console, save useful lines to a .R file\nScript-based: Write code in a .R file, use Ctrl+Return to run lines\n\n\n\n\n\n\n\nRunning Code in RStudio\n\n\nTo run the current line: click Run or press Ctrl+Return (Windows/Linux) or ⌘+Return (Mac).\nTo run a code block: select it and click Run."
   },
   {
     "objectID": "rstudio-intro.html#using-r-as-a-calculator",
     "href": "rstudio-intro.html#using-r-as-a-calculator",
     "title": "Introduction to R and RStudio",
     "section": "Using R as a Calculator",
-    "text": "Using R as a Calculator\nR can perform arithmetic:\n\n1 + 100\n3 + 5 * 2\n(3 + 5) * 2\n\nThe [1] shown in output indicates the first element of a result.\nScientific Notation\nLarge/small numbers use scientific notation (e.g., 2e-4 means \\(2 \\times 10^{-4}\\)):\n\n2 / 10000\n5e3"
+    "text": "Using R as a Calculator\nR can perform arithmetic:\n\n1 + 100\n3 + 5 * 2\n(3 + 5) * 2\n\nThe [1] shown in output indicates the first element of a result."
+  },
+  {
+    "objectID": "rstudio-intro.html#scientific-notation",
+    "href": "rstudio-intro.html#scientific-notation",
+    "title": "Introduction to R and RStudio",
+    "section": "Scientific Notation",
+    "text": "Scientific Notation\nLarge/small numbers use scientific notation (e.g., 2e-4 means \\(2 \\times 10^{-4}\\)):\n\n2 / 10000\n5e3"
   },
   {
     "objectID": "rstudio-intro.html#mathematical-functions",
@@ -375,14 +396,21 @@
     "href": "rstudio-intro.html#comparisons",
     "title": "Introduction to R and RStudio",
     "section": "Comparisons",
-    "text": "Comparisons\nComparison operators:\n\n1 == 1  # equal\n1 != 2  # not equal\n1 &lt; 2   # less than\n1 &lt;= 1  # less than or equal\n\n\n\n\n\n\n\nComparing Numbers\n\n\nNever use == to compare decimal numbers. Use all.equal() instead due to floating-point precision.\n\nVariables and Assignment\nAssign values to variables using &lt;-:\n\nx &lt;- 1 / 40\nx\nlog(x)\n\nVariables appear in the Environment tab. Reassign at any time:\n\nx &lt;- 100\nx &lt;- x + 1\n\nVariable Naming Rules\nValid names contain letters, numbers, underscores, and periods (must start with a letter or period). Conventions include periods.between.words, underscores_between_words, or camelCase. Be consistent.\n\n\n\nChallenge 1: Valid Variable Names\n\n\nWhich of the following are valid R variable names?\n\nmin_height\nmax.height\n_age\n.mass\nMaxLength\nmin-length\n2widths\ncelsius2kelvin\n\n\n\n\n\n\n\nSolution\n\n\nValid: min_height, max.height, .mass, MaxLength, celsius2kelvin\nInvalid: _age (starts with underscore), min-length (hyphen not allowed), 2widths (starts with number)\n\n\n\n\n\n\n\n\nVectorization\nR is vectorized—operations apply to entire vectors:\n\n1:5\n2^(1:5)\n\nx &lt;- 1:5\n2^x\n\n\n\nManaging Your Environment\nList all variables with ls():\n\nx &lt;- 1:5\ny &lt;- 10\nls()\n\nDelete variables with rm():\n\nrm(x)\n\nTo delete all variables: rm(list = ls())\n\n\n\n\n\n\nTip\n\n\nWhen assigning function arguments by name, use = (not &lt;-): rm(list = ls())\n\n\n\n\n\n\nChallenge 2: Variable Values\n\n\nWhat are the values of mass and age after each statement?\n\nmass &lt;- 47.5\nage &lt;- 122\nmass &lt;- mass * 2.3\nage &lt;- age - 20\n\n\n\n\n\n\n\nSolution\n\n\n\nmass\nage\n\nmass is 109.25 (47.5 × 2.3) and age is 102 (122 − 20).\n\n\n\n\n\n\n\n\n\nChallenge 3: Comparisons\n\n\nIs mass larger than age?\n\nmass &lt;- 47.5\nage &lt;- 122\nmass &lt;- mass * 2.3\nage &lt;- age - 20\n\nmass &gt; age\n\n\n\n\n\n\n\nSolution\n\n\nYes, 109.25 &gt; 102.\n\n\n\n\n\n\n\n\n\nChallenge 4: Clean Up\n\n\nDelete the mass and age variables.\n\n\n\n\n\n\nSolution\n\n\n\nrm(mass)\nrm(age)\n\n\n\n\n\n\n\n\n\nPackages\nExtend R with packages. Common package commands:\n\ninstalled.packages()     # list installed packages\ninstall.packages(\"name\") # install a package\nupdate.packages()        # update packages\nlibrary(name)            # load a package\ndetach(package:name)     # unload a package\n\n\n\n\nChallenge 5: Install Packages\n\n\nInstall these packages: ggplot2, plyr, gapminder\n\ninstall.packages(c(\"ggplot2\", \"plyr\", \"gapminder\"))\n\n\n\n\n\n\n\nSolution\n\n\nUse the command above or install individually with install.packages(\"name\").\n\n\n\n\n\n\n\n\nKey Points\n\nUse RStudio to write and run R programs.\nR has the usual arithmetic operators and mathematical functions.\nUse &lt;- to assign values to variables.\nUse ls() to list the variables in a program.\nUse rm() to delete objects in a program.\nUse install.packages() to install packages (libraries)."
+    "text": "Comparisons\nComparison operators:\n\n1 == 1  # equal\n1 != 2  # not equal\n1 &lt; 2   # less than\n1 &lt;= 1  # less than or equal\n\n\n\n\n\n\n\nComparing Numbers\n\n\nNever use == to compare decimal numbers. Use all.equal() instead due to floating-point precision."
   },
   {
     "objectID": "rstudio-intro.html#variables-and-assignment",
     "href": "rstudio-intro.html#variables-and-assignment",
     "title": "Introduction to R and RStudio",
     "section": "Variables and Assignment",
-    "text": "Variables and Assignment\nAssign values to variables using &lt;-:\n\nx &lt;- 1 / 40\nx\nlog(x)\n\nVariables appear in the Environment tab. Reassign at any time:\n\nx &lt;- 100\nx &lt;- x + 1\n\nVariable Naming Rules\nValid names contain letters, numbers, underscores, and periods (must start with a letter or period). Conventions include periods.between.words, underscores_between_words, or camelCase. Be consistent.\n\n\n\nChallenge 1: Valid Variable Names\n\n\nWhich of the following are valid R variable names?\n\nmin_height\nmax.height\n_age\n.mass\nMaxLength\nmin-length\n2widths\ncelsius2kelvin\n\n\n\n\n\n\n\nSolution\n\n\nValid: min_height, max.height, .mass, MaxLength, celsius2kelvin\nInvalid: _age (starts with underscore), min-length (hyphen not allowed), 2widths (starts with number)"
+    "text": "Variables and Assignment\nAssign values to variables using &lt;-:\n\nx &lt;- 1 / 40\nx\nlog(x)\n\nVariables appear in the Environment tab. Reassign at any time:\n\nx &lt;- 100\nx &lt;- x + 1"
+  },
+  {
+    "objectID": "rstudio-intro.html#variable-naming-rules",
+    "href": "rstudio-intro.html#variable-naming-rules",
+    "title": "Introduction to R and RStudio",
+    "section": "Variable Naming Rules",
+    "text": "Variable Naming Rules\nValid names contain letters, numbers, underscores, and periods (must start with a letter or period). Conventions include periods.between.words, underscores_between_words, or camelCase. Be consistent.\n\n\n\nChallenge 1: Valid Variable Names\n\n\nWhich of the following are valid R variable names?\n\nmin_height\nmax.height\n_age\n.mass\nMaxLength\nmin-length\n2widths\ncelsius2kelvin\n\n\n\n\n\n\n\nSolution\n\n\nValid: min_height, max.height, .mass, MaxLength, celsius2kelvin\nInvalid: _age (starts with underscore), min-length (hyphen not allowed), 2widths (starts with number)"
   },
   {
     "objectID": "rstudio-intro.html#vectorization",
@@ -1278,14 +1306,42 @@
     "href": "data-structures.html#data-types",
     "title": "Data Structures",
     "section": "Data Types",
-    "text": "Data Types\nUnderstanding data types is key to successfully analyzing data in R. We can ask what type of data something is:\nThere are 5 main types: double, integer, complex, logical and character. For historic reasons, double is also called numeric.\nNo matter how complicated our analyses become, all data in R is interpreted as one of these basic data types.\nType Coercion in Data Frames\nA user has provided details of another cat. We can add an additional row to our cats table:\nLet’s check what type of data we find in the weight column:\nOh no! A given column in a data frame cannot be composed of different data types. When R can’t store everything as numbers (because of “2.3 or 2.4”), the entire column changes to character type."
+    "text": "Data Types\nUnderstanding data types is key to successfully analyzing data in R. We can ask what type of data something is:\nThere are 5 main types: double, integer, complex, logical and character. For historic reasons, double is also called numeric.\nNo matter how complicated our analyses become, all data in R is interpreted as one of these basic data types."
+  },
+  {
+    "objectID": "data-structures.html#type-coercion-in-data-frames",
+    "href": "data-structures.html#type-coercion-in-data-frames",
+    "title": "Data Structures",
+    "section": "Type Coercion in Data Frames",
+    "text": "Type Coercion in Data Frames\nA user has provided details of another cat. We can add an additional row to our cats table:\nLet’s check what type of data we find in the weight column:\nOh no! A given column in a data frame cannot be composed of different data types. When R can’t store everything as numbers (because of “2.3 or 2.4”), the entire column changes to character type."
   },
   {
     "objectID": "data-structures.html#vectors-and-type-coercion",
     "href": "data-structures.html#vectors-and-type-coercion",
     "title": "Data Structures",
     "section": "Vectors and Type Coercion",
-    "text": "Vectors and Type Coercion\nTo better understand this behavior, let’s meet another of the data structures: the vector.\nA vector in R is essentially an ordered list of things, with the special condition that everything in the vector must be the same basic data type.\nYou can check if something is a vector:\nCombining Vectors\nYou can make vectors with explicit contents using the combine function:\nWhat do you think the following will produce?\nThis is called type coercion - when R encounters a mix of types to be combined, it forces them all to be the same type:\nThe Type Hierarchy\nThe coercion rules go: logical → integer → double → complex → character\nYou can force coercion using the as. functions:\n\n\n\nChallenge 1: Cleaning the Cat Data\n\n\nAn important part of every data analysis is cleaning the input data. Clean the cat data set:\n\nPrint cats2 to the console\nUse str(cats2) to see the overview of data types\nThe “weight” column has the incorrect data type. What is the correct data type?\nCorrect the 4th weight data point with the mean: cats2$weight[4] &lt;- 2.35\nConvert the weight to the right data type using as.numeric() or as.double()\nCalculate mean(cats2$weight) to test yourself\n\n\n\n\n\n\n\nSolution to Challenge 1\n\n\ncats2  # Print the data\nstr(cats2)  # Shows weight is \"character\"\n# The correct data type is \"double\" or \"numeric\"\ncats2$weight[4] &lt;- 2.35\ncats2$weight &lt;- as.numeric(cats2$weight)\nmean(cats2$weight)  # Should work now!\n\n\n\n\n\n\nVector Functions\nThe combine function will also append things to an existing vector:\nYou can make series of numbers:\nWe can ask questions about vectors:\nWe can get individual elements using bracket notation:\n\n\n\nChallenge 2: Vector Arithmetic\n\n\nStart by making a vector with the numbers 1 through 26. Then, multiply the vector by 2.\n\n\n\n\n\n\nSolution to Challenge 2\n\n\nx &lt;- 1:26\nx * 2"
+    "text": "Vectors and Type Coercion\nTo better understand this behavior, let’s meet another of the data structures: the vector.\nA vector in R is essentially an ordered list of things, with the special condition that everything in the vector must be the same basic data type.\nYou can check if something is a vector:"
+  },
+  {
+    "objectID": "data-structures.html#combining-vectors",
+    "href": "data-structures.html#combining-vectors",
+    "title": "Data Structures",
+    "section": "Combining Vectors",
+    "text": "Combining Vectors\nYou can make vectors with explicit contents using the combine function:\nWhat do you think the following will produce?\nThis is called type coercion - when R encounters a mix of types to be combined, it forces them all to be the same type:"
+  },
+  {
+    "objectID": "data-structures.html#the-type-hierarchy",
+    "href": "data-structures.html#the-type-hierarchy",
+    "title": "Data Structures",
+    "section": "The Type Hierarchy",
+    "text": "The Type Hierarchy\nThe coercion rules go: logical → integer → double → complex → character\nYou can force coercion using the as. functions:\n\n\n\nChallenge 1: Cleaning the Cat Data\n\n\nAn important part of every data analysis is cleaning the input data. Clean the cat data set:\n\nPrint cats2 to the console\nUse str(cats2) to see the overview of data types\nThe “weight” column has the incorrect data type. What is the correct data type?\nCorrect the 4th weight data point with the mean: cats2$weight[4] &lt;- 2.35\nConvert the weight to the right data type using as.numeric() or as.double()\nCalculate mean(cats2$weight) to test yourself\n\n\n\n\n\n\n\nSolution to Challenge 1\n\n\ncats2  # Print the data\nstr(cats2)  # Shows weight is \"character\"\n# The correct data type is \"double\" or \"numeric\"\ncats2$weight[4] &lt;- 2.35\ncats2$weight &lt;- as.numeric(cats2$weight)\nmean(cats2$weight)  # Should work now!"
+  },
+  {
+    "objectID": "data-structures.html#vector-functions",
+    "href": "data-structures.html#vector-functions",
+    "title": "Data Structures",
+    "section": "Vector Functions",
+    "text": "Vector Functions\nThe combine function will also append things to an existing vector:\nYou can make series of numbers:\nWe can ask questions about vectors:\nWe can get individual elements using bracket notation:\n\n\n\nChallenge 2: Vector Arithmetic\n\n\nStart by making a vector with the numbers 1 through 26. Then, multiply the vector by 2.\n\n\n\n\n\n\nSolution to Challenge 2\n\n\nx &lt;- 1:26\nx * 2"
   },
   {
     "objectID": "data-structures.html#lists",
@@ -1295,11 +1351,11 @@
     "text": "Lists\nAnother data structure you’ll want is the list. A list can have different data types:\nWhen printing the structure:\nTo retrieve an element of a list, use double brackets:\nList elements can have names:"
   },
   {
-    "objectID": "data-structures.html#names",
-    "href": "data-structures.html#names",
+    "objectID": "data-structures.html#accessing-vectors-by-name",
+    "href": "data-structures.html#accessing-vectors-by-name",
     "title": "Data Structures",
-    "section": "Names",
-    "text": "Names\nAccessing Vectors by Name\nNamed vectors are generated similarly to named lists:\nNote: The $ operator doesn’t work for vectors, only for lists and data frames.\nIf you’re only interested in the names:\nYou can access and change names:\n\n\n\nChallenge 3: Data Type of Names\n\n\nWhat is the data type of the names of pizza_price? Use str() or typeof() to find out.\n\n\n\n\n\n\nSolution to Challenge 3\n\n\ntypeof(names(pizza_price))  # \"character\"\n\n\n\n\n\n\n\n\n\nChallenge 4: Letters and Numbers\n\n\nCreate a vector that gives the number for each letter in the alphabet:\n\nGenerate a vector called letter_no with numbers from 1 to 26\nR has a built-in object called LETTERS (A to Z). Set the names to these letters\nTest by calling letter_no[\"B\"], which should give you 2\n\n\n\n\n\n\n\nSolution to Challenge 4\n\n\nletter_no &lt;- 1:26\nnames(letter_no) &lt;- LETTERS\nletter_no[\"B\"]  # B: 2"
+    "section": "Accessing Vectors by Name",
+    "text": "Accessing Vectors by Name\nNamed vectors are generated similarly to named lists:\nNote: The $ operator doesn’t work for vectors, only for lists and data frames.\nIf you’re only interested in the names:\nYou can access and change names:\n\n\n\nChallenge 3: Data Type of Names\n\n\nWhat is the data type of the names of pizza_price? Use str() or typeof() to find out.\n\n\n\n\n\n\nSolution to Challenge 3\n\n\ntypeof(names(pizza_price))  # \"character\"\n\n\n\n\n\n\n\n\n\nChallenge 4: Letters and Numbers\n\n\nCreate a vector that gives the number for each letter in the alphabet:\n\nGenerate a vector called letter_no with numbers from 1 to 26\nR has a built-in object called LETTERS (A to Z). Set the names to these letters\nTest by calling letter_no[\"B\"], which should give you 2\n\n\n\n\n\n\n\nSolution to Challenge 4\n\n\nletter_no &lt;- 1:26\nnames(letter_no) &lt;- LETTERS\nletter_no[\"B\"]  # B: 2"
   },
   {
     "objectID": "data-structures.html#data-frames",
@@ -2447,21 +2503,21 @@
     "href": "ggplot2.html#starting-with-ggplot",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Starting with ggplot",
-    "text": "Starting with ggplot\nThe most basic function is ggplot():\n\nggplot(data = gapminder)\n\nThis creates a blank slate - we haven’t told it what to draw yet!"
+    "text": "Starting with ggplot\nThe most basic function is ggplot():\n\nggplot(data = gapminder)\n\n\nThis creates a blank slate - we haven’t told it what to draw yet!"
   },
   {
     "objectID": "ggplot2.html#adding-aesthetics",
     "href": "ggplot2.html#adding-aesthetics",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Adding Aesthetics",
-    "text": "Adding Aesthetics\nUse aes() to map variables to visual properties:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))\n\nNow we have axes, but still no data points!"
+    "text": "Adding Aesthetics\nUse aes() to map variables to visual properties:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))\n\n\nNow we have axes, but still no data points!"
   },
   {
     "objectID": "ggplot2.html#adding-a-geom-layer",
     "href": "ggplot2.html#adding-a-geom-layer",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Adding a Geom Layer",
-    "text": "Adding a Geom Layer\nTell ggplot how to represent the data visually:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point()\n\ngeom_point() creates a scatterplot of points."
+    "text": "Adding a Geom Layer\nTell ggplot how to represent the data visually:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point()\n\n\ngeom_point() creates a scatterplot of points."
   },
   {
     "objectID": "ggplot2.html#challenge-1",
@@ -2489,21 +2545,21 @@
     "href": "ggplot2.html#challenge-2-solution",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Challenge 2 Solution",
-    "text": "Challenge 2 Solution\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, color = continent)) +\n  geom_point()\n\nThe general trend shows increased life expectancy over the years. Continents with stronger economies show longer life expectancy."
+    "text": "Challenge 2 Solution\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, color = continent)) +\n  geom_point()\n\n\nThe general trend shows increased life expectancy over the years. Continents with stronger economies show longer life expectancy."
   },
   {
     "objectID": "ggplot2.html#layers",
     "href": "ggplot2.html#layers",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Layers",
-    "text": "Layers\nLet’s visualize change over time with a line plot instead:\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, color = continent)) +\n  geom_line()\n\nThe result looks jumpy! Let’s separate by country."
+    "text": "Layers\nLet’s visualize change over time with a line plot instead:\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, color = continent)) +\n  geom_line()\n\n\nThe result looks jumpy! Let’s separate by country."
   },
   {
     "objectID": "ggplot2.html#grouping-by-country",
     "href": "ggplot2.html#grouping-by-country",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Grouping by Country",
-    "text": "Grouping by Country\nUse the group aesthetic to draw one line per country:\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, group = country, color = continent)) +\n  geom_line()\n\nNow each country has its own line, colored by continent."
+    "text": "Grouping by Country\nUse the group aesthetic to draw one line per country:\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, group = country, color = continent)) +\n  geom_line()\n\n\nNow each country has its own line, colored by continent."
   },
   {
     "objectID": "ggplot2.html#combining-layers",
@@ -2517,7 +2573,7 @@
     "href": "ggplot2.html#layer-order-matters",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Layer Order Matters",
-    "text": "Layer Order Matters\nEach layer is drawn on top of the previous layer:\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, group = country)) +\n  geom_line(mapping = aes(color = continent)) + \n  geom_point()\n\nHere, color only applies to lines, and points are drawn on top."
+    "text": "Layer Order Matters\nEach layer is drawn on top of the previous layer:\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, group = country)) +\n  geom_line(mapping = aes(color = continent)) + \n  geom_point()\n\n\nHere, color only applies to lines, and points are drawn on top."
   },
   {
     "objectID": "ggplot2.html#setting-vs-mapping-aesthetics",
@@ -2538,21 +2594,21 @@
     "href": "ggplot2.html#challenge-3-solution",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Challenge 3 Solution",
-    "text": "Challenge 3 Solution\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, group = country)) +\n  geom_point() + \n  geom_line(mapping = aes(color = continent))\n\nThe lines are now drawn over the points!"
+    "text": "Challenge 3 Solution\n\nggplot(data = gapminder, mapping = aes(x = year, y = lifeExp, group = country)) +\n  geom_point() + \n  geom_line(mapping = aes(color = continent))\n\n\nThe lines are now drawn over the points!"
   },
   {
     "objectID": "ggplot2.html#transformations-and-statistics",
     "href": "ggplot2.html#transformations-and-statistics",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Transformations and Statistics",
-    "text": "Transformations and Statistics\nLet’s go back to our first scatterplot:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point()\n\nStrong outliers in GDP make it hard to see relationships."
+    "text": "Transformations and Statistics\nLet’s go back to our first scatterplot:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point()\n\n\nStrong outliers in GDP make it hard to see relationships."
   },
   {
     "objectID": "ggplot2.html#log-scale-transformation",
     "href": "ggplot2.html#log-scale-transformation",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Log Scale Transformation",
-    "text": "Log Scale Transformation\nUse scale_x_log10() and alpha for transparency:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(alpha = 0.5) + \n  scale_x_log10()\n\nEach multiple of 10 is now evenly spaced on the x-axis."
+    "text": "Log Scale Transformation\nUse scale_x_log10() and alpha for transparency:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(alpha = 0.5) + \n  scale_x_log10()\n\n\nEach multiple of 10 is now evenly spaced on the x-axis."
   },
   {
     "objectID": "ggplot2.html#alpha-transparency",
@@ -2566,7 +2622,7 @@
     "href": "ggplot2.html#adding-a-trend-line",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Adding a Trend Line",
-    "text": "Adding a Trend Line\nUse geom_smooth() to fit a statistical model:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(alpha = 0.5) + \n  scale_x_log10() + \n  geom_smooth(method = \"lm\")\n\nThe gray shaded area shows 95% confidence intervals."
+    "text": "Adding a Trend Line\nUse geom_smooth() to fit a statistical model:\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(alpha = 0.5) + \n  scale_x_log10() + \n  geom_smooth(method = \"lm\")\n\n\nThe gray shaded area shows 95% confidence intervals."
   },
   {
     "objectID": "ggplot2.html#customizing-the-trend-line",
@@ -2587,7 +2643,7 @@
     "href": "ggplot2.html#challenge-4a-solution",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Challenge 4a Solution",
-    "text": "Challenge 4a Solution\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(size = 3, color = \"orange\") + \n  scale_x_log10() + \n  geom_smooth(method = \"lm\", linewidth = 1.5)\n\nColor and size are set outside aes() so they apply to all points."
+    "text": "Challenge 4a Solution\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +\n  geom_point(size = 3, color = \"orange\") + \n  scale_x_log10() + \n  geom_smooth(method = \"lm\", linewidth = 1.5)\n\n\nColor and size are set outside aes() so they apply to all points."
   },
   {
     "objectID": "ggplot2.html#challenge-4b",
@@ -2601,14 +2657,14 @@
     "href": "ggplot2.html#challenge-4b-solution",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Challenge 4b Solution",
-    "text": "Challenge 4b Solution\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 3, shape = 17) + \n  scale_x_log10() + \n  geom_smooth(method = \"lm\", linewidth = 1.5)\n\nshape is set for all points, while color is mapped to continent."
+    "text": "Challenge 4b Solution\n\nggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, color = continent)) +\n  geom_point(size = 3, shape = 17) + \n  scale_x_log10() + \n  geom_smooth(method = \"lm\", linewidth = 1.5)\n\n\nshape is set for all points, while color is mapped to continent."
   },
   {
     "objectID": "ggplot2.html#multi-panel-figures",
     "href": "ggplot2.html#multi-panel-figures",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "Multi-panel Figures",
-    "text": "Multi-panel Figures\nSplit data into panels with facet_wrap():\n\namericas &lt;- gapminder[gapminder$continent == \"Americas\", ]\n\nggplot(data = americas, mapping = aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_wrap(~ country) +\n  theme(axis.text.x = element_text(angle = 45))"
+    "text": "Multi-panel Figures\nSplit data into panels with facet_wrap():\n\nggplot(data = americas, mapping = aes(x = year, y = lifeExp)) +\n  geom_line() +\n  facet_wrap(~ country) +\n  theme(axis.text.x = element_text(angle = 45))"
   },
   {
     "objectID": "ggplot2.html#understanding-facet_wrap",
@@ -2716,11 +2772,39 @@
     "text": "Creating a Project\nRStudio’s project feature creates a self-contained, reproducible workspace:\n\n\n\nChallenge 1: Create an RStudio Project\n\n\n\nClick File → New Project\nClick “New Directory”\nClick “New Project”\nName your project (e.g., “my_project”)\nCheck “Create a git repository” if available\nClick “Create Project”\n\nA .Rproj file will be created. Double-click it to open the project and set R’s working directory to the project folder."
   },
   {
-    "objectID": "project-management.html#best-practices-for-project-organization",
-    "href": "project-management.html#best-practices-for-project-organization",
+    "objectID": "project-management.html#best-practices-data-is-read-only",
+    "href": "project-management.html#best-practices-data-is-read-only",
     "title": "Project Management With RStudio",
-    "section": "Best Practices for Project Organization",
-    "text": "Best Practices for Project Organization\nData is Read-Only\nRaw data is valuable and time-consuming to collect. Treat it as read-only to ensure you know the original source and all modifications made.\nData Cleaning\nStore preprocessing scripts separately from raw data. Keep cleaned data in a separate output folder to avoid confusion.\nGenerated Output is Disposable\nScripts should regenerate all outputs. Organize outputs by analysis type in subdirectories for easier management later.\nSeparate Functions and Applications\nCreate separate folders for: - Reusable functions (used across analyses) - Analysis scripts (project-specific workflows)\nWorking Directory\nCheck your working directory:\n\ngetwd()        # check current directory\nsetwd(\"path\")  # change directory\n\n\n\n\nChallenge 2: Working Directories\n\n\n\nType getwd() in the console\nUse Files pane to navigate to the data folder\nChange directory: setwd(\"data\")\nCheck new directory: getwd()\nReturn: setwd(\"..\")"
+    "section": "Best Practices: Data is Read-Only",
+    "text": "Best Practices: Data is Read-Only\nRaw data is valuable and time-consuming to collect. Treat it as read-only to ensure you know the original source and all modifications made."
+  },
+  {
+    "objectID": "project-management.html#best-practices-data-cleaning",
+    "href": "project-management.html#best-practices-data-cleaning",
+    "title": "Project Management With RStudio",
+    "section": "Best Practices: Data Cleaning",
+    "text": "Best Practices: Data Cleaning\nStore preprocessing scripts separately from raw data. Keep cleaned data in a separate output folder to avoid confusion."
+  },
+  {
+    "objectID": "project-management.html#best-practices-output-is-disposable",
+    "href": "project-management.html#best-practices-output-is-disposable",
+    "title": "Project Management With RStudio",
+    "section": "Best Practices: Output is Disposable",
+    "text": "Best Practices: Output is Disposable\nScripts should regenerate all outputs. Organize outputs by analysis type in subdirectories for easier management later."
+  },
+  {
+    "objectID": "project-management.html#best-practices-separate-functions",
+    "href": "project-management.html#best-practices-separate-functions",
+    "title": "Project Management With RStudio",
+    "section": "Best Practices: Separate Functions",
+    "text": "Best Practices: Separate Functions\nCreate separate folders for: - Reusable functions (used across analyses) - Analysis scripts (project-specific workflows)"
+  },
+  {
+    "objectID": "project-management.html#working-directory",
+    "href": "project-management.html#working-directory",
+    "title": "Project Management With RStudio",
+    "section": "Working Directory",
+    "text": "Working Directory\nCheck your working directory:\n\ngetwd()        # check current directory\nsetwd(\"path\")  # change directory\n\n\n\n\nChallenge 2: Working Directories\n\n\n\nType getwd() in the console\nUse Files pane to navigate to the data folder\nChange directory: setwd(\"data\")\nCheck new directory: getwd()\nReturn: setwd(\"..\")"
   },
   {
     "objectID": "project-management.html#key-points",
@@ -2744,18 +2828,39 @@
     "text": "Reading Help Files\nAccess help for any function:\n\n?function_name\nhelp(function_name)\n\nHelp pages include: Description, Usage, Arguments, Details, Value, See Also, and Examples.\nFor special operators, use quotes or backticks:\n\n?\"&lt;-\"\n?`&lt;-`\n\n\n\n\n\n\n\nRunning Examples\n\n\nHighlight code examples in help pages and hit Ctrl+Return to run them in RStudio."
   },
   {
-    "objectID": "seeking-help.html#getting-help",
-    "href": "seeking-help.html#getting-help",
+    "objectID": "seeking-help.html#package-vignettes",
+    "href": "seeking-help.html#package-vignettes",
     "title": "Seeking Help",
-    "section": "Getting Help",
-    "text": "Getting Help\nPackage Vignettes\nPackages often include tutorials and extended examples:\n\nvignette()                    # list all vignettes\nvignette(package=\"dplyr\")     # list dplyr vignettes\nvignette(\"dplyr\")             # open specific vignette\n\nSee RStudio cheatsheets for common packages.\nFuzzy Search\nSearch for functions when you don’t know the exact name:\n\n??function_name\n\nFinding Packages\nCRAN Task Views organizes packages by topic."
+    "section": "Package Vignettes",
+    "text": "Package Vignettes\nPackages often include tutorials and extended examples:\n\nvignette()                    # list all vignettes\nvignette(package=\"dplyr\")     # list dplyr vignettes\nvignette(\"dplyr\")             # open specific vignette\n\nSee RStudio cheatsheets for common packages."
   },
   {
-    "objectID": "seeking-help.html#getting-help-from-others",
-    "href": "seeking-help.html#getting-help-from-others",
+    "objectID": "seeking-help.html#fuzzy-search",
+    "href": "seeking-help.html#fuzzy-search",
     "title": "Seeking Help",
-    "section": "Getting Help from Others",
-    "text": "Getting Help from Others\nOnline Resources\n\nSearch the internet: Paste your error message and “R” into a search engine\n\nStackOverflow is particularly helpful; use the [r] tag\nNote: Understand code before copying it\n\nAsk colleagues: Share your problem with someone more experienced\nRubber duck debugging: Explaining your problem out loud often reveals the solution\n\nFormulating Good Questions\nWhen asking for help, provide:\n\ndput(your_data)        # share your data reproducibly\nsessionInfo()          # share your R environment"
+    "section": "Fuzzy Search",
+    "text": "Fuzzy Search\nSearch for functions when you don’t know the exact name:\n\n??function_name"
+  },
+  {
+    "objectID": "seeking-help.html#finding-packages",
+    "href": "seeking-help.html#finding-packages",
+    "title": "Seeking Help",
+    "section": "Finding Packages",
+    "text": "Finding Packages\nCRAN Task Views organizes packages by topic."
+  },
+  {
+    "objectID": "seeking-help.html#online-resources",
+    "href": "seeking-help.html#online-resources",
+    "title": "Seeking Help",
+    "section": "Online Resources",
+    "text": "Online Resources\n\nSearch the internet: Paste your error message and “R” into a search engine\n\nStackOverflow is particularly helpful; use the [r] tag\nNote: Understand code before copying it\n\nAsk colleagues: Share your problem with someone more experienced\nRubber duck debugging: Explaining your problem out loud often reveals the solution"
+  },
+  {
+    "objectID": "seeking-help.html#formulating-good-questions",
+    "href": "seeking-help.html#formulating-good-questions",
+    "title": "Seeking Help",
+    "section": "Formulating Good Questions",
+    "text": "Formulating Good Questions\nWhen asking for help, provide:\n\ndput(your_data)        # share your data reproducibly\nsessionInfo()          # share your R environment"
   },
   {
     "objectID": "seeking-help.html#generative-ai-tools",

@@ -253,16 +253,18 @@
 <p>The most basic function is <code>ggplot()</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>This creates a blank slate - we haven’t told it what to draw yet!</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"><p>This creates a blank slate - we haven’t told it what to draw yet!</p>
 </section>
 <section id="adding-aesthetics" class="slide level2">
 <h2>Adding Aesthetics</h2>
 <p>Use <code>aes()</code> to map variables to visual properties:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>Now we have axes, but still no data points!</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"><p>Now we have axes, but still no data points!</p>
 </section>
 <section id="adding-a-geom-layer" class="slide level2">
 <h2>Adding a Geom Layer</h2>
@@ -270,8 +272,9 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
 <span id="cb4-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p><code>geom_point()</code> creates a scatterplot of points.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><p><code>geom_point()</code> creates a scatterplot of points.</p>
 </section>
 <section id="challenge-1" class="slide level2 challenge-title">
 <h2>Challenge 1</h2>
@@ -287,8 +290,9 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
 <span id="cb6-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-</section>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
 <section id="challenge-2" class="slide level2 challenge-title">
 <h2>Challenge 2</h2>
 <p>Modify the code from Challenge 1 to <strong>color</strong> the points by the “continent” column.</p>
@@ -299,8 +303,9 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
 <span id="cb7-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>The general trend shows increased life expectancy over the years. Continents with stronger economies show longer life expectancy.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"><p>The general trend shows increased life expectancy over the years. Continents with stronger economies show longer life expectancy.</p>
 </section>
 <section id="layers" class="slide level2">
 <h2>Layers</h2>
@@ -308,8 +313,9 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
 <span id="cb8-2"><a></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>The result looks jumpy! Let’s separate by country.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"><p>The result looks jumpy! Let’s separate by country.</p>
 </section>
 <section id="grouping-by-country" class="slide level2">
 <h2>Grouping by Country</h2>
@@ -317,8 +323,9 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">group =</span> country, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
 <span id="cb9-2"><a></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>Now each country has its own line, colored by continent.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><p>Now each country has its own line, colored by continent.</p>
 </section>
 <section id="combining-layers" class="slide level2">
 <h2>Combining Layers</h2>
@@ -327,8 +334,9 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">group =</span> country, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
 <span id="cb10-2"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
 <span id="cb10-3"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-</section>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
 <section id="layer-order-matters" class="slide level2">
 <h2>Layer Order Matters</h2>
 <p>Each layer is drawn on top of the previous layer:</p>
@@ -336,8 +344,9 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">group =</span> country)) <span class="sc">+</span></span>
 <span id="cb11-2"><a></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> continent)) <span class="sc">+</span> </span>
 <span id="cb11-3"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>Here, color only applies to lines, and points are drawn on top.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"><p>Here, color only applies to lines, and points are drawn on top.</p>
 </section>
 <section id="setting-vs-mapping-aesthetics" class="slide level2 callout-tip">
 <h2>Setting vs Mapping Aesthetics</h2>
@@ -361,8 +370,9 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">group =</span> country)) <span class="sc">+</span></span>
 <span id="cb14-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb14-3"><a></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> continent))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>The lines are now drawn over the points!</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><p>The lines are now drawn over the points!</p>
 </section>
 <section id="transformations-and-statistics" class="slide level2">
 <h2>Transformations and Statistics</h2>
@@ -370,8 +380,9 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
 <span id="cb15-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>Strong outliers in GDP make it hard to see relationships.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><p>Strong outliers in GDP make it hard to see relationships.</p>
 </section>
 <section id="log-scale-transformation" class="slide level2">
 <h2>Log Scale Transformation</h2>
@@ -380,8 +391,9 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
 <span id="cb16-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
 <span id="cb16-3"><a></a>  <span class="fu">scale_x_log10</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>Each multiple of 10 is now evenly spaced on the x-axis.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"><p>Each multiple of 10 is now evenly spaced on the x-axis.</p>
 </section>
 <section id="alpha-transparency" class="slide level2 callout-note">
 <h2>Alpha Transparency</h2>
@@ -401,8 +413,9 @@
 <span id="cb17-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
 <span id="cb17-3"><a></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb17-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>The gray shaded area shows 95% confidence intervals.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"><p>The gray shaded area shows 95% confidence intervals.</p>
 </section>
 <section id="customizing-the-trend-line" class="slide level2">
 <h2>Customizing the Trend Line</h2>
@@ -412,8 +425,9 @@
 <span id="cb18-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
 <span id="cb18-3"><a></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb18-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-</section>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
 <section id="challenge-4a" class="slide level2 challenge-title">
 <h2>Challenge 4a</h2>
 <p>Modify the color and size of the points on the point layer in the previous example.</p>
@@ -427,8 +441,9 @@
 <span id="cb19-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"orange"</span>) <span class="sc">+</span> </span>
 <span id="cb19-3"><a></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb19-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p>Color and size are set outside <code>aes()</code> so they apply to all points.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"><p>Color and size are set outside <code>aes()</code> so they apply to all points.</p>
 </section>
 <section id="challenge-4b" class="slide level2 challenge-title">
 <h2>Challenge 4b</h2>
@@ -447,21 +462,21 @@
 <span id="cb20-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span> </span>
 <span id="cb20-3"><a></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb20-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-<p><code>shape</code> is set for all points, while <code>color</code> is mapped to continent.</p>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"><p><code>shape</code> is set for all points, while <code>color</code> is mapped to continent.</p>
 </section>
 <section id="multi-panel-figures" class="slide level2">
 <h2>Multi-panel Figures</h2>
 <p>Split data into panels with <code>facet_wrap()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>americas <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">"Americas"</span>, ]</span>
-<span id="cb21-2"><a></a></span>
-<span id="cb21-3"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> americas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
-<span id="cb21-4"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb21-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> country) <span class="sc">+</span></span>
-<span id="cb21-6"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> americas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb21-2"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> country) <span class="sc">+</span></span>
+<span id="cb21-4"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-</section>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
 <section id="understanding-facet_wrap" class="slide level2">
 <h2>Understanding facet_wrap()</h2>
 <p>The formula <code>~ country</code> tells R to:</p>
@@ -484,8 +499,9 @@
 <span id="cb22-8"><a></a>    <span class="at">color =</span> <span class="st">"Continent"</span></span>
 <span id="cb22-9"><a></a>  ) <span class="sc">+</span></span>
 <span id="cb22-10"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-</section>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
 <section id="the-labs-function" class="slide level2">
 <h2>The labs() Function</h2>
 <p><code>labs()</code> sets various text elements:</p>
@@ -545,8 +561,9 @@
 <span id="cb24-7"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb24-8"><a></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb24-9"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
 </div>
-</section>
+<img data-src="ggplot2_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"></section>
 <section id="common-geoms" class="slide level2">
 <h2>Common Geoms</h2>
 <p>Here are some frequently used geom functions:</p>

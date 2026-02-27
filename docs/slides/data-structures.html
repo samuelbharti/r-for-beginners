@@ -245,7 +245,9 @@
 <p>Understanding data types is key to successfully analyzing data in R. We can ask what type of data something is:</p>
 <p>There are 5 main types: <strong>double</strong>, <strong>integer</strong>, <strong>complex</strong>, <strong>logical</strong> and <strong>character</strong>. For historic reasons, <code>double</code> is also called <code>numeric</code>.</p>
 <p>No matter how complicated our analyses become, all data in R is interpreted as one of these basic data types.</p>
-<h3 id="type-coercion-in-data-frames">Type Coercion in Data Frames</h3>
+</section>
+<section id="type-coercion-in-data-frames" class="slide level2">
+<h2>Type Coercion in Data Frames</h2>
 <p>A user has provided details of another cat. We can add an additional row to our cats table:</p>
 <p>Let’s check what type of data we find in the <code>weight</code> column:</p>
 <p>Oh no! A given column in a data frame cannot be composed of different data types. When R can’t store everything as numbers (because of “2.3 or 2.4”), the entire column changes to character type.</p>
@@ -255,11 +257,15 @@
 <p>To better understand this behavior, let’s meet another of the data structures: the <strong>vector</strong>.</p>
 <p>A vector in R is essentially an ordered list of things, with the special condition that <strong>everything in the vector must be the same basic data type</strong>.</p>
 <p>You can check if something is a vector:</p>
-<h3 id="combining-vectors">Combining Vectors</h3>
+</section>
+<section id="combining-vectors" class="slide level2">
+<h2>Combining Vectors</h2>
 <p>You can make vectors with explicit contents using the combine function:</p>
 <p>What do you think the following will produce?</p>
 <p>This is called <strong>type coercion</strong> - when R encounters a mix of types to be combined, it forces them all to be the same type:</p>
-<h3 id="the-type-hierarchy">The Type Hierarchy</h3>
+</section>
+<section id="the-type-hierarchy" class="slide level2">
+<h2>The Type Hierarchy</h2>
 <p>The coercion rules go: <code>logical</code> → <code>integer</code> → <code>double</code> → <code>complex</code> → <code>character</code></p>
 <p>You can force coercion using the <code>as.</code> functions:</p>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
@@ -298,7 +304,9 @@
 </div>
 </div>
 </div>
-<h3 id="vector-functions">Vector Functions</h3>
+</section>
+<section id="vector-functions" class="slide level2">
+<h2>Vector Functions</h2>
 <p>The combine function will also append things to an existing vector:</p>
 <p>You can make series of numbers:</p>
 <p>We can ask questions about vectors:</p>
@@ -335,9 +343,8 @@
 <p>To retrieve an element of a list, use double brackets:</p>
 <p>List elements can have names:</p>
 </section>
-<section id="names" class="slide level2">
-<h2>Names</h2>
-<h3 id="accessing-vectors-by-name">Accessing Vectors by Name</h3>
+<section id="accessing-vectors-by-name" class="slide level2">
+<h2>Accessing Vectors by Name</h2>
 <p>Named vectors are generated similarly to named lists:</p>
 <p>Note: The <code>$</code> operator doesn’t work for vectors, only for lists and data frames.</p>
 <p>If you’re only interested in the names:</p>

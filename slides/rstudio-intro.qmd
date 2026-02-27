@@ -26,7 +26,7 @@ Today we will learn to:
 
 RStudio is a free, open-source IDE that makes R easier to use. It provides an editor, integrated console, and project management tools.
 
-### RStudio Layout
+## RStudio Layout
 
 When RStudio opens, you'll see:
 
@@ -36,7 +36,7 @@ When RStudio opens, you'll see:
 
 R scripts (`.R` files) can be opened in the editor panel (top left).
 
-### Workflow
+## Workflow
 
 You can work in two ways:
 
@@ -66,7 +66,7 @@ R can perform arithmetic:
 
 The `[1]` shown in output indicates the first element of a result.
 
-### Scientific Notation
+## Scientific Notation
 
 Large/small numbers use scientific notation (e.g., `2e-4` means $2 \times 10^{-4}$):
 
@@ -112,6 +112,7 @@ Comparison operators:
 ## Comparing Numbers
 
 Never use `==` to compare decimal numbers. Use `all.equal()` instead due to floating-point precision.
+:::
 
 ## Variables and Assignment
 
@@ -136,7 +137,7 @@ x <- 100
 x <- x + 1
 ```
 
-### Variable Naming Rules
+## Variable Naming Rules
 
 Valid names contain letters, numbers, underscores, and periods (must start with a letter or period). Conventions include `periods.between.words`, `underscores_between_words`, or `camelCase`. Be consistent.
 

@@ -29,6 +29,20 @@ This is an adapted version of the [Software Carpentry R-novice-gapminder](https:
 13. [Producing Reports With knitr](lessons/knitr-markdown.html) ([Slides](slides/knitr-markdown.html)) - Create reproducible reports integrating code and narrative
 14. [Writing Good Software](lessons/writing-good-software.html) ([Slides](slides/writing-good-software.html)) - Apply best practices for readable, reusable R code
 
+## About the Slides
+
+The slides on this site are built with [Quarto](https://quarto.org/), an open-source publishing system that lets you write content in plain text and turn it into websites, slides, PDFs, and more — all from the same source.
+
+The slide decks use **Quarto's reveal.js format**, and they're honestly pretty cool. You can:
+
+- Navigate **horizontally** through main topics or **vertically** through sub-topics
+- Press **F** to go full screen
+- Press **S** to open **speaker/presentation mode** (with notes and a timer)
+- Hit **E** to switch to a **PDF-friendly view**, then print or save as PDF
+- Use the built-in **chalkboard** to draw on slides during a live session
+
+It's an excellent setup for teaching — everything lives in one place, looks clean, and just works in the browser. No PowerPoint, no extra software.
+
 ## About
 
 This is a decluttered adaptation of Software Carpentry's R programming course, optimized for teaching and learning. The content has been streamlined to provide clear, focused lessons while maintaining the core learning objectives.

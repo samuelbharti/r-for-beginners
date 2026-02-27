@@ -107,7 +107,7 @@ typeof('banana')       # "character"
 
 No matter how complicated our analyses become, all data in R is interpreted as one of these basic data types.
 
-### Type Coercion in Data Frames
+## Type Coercion in Data Frames
 
 A user has provided details of another cat. We can add an additional row to our cats table:
 
@@ -159,7 +159,7 @@ str(another_vector)
 str(cats$weight)  # Columns are vectors too!
 ```
 
-### Combining Vectors
+## Combining Vectors
 
 You can make vectors with explicit contents using the combine function:
 
@@ -190,7 +190,7 @@ another_coercion_vector <- c(0, TRUE)
 another_coercion_vector  # 0 1
 ```
 
-### The Type Hierarchy
+## The Type Hierarchy
 
 The coercion rules go: `logical` → `integer` → `double` → `complex` → `character`
 
@@ -233,7 +233,7 @@ mean(cats2$weight)  # Should work now!
 :::
 :::
 
-### Vector Functions
+## Vector Functions
 
 The combine function will also append things to an existing vector:
 
@@ -334,9 +334,7 @@ another_list
 another_list$title  # "Numbers"
 ```
 
-## Names
-
-### Accessing Vectors by Name
+## Accessing Vectors by Name
 
 Named vectors are generated similarly to named lists:
 
