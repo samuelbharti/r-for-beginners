@@ -4,14 +4,14 @@
     "href": "lessons/writing_data.html",
     "title": "Writing Data in R",
     "section": "",
-    "text": "Today we will learn to:\n\nSave plots from R to files\nControl plot size and resolution\nWrite data frames to CSV and other formats\nHandle formatting options for data output\nCreate reproducible data-cleaning workflows"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/writing_data.html#overview",
     "href": "lessons/writing_data.html#overview",
     "title": "Writing Data in R",
-    "section": "",
-    "text": "Today we will learn to:\n\nSave plots from R to files\nControl plot size and resolution\nWrite data frames to CSV and other formats\nHandle formatting options for data output\nCreate reproducible data-cleaning workflows"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nSave plots from R to files\nControl plot size and resolution\nWrite data frames to CSV and other formats\nHandle formatting options for data output\nCreate reproducible data-cleaning workflows"
   },
   {
     "objectID": "lessons/writing_data.html#questions",
@@ -291,14 +291,14 @@
     "href": "lessons/vectorization.html",
     "title": "Vectorization",
     "section": "",
-    "text": "Questions:\n\nHow can I operate on all the elements of a vector at once?\n\nObjectives:\n\nTo understand vectorized operations in R"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/vectorization.html#overview",
     "href": "lessons/vectorization.html#overview",
     "title": "Vectorization",
-    "section": "",
-    "text": "Questions:\n\nHow can I operate on all the elements of a vector at once?\n\nObjectives:\n\nTo understand vectorized operations in R"
+    "section": "Overview",
+    "text": "Overview\nQuestions:\n\nHow can I operate on all the elements of a vector at once?\n\nObjectives:\n\nTo understand vectorized operations in R"
   },
   {
     "objectID": "lessons/vectorization.html#introduction",
@@ -354,14 +354,14 @@
     "href": "lessons/rstudio-intro.html",
     "title": "Introduction to R and RStudio",
     "section": "",
-    "text": "Today we will learn to:\n\nDescribe the purpose and use of each pane in RStudio\nLocate buttons and options in RStudio\nDefine a variable and assign data to a variable\nManage a workspace in an interactive R session\nUse mathematical and comparison operators\nCall functions\nManage packages"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/rstudio-intro.html#overview",
     "href": "lessons/rstudio-intro.html#overview",
     "title": "Introduction to R and RStudio",
-    "section": "",
-    "text": "Today we will learn to:\n\nDescribe the purpose and use of each pane in RStudio\nLocate buttons and options in RStudio\nDefine a variable and assign data to a variable\nManage a workspace in an interactive R session\nUse mathematical and comparison operators\nCall functions\nManage packages"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nDescribe the purpose and use of each pane in RStudio\nLocate buttons and options in RStudio\nDefine a variable and assign data to a variable\nManage a workspace in an interactive R session\nUse mathematical and comparison operators\nCall functions\nManage packages"
   },
   {
     "objectID": "lessons/rstudio-intro.html#questions",
@@ -438,14 +438,14 @@
     "href": "lessons/knitr-markdown.html",
     "title": "Producing Reports With knitr",
     "section": "",
-    "text": "Questions:\n\nHow can I integrate software and reports?\n\nObjectives:\n\nUnderstand the value of writing reproducible reports\nLearn how to recognise and compile the basic components of an R Markdown file\nBecome familiar with R code chunks, and understand their purpose, structure and options\nDemonstrate the use of inline chunks for weaving R outputs into text blocks\nBe aware of alternative output formats to which an R Markdown file can be exported"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/knitr-markdown.html#overview",
     "href": "lessons/knitr-markdown.html#overview",
     "title": "Producing Reports With knitr",
-    "section": "",
-    "text": "Questions:\n\nHow can I integrate software and reports?\n\nObjectives:\n\nUnderstand the value of writing reproducible reports\nLearn how to recognise and compile the basic components of an R Markdown file\nBecome familiar with R code chunks, and understand their purpose, structure and options\nDemonstrate the use of inline chunks for weaving R outputs into text blocks\nBe aware of alternative output formats to which an R Markdown file can be exported"
+    "section": "Overview",
+    "text": "Overview\nQuestions:\n\nHow can I integrate software and reports?\n\nObjectives:\n\nUnderstand the value of writing reproducible reports\nLearn how to recognise and compile the basic components of an R Markdown file\nBecome familiar with R code chunks, and understand their purpose, structure and options\nDemonstrate the use of inline chunks for weaving R outputs into text blocks\nBe aware of alternative output formats to which an R Markdown file can be exported"
   },
   {
     "objectID": "lessons/knitr-markdown.html#data-analysis-reports",
@@ -543,14 +543,14 @@
     "href": "lessons/functions.html",
     "title": "Functions Explained",
     "section": "",
-    "text": "Today we will learn to:\n\nDefine a function that takes arguments\nReturn a value from a function\nCheck argument conditions with stopifnot()\nTest a function\nSet default values for function arguments\nDivide programs into small, single-purpose functions"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/functions.html#overview",
     "href": "lessons/functions.html#overview",
     "title": "Functions Explained",
-    "section": "",
-    "text": "Today we will learn to:\n\nDefine a function that takes arguments\nReturn a value from a function\nCheck argument conditions with stopifnot()\nTest a function\nSet default values for function arguments\nDivide programs into small, single-purpose functions"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nDefine a function that takes arguments\nReturn a value from a function\nCheck argument conditions with stopifnot()\nTest a function\nSet default values for function arguments\nDivide programs into small, single-purpose functions"
   },
   {
     "objectID": "lessons/functions.html#questions",
@@ -1005,14 +1005,14 @@
     "href": "lessons/dplyr.html",
     "title": "Data Frame Manipulation with dplyr",
     "section": "",
-    "text": "Today we will learn to:\n\nUse the six main data frame manipulation ‘verbs’ with pipes in dplyr\nUnderstand how group_by() and summarize() can be combined to summarize datasets\nAnalyze a subset of data using logical filtering"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/dplyr.html#overview",
     "href": "lessons/dplyr.html#overview",
     "title": "Data Frame Manipulation with dplyr",
-    "section": "",
-    "text": "Today we will learn to:\n\nUse the six main data frame manipulation ‘verbs’ with pipes in dplyr\nUnderstand how group_by() and summarize() can be combined to summarize datasets\nAnalyze a subset of data using logical filtering"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nUse the six main data frame manipulation ‘verbs’ with pipes in dplyr\nUnderstand how group_by() and summarize() can be combined to summarize datasets\nAnalyze a subset of data using logical filtering"
   },
   {
     "objectID": "lessons/dplyr.html#questions",
@@ -1306,14 +1306,14 @@
     "href": "lessons/data-structures.html",
     "title": "Data Structures",
     "section": "",
-    "text": "Questions:\n\nHow can I read data in R?\nWhat are the basic data types in R?\nHow do I represent categorical information in R?\n\nObjectives:\n\nTo be able to identify the 5 main data types\nTo begin exploring data frames, and understand how they are related to vectors and lists\nTo be able to ask questions from R about the type, class, and structure of an object\nTo understand the information of the attributes “names”, “class”, and “dim”"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/data-structures.html#overview",
     "href": "lessons/data-structures.html#overview",
     "title": "Data Structures",
-    "section": "",
-    "text": "Questions:\n\nHow can I read data in R?\nWhat are the basic data types in R?\nHow do I represent categorical information in R?\n\nObjectives:\n\nTo be able to identify the 5 main data types\nTo begin exploring data frames, and understand how they are related to vectors and lists\nTo be able to ask questions from R about the type, class, and structure of an object\nTo understand the information of the attributes “names”, “class”, and “dim”"
+    "section": "Overview",
+    "text": "Overview\nQuestions:\n\nHow can I read data in R?\nWhat are the basic data types in R?\nHow do I represent categorical information in R?\n\nObjectives:\n\nTo be able to identify the 5 main data types\nTo begin exploring data frames, and understand how they are related to vectors and lists\nTo be able to ask questions from R about the type, class, and structure of an object\nTo understand the information of the attributes “names”, “class”, and “dim”"
   },
   {
     "objectID": "lessons/data-structures.html#creating-and-reading-data",
@@ -1411,14 +1411,14 @@
     "href": "lessons/control_flow.html",
     "title": "Control Flow in R",
     "section": "",
-    "text": "Today we will learn to:\n\nMake data-dependent choices with if...else statements\nUse the ifelse() function for vectorized conditions\nWrite and understand for() loops\nRepeat operations using while() loops"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/control_flow.html#overview",
     "href": "lessons/control_flow.html#overview",
     "title": "Control Flow in R",
-    "section": "",
-    "text": "Today we will learn to:\n\nMake data-dependent choices with if...else statements\nUse the ifelse() function for vectorized conditions\nWrite and understand for() loops\nRepeat operations using while() loops"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nMake data-dependent choices with if...else statements\nUse the ifelse() function for vectorized conditions\nWrite and understand for() loops\nRepeat operations using while() loops"
   },
   {
     "objectID": "lessons/control_flow.html#questions",
@@ -1733,14 +1733,14 @@
     "href": "lessons/data_subsetting.html",
     "title": "Subsetting Data in R",
     "section": "",
-    "text": "Today we will learn to:\n\nSubset vectors using indices, names, and logical operations\nSkip and remove elements from data structures\nSubset matrices, lists, and data frames\nHandle special values (NA, NaN, Inf)\nCombine logical conditions for complex subsetting"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/data_subsetting.html#overview",
     "href": "lessons/data_subsetting.html#overview",
     "title": "Subsetting Data in R",
-    "section": "",
-    "text": "Today we will learn to:\n\nSubset vectors using indices, names, and logical operations\nSkip and remove elements from data structures\nSubset matrices, lists, and data frames\nHandle special values (NA, NaN, Inf)\nCombine logical conditions for complex subsetting"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nSubset vectors using indices, names, and logical operations\nSkip and remove elements from data structures\nSubset matrices, lists, and data frames\nHandle special values (NA, NaN, Inf)\nCombine logical conditions for complex subsetting"
   },
   {
     "objectID": "lessons/data_subsetting.html#questions",
@@ -2314,14 +2314,14 @@
     "href": "lessons/exploring_dataframes.html",
     "title": "Exploring Data Frames in R",
     "section": "",
-    "text": "Today we will learn to:\n\nAdd and remove rows or columns\nAppend two data frames\nExplore data frame properties\nRead data from CSV files"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/exploring_dataframes.html#overview",
     "href": "lessons/exploring_dataframes.html#overview",
     "title": "Exploring Data Frames in R",
-    "section": "",
-    "text": "Today we will learn to:\n\nAdd and remove rows or columns\nAppend two data frames\nExplore data frame properties\nRead data from CSV files"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nAdd and remove rows or columns\nAppend two data frames\nExplore data frame properties\nRead data from CSV files"
   },
   {
     "objectID": "lessons/exploring_dataframes.html#what-is-a-data-frame",
@@ -2517,14 +2517,14 @@
     "href": "lessons/ggplot2.html",
     "title": "Creating Publication-Quality Graphics with ggplot2",
     "section": "",
-    "text": "Today we will learn to:\n\nUse ggplot2 to generate publication-quality graphics\nApply geometry, aesthetic, and statistics layers to a ggplot plot\nManipulate aesthetics using different colors, shapes, and lines\nImprove data visualization through transforming scales and paneling by group\nSave a plot created with ggplot to disk"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/ggplot2.html#overview",
     "href": "lessons/ggplot2.html#overview",
     "title": "Creating Publication-Quality Graphics with ggplot2",
-    "section": "",
-    "text": "Today we will learn to:\n\nUse ggplot2 to generate publication-quality graphics\nApply geometry, aesthetic, and statistics layers to a ggplot plot\nManipulate aesthetics using different colors, shapes, and lines\nImprove data visualization through transforming scales and paneling by group\nSave a plot created with ggplot to disk"
+    "section": "Overview",
+    "text": "Overview\nToday we will learn to:\n\nUse ggplot2 to generate publication-quality graphics\nApply geometry, aesthetic, and statistics layers to a ggplot plot\nManipulate aesthetics using different colors, shapes, and lines\nImprove data visualization through transforming scales and paneling by group\nSave a plot created with ggplot to disk"
   },
   {
     "objectID": "lessons/ggplot2.html#questions",
@@ -2811,14 +2811,14 @@
     "href": "lessons/project-management.html",
     "title": "Project Management With RStudio",
     "section": "",
-    "text": "Questions:\n\nHow can I organize my R projects?\n\nObjectives:\n\nCreate self-contained projects in RStudio\nOrganize project files effectively"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/project-management.html#overview",
     "href": "lessons/project-management.html#overview",
     "title": "Project Management With RStudio",
-    "section": "",
-    "text": "Questions:\n\nHow can I organize my R projects?\n\nObjectives:\n\nCreate self-contained projects in RStudio\nOrganize project files effectively"
+    "section": "Overview",
+    "text": "Overview\nQuestions:\n\nHow can I organize my R projects?\n\nObjectives:\n\nCreate self-contained projects in RStudio\nOrganize project files effectively"
   },
   {
     "objectID": "lessons/project-management.html#why-project-structure-matters",
@@ -2853,14 +2853,14 @@
     "href": "lessons/seeking-help.html",
     "title": "Seeking Help",
     "section": "",
-    "text": "Questions:\n\nHow can I get help in R?\n\nObjectives:\n\nUse R help files and resources\nFind packages for specific tasks\nSeek help from peers\nUse generative AI responsibly"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/seeking-help.html#overview",
     "href": "lessons/seeking-help.html#overview",
     "title": "Seeking Help",
-    "section": "",
-    "text": "Questions:\n\nHow can I get help in R?\n\nObjectives:\n\nUse R help files and resources\nFind packages for specific tasks\nSeek help from peers\nUse generative AI responsibly"
+    "section": "Overview",
+    "text": "Overview\nQuestions:\n\nHow can I get help in R?\n\nObjectives:\n\nUse R help files and resources\nFind packages for specific tasks\nSeek help from peers\nUse generative AI responsibly"
   },
   {
     "objectID": "lessons/seeking-help.html#reading-help-files",
@@ -2909,14 +2909,14 @@
     "href": "lessons/writing-good-software.html",
     "title": "Writing Good Software",
     "section": "",
-    "text": "Questions:\n\nHow can I write software that other people can use?\n\nObjectives:\n\nDescribe best practices for writing R and explain the justification for each"
+    "text": "Open slides"
   },
   {
     "objectID": "lessons/writing-good-software.html#overview",
     "href": "lessons/writing-good-software.html#overview",
     "title": "Writing Good Software",
-    "section": "",
-    "text": "Questions:\n\nHow can I write software that other people can use?\n\nObjectives:\n\nDescribe best practices for writing R and explain the justification for each"
+    "section": "Overview",
+    "text": "Overview\nQuestions:\n\nHow can I write software that other people can use?\n\nObjectives:\n\nDescribe best practices for writing R and explain the justification for each"
   },
   {
     "objectID": "lessons/writing-good-software.html#keep-projects-organized",

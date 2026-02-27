@@ -236,6 +236,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<div class="slide-link">
+
+  <a id="slide-link" href="#" target="_blank" rel="noopener">Open slides</a>
+
+</div>
+
+
+
+<script>
+
+  (function () {
+
+    var path = window.location.pathname;
+
+    var file = path.substring(path.lastIndexOf("/") + 1);
+
+    if (!file || file.indexOf(".html") === -1) {
+
+      return;
+
+    }
+
+    var link = document.getElementById("slide-link");
+
+    if (!link) {
+
+      return;
+
+    }
+
+    link.href = "../slides/" + file;
+
+  })();
+
+</script>
+
+
+
+<style>
+
+  .slide-link {
+
+    margin: 0.75rem 0 1rem 0;
+
+    text-align: right;
+
+  }
+
+  .slide-link a {
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+  }
+
+</style>
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">

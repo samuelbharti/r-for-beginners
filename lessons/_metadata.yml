@@ -3,6 +3,7 @@ format:
     theme: cosmo
     toc: true
     code-copy: true
+    include-before-body: slide-link.html
 
 knitr:
   opts_knit:

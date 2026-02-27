@@ -72,6 +72,11 @@ Run in PowerShell or Terminal:
 quarto render
 ```
 
+To build lessons and slides together:
+```powershell
+./build.ps1
+```
+
 Or in RStudio: Open `index.qmd` and click **Render**
 
 ## Deploy to GitHub Pages
