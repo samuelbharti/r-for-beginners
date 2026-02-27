@@ -1,0 +1,616 @@
+---
+title: "Control Flow in R"
+subtitle: "Adapted from Software Carpentry"
+---
+
+## Overview
+
+Today we will learn to:
+
+-   Make data-dependent choices with `if...else` statements
+-   Use the `ifelse()` function for vectorized conditions
+-   Write and understand `for()` loops
+-   Repeat operations using `while()` loops
+
+## Questions
+
+-   How can I make data-dependent choices in R?
+-   How can I repeat operations in R?
+
+## Why Control Flow?
+
+Often when coding, we want to control the flow of our actions:
+
+-   Set actions to occur only if a condition is met
+-   Set an action to occur a particular number of times
+-   Make decisions based on data values
+
+Control flow is essential for automating complex analyses!
+
+## Conditional Statements
+
+The most common approaches for conditional statements:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# if
+if (condition is true) {
+  perform action
+}
+
+# if ... else
+if (condition is true) {
+  perform action
+} else {  # that is, if the condition is false,
+  perform alternative action
+}
+```
+
+## Simple if Statement
+
+Print a message if a variable has a particular value:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 8
+
+if (x >= 10) {
+  print("x is greater than or equal to 10")
+}
+
+x
+```
+
+The print statement doesn't appear because x is not greater than 10.
+
+## Adding else
+
+To print a message for numbers less than 10, add `else`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 8
+
+if (x >= 10) {
+  print("x is greater than or equal to 10")
+} else {
+  print("x is less than 10")
+}
+```
+
+## Multiple Conditions with else if
+
+Test multiple conditions using `else if`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 8
+
+if (x >= 10) {
+  print("x is greater than or equal to 10")
+} else if (x > 5) {
+  print("x is greater than 5, but less than 10")
+} else {
+  print("x is less than 5")
+}
+```
+
+## Logical Elements in Conditions {.callout-warning}
+
+**Important:** R looks for a logical element (`TRUE` or `FALSE`) inside `if()` statements.
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 4 == 3
+if (x) {
+  "4 equals 3"
+} else {
+  "4 does not equal 3"
+}
+```
+
+## Understanding the Condition
+
+The "not equal" message was printed because `x` is `FALSE`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 4 == 3
+x
+```
+
+## Challenge 1 {.challenge-title}
+
+Use an `if()` statement to print a suitable message reporting whether there are any records from 2002 in the `gapminder` dataset.
+
+Now do the same for 2012.
+
+**Hint:** Think about how to check if any values match a condition!
+
+## Challenge 1 Solution {.challenge-title}
+
+First, let's load the data:
+
+```{r}
+#| eval: false
+#| echo: true
+
+gapminder <- read.csv(
+  "https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv"
+)
+```
+
+## Challenge 1 Solution (continued) {.challenge-title}
+
+Check for records from 2002:
+
+```{r}
+#| eval: false
+#| echo: true
+
+if (any(gapminder$year == 2002)) {
+  print("Record(s) for the year 2002 found.")
+}
+```
+
+## Challenge 1 Solution (for 2012) {.challenge-title}
+
+Did you try this for 2012?
+
+```{r}
+#| eval: false
+#| echo: true
+
+if (gapminder$year == 2012) {
+  print("Record(s) for the year 2012 found.")
+}
+```
+
+You may have received a warning or error!
+
+## Common Mistake with if() {.callout-warning}
+
+The `if()` function only accepts singular (length 1) inputs:
+
+```         
+Error in `if (gapminder$year == 2012) ...`:
+! the condition has length > 1
+```
+
+The `if()` function will only evaluate the condition in the **first element** of the vector.
+
+To use `if()`, make sure your input is singular (length 1)!
+
+## The ifelse() Function {.callout-tip}
+
+R's built-in `ifelse()` function accepts both singular and vector inputs:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# ifelse function
+ifelse(condition is true, perform action, perform alternative action)
+```
+
+-   First argument: condition(s) to be met
+-   Second argument: evaluated when `TRUE`
+-   Third argument: evaluated when `FALSE`
+
+## ifelse() Example
+
+```{r}
+#| eval: false
+#| echo: true
+
+y <- -3
+ifelse(y < 0, "y is a negative number", "y is either positive or zero")
+```
+
+Works with vectors too!
+
+```{r}
+#| eval: false
+#| echo: true
+
+values <- c(-3, 5, 0, -1, 8)
+ifelse(values < 0, "negative", "non-negative")
+```
+
+## any() and all() Functions {.callout-tip}
+
+Two useful functions for checking conditions on vectors:
+
+-   `any()` - returns `TRUE` if **at least one** `TRUE` value is found
+-   `all()` - returns `TRUE` only if **all** values are `TRUE`
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- c(TRUE, FALSE, TRUE)
+any(x)  # TRUE
+all(x)  # FALSE
+```
+
+## Using any() with Data
+
+Check if any records exist for a year:
+
+```{r}
+#| eval: false
+#| echo: true
+
+any(gapminder$year == 2002)  # TRUE
+any(gapminder$year == 2012)  # FALSE
+```
+
+Similar to the `%in%` operator!
+
+## Repeating Operations: for Loops
+
+If you want to iterate over a set of values and perform the same operation on each, use a `for()` loop:
+
+```{r}
+#| eval: false
+#| echo: true
+
+for (iterator in set of values) {
+  do a thing
+}
+```
+
+## Basic for Loop
+
+Print numbers 1 through 10:
+
+```{r}
+#| eval: false
+#| echo: true
+
+for (i in 1:10) {
+  print(i)
+}
+```
+
+The `1:10` creates a vector on the fly.
+
+## Iterating Over Any Vector
+
+You can iterate over any vector:
+
+```{r}
+#| eval: false
+#| echo: true
+
+colors <- c("red", "green", "blue")
+for (color in colors) {
+  print(color)
+}
+```
+
+## Nested for Loops
+
+Use a `for()` loop nested within another to iterate over two things:
+
+```{r}
+#| eval: false
+#| echo: true
+
+for (i in 1:3) {
+  for (j in c('a', 'b', 'c')) {
+    print(paste(i, j))
+  }
+}
+```
+
+## Understanding Nested Loops
+
+When the first index (`i`) is set to 1:
+
+-   The second index (`j`) iterates through its full set
+-   Once `j` is complete, `i` is incremented
+-   Process continues until all indices are used
+
+## Storing Loop Results
+
+Write loop output to a new object:
+
+```{r}
+#| eval: false
+#| echo: true
+
+output_vector <- c()
+for (i in 1:5) {
+  for (j in c('a', 'b', 'c', 'd', 'e')) {
+    temp_output <- paste(i, j)
+    output_vector <- c(output_vector, temp_output)
+  }
+}
+output_vector
+```
+
+## Don't Grow Your Results! {.callout-warning}
+
+"Growing" results (building the result object incrementally) is computationally **inefficient**.
+
+The problem:
+
+-   Computers are bad at handling this
+-   Calculations can quickly slow to a crawl
+
+**Better approach:** Define an empty results object with appropriate dimensions before filling in values.
+
+## Better Approach: Pre-allocate
+
+Define your output object before filling values:
+
+```{r}
+#| eval: false
+#| echo: true
+
+output_matrix <- matrix(nrow = 5, ncol = 5)
+j_vector <- c('a', 'b', 'c', 'd', 'e')
+for (i in 1:5) {
+  for (j in 1:5) {
+    temp_j_value <- j_vector[j]
+    temp_output <- paste(i, temp_j_value)
+    output_matrix[i, j] <- temp_output
+  }
+}
+output_vector2 <- as.vector(output_matrix)
+output_vector2
+```
+
+## Challenge 2 {.challenge-title}
+
+Compare the objects `output_vector` and `output_vector2`.
+
+-   Are they the same?
+-   If not, why not?
+-   How would you change the last block of code to make `output_vector2` the same as `output_vector`?
+
+## Challenge 2 Solution {.challenge-title}
+
+Check if they're identical:
+
+```{r}
+#| eval: false
+#| echo: true
+
+all(output_vector == output_vector2)
+```
+
+They're not the same! But all elements exist in both:
+
+```{r}
+#| eval: false
+#| echo: true
+
+all(output_vector %in% output_vector2)
+```
+
+## Challenge 2 Solution (continued) {.challenge-title}
+
+The elements are sorted in different order because `as.vector()` outputs elements by **column**.
+
+**Fix:** Transpose the output matrix:
+
+```{r}
+#| eval: false
+#| echo: true
+
+output_vector2 <- as.vector(t(output_matrix))
+all(output_vector == output_vector2)
+```
+
+## while Loops {.callout-tip}
+
+Sometimes you need to repeat an operation as long as a condition is met:
+
+```{r}
+#| eval: false
+#| echo: true
+
+while (this condition is true) {
+  do a thing
+}
+```
+
+R interprets a condition being met as `TRUE`.
+
+## while Loop Example
+
+Generate random numbers until you get one less than 0.1:
+
+```{r}
+#| eval: false
+#| echo: true
+
+set.seed(42)  # For reproducibility
+z <- 1
+while (z > 0.1) {
+  z <- runif(1)
+  cat(z, "\n")
+}
+```
+
+## while Loop Warning {.callout-warning}
+
+Be careful with `while()` loops!
+
+-   Ensure your condition will eventually be `FALSE`
+-   Otherwise you'll be stuck in an **infinite loop**
+-   The loop never terminates if the condition is always met
+
+## Challenge 3 {.challenge-title}
+
+Write a script that loops through the `gapminder` data by continent and prints out whether the mean life expectancy is smaller or larger than 50 years.
+
+**Hint:** Use `unique()` to get continent names, then subset and calculate means.
+
+## Challenge 3 Solution {.challenge-title}
+
+Step 1: Get unique continents:
+
+```{r}
+#| eval: false
+#| echo: true
+
+unique(gapminder$continent)
+```
+
+## Challenge 3 Solution (continued) {.challenge-title}
+
+Step 2: Loop and calculate:
+
+```{r}
+#| eval: false
+#| echo: true
+
+thresholdValue <- 50
+
+for (iContinent in unique(gapminder$continent)) {
+  tmp <- mean(gapminder[gapminder$continent == iContinent, "lifeExp"])
+  
+  if (tmp < thresholdValue) {
+    cat("Average Life Expectancy in", iContinent, "is less than", thresholdValue, "\n")
+  } else {
+    cat("Average Life Expectancy in", iContinent, "is greater than", thresholdValue, "\n")
+  }
+  rm(tmp)
+}
+```
+
+## Challenge 4 {.challenge-title}
+
+Modify the script from Challenge 3 to loop over each **country**.
+
+This time print out whether the life expectancy is:
+
+-   smaller than 50
+-   between 50 and 70
+-   greater than 70
+
+## Challenge 4 Solution {.challenge-title}
+
+Add two thresholds and extend the if-else statements:
+
+```{r}
+#| eval: false
+#| echo: true
+
+lowerThreshold <- 50
+upperThreshold <- 70
+
+for (iCountry in unique(gapminder$country)) {
+  tmp <- mean(gapminder[gapminder$country == iCountry, "lifeExp"])
+  
+  if (tmp < lowerThreshold) {
+    cat("Average Life Expectancy in", iCountry, "is less than", lowerThreshold, "\n")
+  } else if (tmp > lowerThreshold && tmp < upperThreshold) {
+    cat("Average Life Expectancy in", iCountry, "is between", lowerThreshold, "and", upperThreshold, "\n")
+  } else {
+    cat("Average Life Expectancy in", iCountry, "is greater than", upperThreshold, "\n")
+  }
+  rm(tmp)
+}
+```
+
+## Challenge 5 - Advanced {.challenge-title}
+
+Write a script that loops over each country in the `gapminder` dataset:
+
+1.  Tests whether the country starts with a 'B'
+2.  Graphs life expectancy against time as a line graph if the mean life expectancy is under 50 years
+
+**Hint:** Use `grep()` with `value = TRUE` to find countries starting with "B".
+
+## Challenge 5 Solution {.challenge-title}
+
+Find countries starting with "B":
+
+```{r}
+#| eval: false
+#| echo: true
+
+grep("^B", unique(gapminder$country), value = TRUE)
+```
+
+## Challenge 5 Solution (continued) {.challenge-title}
+
+Complete solution:
+
+```{r}
+#| eval: false
+#| echo: true
+#| fig-width: 6
+#| fig-height: 4
+
+thresholdValue <- 50
+candidateCountries <- grep("^B", unique(gapminder$country), value = TRUE)
+
+for (iCountry in candidateCountries) {
+  tmp <- mean(gapminder[gapminder$country == iCountry, "lifeExp"])
+  
+  if (tmp < thresholdValue) {
+    cat("Average Life Expectancy in", iCountry, "is less than", thresholdValue, 
+        "- plotting life expectancy graph...\n")
+    
+    with(subset(gapminder, country == iCountry),
+         plot(year, lifeExp,
+              type = "o",
+              main = paste("Life Expectancy in", iCountry, "over time"),
+              ylab = "Life Expectancy",
+              xlab = "Year"
+         )
+    )
+  }
+}
+```
+
+## When to Use for Loops {.callout-note}
+
+The advice of many R users:
+
+-   Learn about `for()` loops
+-   But avoid them unless order of iteration is important
+-   i.e., when calculations depend on previous iterations
+
+If order doesn't matter, consider vectorized alternatives like the `purrr` package for better computational efficiency.
+
+## Key Points
+
+-   Use `if` and `else` to make choices
+-   Use `for` to repeat operations
+-   Use `while` for condition-based repetition
+-   Pre-allocate results objects for efficiency
+-   Consider vectorized alternatives when possible
+
+## Important Reminders
+
+-   `if()` expects a single logical value (length 1)
+-   Use `any()` or `all()` to summarize logical vectors
+-   Use `ifelse()` for vectorized conditional operations
+-   Avoid growing results inside loops
+-   Be careful not to create infinite `while` loops
+
+## Resources
+
+-   Software Carpentry: [r-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/)
+-   R Documentation: `?if`, `?for`, `?while`
+-   RStudio Cheatsheets
+
+## Questions?

@@ -1,0 +1,62 @@
+project:
+  type: website
+  output-dir: ../docs/slides
+  render:
+    - "*.qmd"
+
+website:
+  title: "R for Novices - Gapminder Lessons (Slides)"
+  navbar:
+    left:
+      - text: "← Back to Lessons"
+        href: ../index.html
+      - href: control_flow.html
+        text: Control Flow
+      - href: data-structures.html
+        text: Data Structures
+      - href: data_subsetting.html
+        text: Subsetting
+      - href: data_subsetting.html
+        text: Data Frames
+      - href: dplyr.html
+        text: dplyr
+      - href: exploring_dataframes.html
+        text: Exploring
+      - href: functions.html
+        text: Functions
+      - href: ggplot2.html
+        text: ggplot2
+      - href: knitr-markdown.html
+        text: R Markdown
+      - href: project-management.html
+        text: Projects
+      - href: rstudio-intro.html
+        text: Intro to R
+      - href: seeking-help.html
+        text: Help
+      - href: vectorization.html
+        text: Vectorization
+      - href: writing-good-software.html
+        text: Style
+      - href: writing_data.html
+        text: Write Data
+    right:
+      - icon: github
+        href: https://github.com/samuelbharti/sw-r-novice-gapminder-lessons
+
+metadata-files:
+  - _metadata.yml
+
+execute:
+  eval: false
+
+format:
+  revealjs:
+    theme: black
+    transition: slide
+    background-transition: fade
+    slide-number: true
+    preview-links: auto
+    code-copy: true
+    smaller: true
+    margin: 0.1

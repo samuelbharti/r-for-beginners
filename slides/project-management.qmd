@@ -1,0 +1,90 @@
+---
+title: "Project Management With RStudio"
+subtitle: "Adapted from Software Carpentry"
+---
+
+## Overview
+
+**Questions:**
+
+- How can I organize my R projects?
+
+**Objectives:**
+
+- Create self-contained projects in RStudio
+- Organize project files effectively
+
+## Why Project Structure Matters
+
+Poor organization mixes files, makes it hard to find things, and complicates sharing. Good structure:
+
+- Protects data integrity
+- Makes collaboration easier  
+- Aids reproducibility
+- Helps you find what you need
+
+## Creating a Project
+
+RStudio's project feature creates a self-contained, reproducible workspace:
+
+::: {.callout-note icon=false}
+## Challenge 1: Create an RStudio Project
+
+1. Click File → New Project
+2. Click "New Directory"
+3. Click "New Project"
+4. Name your project (e.g., "my_project")
+5. Check "Create a git repository" if available
+6. Click "Create Project"
+
+A `.Rproj` file will be created. Double-click it to open the project and set R's working directory to the project folder.
+:::
+
+## Best Practices for Project Organization
+
+### Data is Read-Only
+
+Raw data is valuable and time-consuming to collect. Treat it as read-only to ensure you know the original source and all modifications made.
+
+### Data Cleaning
+
+Store preprocessing scripts separately from raw data. Keep cleaned data in a separate output folder to avoid confusion.
+
+### Generated Output is Disposable
+
+Scripts should regenerate all outputs. Organize outputs by analysis type in subdirectories for easier management later.
+
+### Separate Functions and Applications
+
+Create separate folders for:
+- Reusable functions (used across analyses)
+- Analysis scripts (project-specific workflows)
+
+### Working Directory
+
+Check your working directory:
+
+```{r}
+#| eval: false
+#| echo: true
+
+getwd()        # check current directory
+setwd("path")  # change directory
+```
+
+::: {.callout-note icon=false}
+## Challenge 2: Working Directories
+
+1. Type `getwd()` in the console
+2. Use Files pane to navigate to the `data` folder
+3. Change directory: `setwd("data")`
+4. Check new directory: `getwd()`
+5. Return: `setwd("..")`
+:::
+
+## Key Points
+
+- Use RStudio to create and manage projects with consistent layout
+- Treat raw data as read-only
+- Treat generated output as disposable
+- Separate function definition and application

@@ -1,0 +1,187 @@
+---
+title: "Seeking Help"
+subtitle: "Adapted from Software Carpentry"
+---
+
+## Overview
+
+**Questions:**
+
+- How can I get help in R?
+
+**Objectives:**
+
+- Use R help files and resources
+- Find packages for specific tasks
+- Seek help from peers
+- Use generative AI responsibly
+
+## Reading Help Files
+
+Access help for any function:
+
+```{r}
+#| eval: false
+#| echo: true
+
+?function_name
+help(function_name)
+```
+
+Help pages include: Description, Usage, Arguments, Details, Value, See Also, and Examples.
+
+For special operators, use quotes or backticks:
+
+```{r}
+#| eval: false
+#| echo: true
+
+?"<-"
+?`<-`
+```
+
+:::{.callout-tip}
+## Running Examples
+
+Highlight code examples in help pages and hit Ctrl+Return to run them in RStudio.
+:::
+
+## Getting Help
+
+### Package Vignettes
+
+Packages often include tutorials and extended examples:
+
+```{r}
+#| eval: false
+#| echo: true
+
+vignette()                    # list all vignettes
+vignette(package="dplyr")     # list dplyr vignettes
+vignette("dplyr")             # open specific vignette
+```
+
+See [RStudio cheatsheets](https://rstudio.com/resources/cheatsheets/) for common packages.
+
+### Fuzzy Search
+
+Search for functions when you don't know the exact name:
+
+```{r}
+#| eval: false
+#| echo: true
+
+??function_name
+```
+
+### Finding Packages
+
+[CRAN Task Views](https://cran.r-project.org/web/views) organizes packages by topic.
+
+## Getting Help from Others
+
+### Online Resources
+
+- **Search the internet**: Paste your error message and "R" into a search engine
+  - [StackOverflow](https://stackoverflow.com/questions/tagged/r) is particularly helpful; use the `[r]` tag
+  - Note: Understand code before copying it
+  
+- **Ask colleagues**: Share your problem with someone more experienced
+- **Rubber duck debugging**: Explaining your problem out loud often reveals the solution
+
+### Formulating Good Questions
+
+When asking for help, provide:
+
+```{r}
+#| eval: false
+#| echo: true
+
+dput(your_data)        # share your data reproducibly
+sessionInfo()          # share your R environment
+```
+
+## Generative AI Tools
+
+Tools like ChatGPT can provide helpful suggestions. However:
+
+- Responses are **not always reliable**—verify accuracy
+- They may generate plausible-sounding but incorrect information
+- You need domain knowledge to evaluate code quality
+- Later, focus on building your own problem-solving skills
+
+::: {.callout-note icon=false}
+## Challenge 1: Understanding the c Function
+
+Look at the help page for the `c` function. What kind of vector do you expect will be created if you evaluate the following:
+
+```r
+c(1, 2, 3)
+c('d', 'e', 'f')
+c(1, 2, 'f')
+```
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 1
+
+The `c()` function creates a vector, and all elements of a vector must be the same type. In the first two cases, the elements are already the same type. But in the third case, R will convert all the numbers to characters to make them all the same type.
+
+```r
+c(1, 2, 3)      # numeric vector
+c('d', 'e', 'f')  # character vector
+c(1, 2, 'f')    # character vector: "1" "2" "f"
+```
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 2: Understanding paste
+
+Look at the help for the `paste` function. You will need to use it later. What's the difference between the `sep` and `collapse` arguments?
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 2
+
+`sep` controls how elements are separated within a single call to paste, while `collapse` controls how multiple results are combined into a single string.
+
+```r
+paste("a", "b", sep = "-")         # "a-b"
+paste(c("a", "b"), c("c", "d"), sep = "-")  # "a-c" "b-d"
+paste(c("a", "b"), c("c", "d"), sep = "-", collapse = " & ")  # "a-c & b-d"
+```
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 3: Finding Functions for Reading Data
+
+Use help to find a function (and its associated parameters) that you could use to load data from a tabular file in which columns are delimited with "\t" (tab) and the decimal point is a "." (period). This check for decimal separator is important, especially if you are working with international colleagues, because different countries have different conventions for the decimal point (i.e. comma vs period). 
+
+**Hint**: use `??"read table"` to look up functions related to reading in tabular data.
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 3
+
+The standard R function for reading tab-delimited files with a period as decimal separator is `read.delim()`. You can also use `read.table()` with appropriate arguments:
+
+```r
+read.delim(file, header = TRUE, sep = "\t", dec = ".")
+# or
+read.table(file, header = TRUE, sep = "\t", dec = ".")
+```
+:::
+:::
+
+## Resources
+
+- [Quick R](https://www.statmethods.net/)
+- [RStudio cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
+- [Cookbook for R](https://www.cookbook-r.com/)
+
+## Key Points
+
+- Use `help()` or `?` to get online help in R
+- Use `??` for fuzzy searches when you don't know the exact function name
+- R help files provide detailed documentation including usage, arguments, and examples
+- CRAN Task Views can help you find packages for specific tasks
+- When asking for help, provide reproducible examples and session information

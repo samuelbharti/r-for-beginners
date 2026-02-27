@@ -1,0 +1,383 @@
+---
+title: "Vectorization"
+subtitle: "Adapted from Software Carpentry"
+---
+
+## Overview
+
+**Questions:**
+
+- How can I operate on all the elements of a vector at once?
+
+**Objectives:**
+
+- To understand vectorized operations in R
+
+## Introduction
+
+Most of R's functions are **vectorized**, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
+
+```{r}
+#| eval: false
+
+x <- 1:4
+x * 2
+```
+
+```
+[1] 2 4 6 8
+```
+
+The multiplication happened to each element of the vector.
+
+We can also add two vectors together:
+
+```{r}
+#| eval: false
+
+y <- 6:9
+x + y
+```
+
+```
+[1]  7  9 11 13
+```
+
+Each element of `x` was added to its corresponding element of `y`:
+
+```
+ x:  1  2  3  4
+    +  +  +  +
+ y:  6  7  8  9
+---------------
+    7  9 11 13
+```
+
+## Vectorized Operations vs. Loops
+
+Here is how we would add two vectors together using a for loop:
+
+```{r}
+#| eval: false
+
+output_vector <- c()
+for (i in 1:4) {
+  output_vector[i] <- x[i] + y[i]
+}
+output_vector
+```
+
+```
+[1]  7  9 11 13
+```
+
+Compare this to the output using vectorised operations:
+
+```{r}
+#| eval: false
+
+sum_xy <- x + y
+sum_xy
+```
+
+```
+[1]  7  9 11 13
+```
+
+The vectorized version is much more concise and easier to read!
+
+::: {.callout-note icon=false}
+## Challenge 1
+
+Let's try this on the `pop` column of the `gapminder` dataset.
+
+Make a new column in the `gapminder` data frame that contains population in units of millions of people. Check the head or tail of the data frame to make sure it worked.
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 1
+
+```r
+gapminder$pop_millions <- gapminder$pop / 1e6
+head(gapminder)
+```
+
+The `pop_millions` column now contains the population in millions.
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 2
+
+On a single graph, plot population, in millions, against year, for all countries. Do not worry about identifying which country is which.
+
+Repeat the exercise, graphing only for China, India, and Indonesia. Again, do not worry about which is which.
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 2
+
+```r
+# All countries
+ggplot(gapminder, aes(x = year, y = pop_millions)) +
+  geom_point()
+
+# China, India, and Indonesia
+countryset <- c("China", "India", "Indonesia")
+ggplot(gapminder[gapminder$country %in% countryset, ],
+       aes(x = year, y = pop_millions)) +
+  geom_point()
+```
+:::
+:::
+
+## Vectorized Operations with Comparisons and Logic
+
+Comparison operators, logical operators, and many functions are also vectorized:
+
+**Comparison operators:**
+
+```{r}
+#| eval: false
+
+x > 2
+```
+
+```
+[1] FALSE FALSE  TRUE  TRUE
+```
+
+**Logical operators:**
+
+```{r}
+#| eval: false
+
+a <- x > 3  # or, for clarity, a <- (x > 3)
+a
+```
+
+```
+[1] FALSE FALSE FALSE  TRUE
+```
+
+::: {.callout-tip}
+## Tip: Some Useful Functions for Logical Vectors
+
+`any()` will return `TRUE` if **any** element of a vector is `TRUE`.
+
+`all()` will return `TRUE` if **all** elements of a vector are `TRUE`.
+:::
+
+## Vectorized Functions
+
+Most functions also operate element-wise on vectors:
+
+```{r}
+#| eval: false
+
+x <- 1:4
+log(x)
+```
+
+```
+[1] 0.0000000 0.6931472 1.0986123 1.3862944
+```
+
+## Vectorized Operations on Matrices
+
+Vectorized operations work element-wise on matrices:
+
+```{r}
+#| eval: false
+
+m <- matrix(1:12, nrow = 3, ncol = 4)
+m * -1
+```
+
+```
+     [,1] [,2] [,3] [,4]
+[1,]   -1   -4   -7  -10
+[2,]   -2   -5   -8  -11
+[3,]   -3   -6   -9  -12
+```
+
+::: {.callout-tip}
+## Tip: Element-wise vs. Matrix Multiplication
+
+Very important: the operator `*` gives you **element-wise** multiplication! 
+
+To do **matrix multiplication**, we need to use the `%*%` operator:
+
+```r
+m %*% matrix(1, nrow = 4, ncol = 1)
+```
+
+```
+     [,1]
+[1,]   22
+[2,]   26
+[3,]   30
+```
+
+```r
+matrix(1:4, nrow = 1) %*% matrix(1:4, ncol = 1)
+```
+
+```
+     [,1]
+[1,]   30
+```
+
+For more on matrix algebra, see the [Quick-R reference guide](https://www.statmethods.net/advstats/matrix.html).
+:::
+
+::: {.callout-note icon=false}
+## Challenge 3
+
+Given the following matrix:
+
+```r
+m <- matrix(1:12, nrow = 3, ncol = 4)
+m
+```
+
+```
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12
+```
+
+Write down what you think will happen when you run:
+
+1. `m ^ -1`
+2. `m * c(1, 0, -1)`
+3. `m > c(0, 20)`
+4. `m * c(1, 0, -1, 2)`
+
+Did you get the output you expected? If not, ask a helper!
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 3
+
+```r
+m ^ -1
+```
+
+```
+          [,1]      [,2]      [,3]       [,4]
+[1,] 1.0000000 0.2500000 0.1428571 0.10000000
+[2,] 0.5000000 0.2000000 0.1250000 0.09090909
+[3,] 0.3333333 0.1666667 0.1111111 0.08333333
+```
+
+```r
+m * c(1, 0, -1)
+```
+
+```
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    0    0    0    0
+[3,]   -3   -6   -9  -12
+```
+
+```r
+m > c(0, 20)
+```
+
+```
+      [,1]  [,2]  [,3]  [,4]
+[1,]  TRUE FALSE  TRUE FALSE
+[2,] FALSE  TRUE FALSE  TRUE
+[3,]  TRUE FALSE  TRUE FALSE
+```
+
+```r
+m * c(1, 0, -1, 2)
+```
+
+```
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    0    0    0    0
+[3,]   -3   -6   -9  -12
+[4,]    8   10   12   14
+```
+
+Note how the shorter vector was recycled to match the dimensions of the matrix!
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 4
+
+We're interested in looking at the sum of the following sequence of fractions:
+
+```r
+x = 1/(1^2) + 1/(2^2) + 1/(3^2) + ... + 1/(n^2)
+```
+
+This would be tedious to type out, and impossible for high values of n. Use vectorisation to compute x when n=100. What is the sum when n=10,000?
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 4
+
+```r
+sum(1/(1:100)^2)
+```
+
+```
+[1] 1.634984
+```
+
+```r
+sum(1/(1:10000)^2)
+```
+
+```
+[1] 1.644834
+```
+
+This converges to $\pi^2/6 \approx 1.645$.
+:::
+:::
+
+## Recycling: Operations on Vectors of Unequal Length
+
+::: {.callout-tip}
+## Tip: Operations on Vectors of Unequal Length
+
+Operations can also be performed on vectors of unequal length, through a process known as **recycling**. This process automatically repeats the smaller vector until it matches the length of the larger vector. R will provide a warning if the larger vector is not a multiple of the smaller vector.
+
+```r
+x <- c(1, 2, 3)
+y <- c(1, 2, 3, 4, 5, 6, 7)
+x + y
+```
+
+```
+Warning in x + y: longer object length is not a multiple of shorter object
+length
+```
+
+```
+[1] 2 4 6 5 7 9 8
+```
+
+Vector `x` was recycled to match the length of vector `y`:
+
+```
+ x:  1  2  3  1  2  3  1
+    +  +  +  +  +  +  +
+ y:  1  2  3  4  5  6  7
+-----------------------
+    2  4  6  5  7  9  8
+```
+:::
+
+## Key Points
+
+- Use vectorized operations instead of loops
+- Vectorized code is more concise, easier to read, and less error-prone
+- Most R functions operate element-wise on vectors
+- Be aware of vector recycling when operating on vectors of different lengths
+- Use `%*%` for matrix multiplication, not `*`

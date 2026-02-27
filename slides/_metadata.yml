@@ -1,0 +1,15 @@
+execute:
+  eval: false
+
+format:
+  revealjs:
+    theme: black
+    transition: slide
+    background-transition: fade
+    slide-number: true
+    preview-links: auto
+    code-copy: true
+    smaller: true
+    margin: 0.1
+    chalkboard: true
+    multiplex: false

@@ -1,0 +1,328 @@
+---
+title: "Introduction to R and RStudio"
+subtitle: "Adapted from Software Carpentry"
+---
+
+## Overview
+
+Today we will learn to:
+
+-   Describe the purpose and use of each pane in RStudio
+-   Locate buttons and options in RStudio
+-   Define a variable and assign data to a variable
+-   Manage a workspace in an interactive R session
+-   Use mathematical and comparison operators
+-   Call functions
+-   Manage packages
+
+## Questions
+
+-   How to find your way around RStudio?
+-   How to interact with R?
+-   How to manage your environment?
+-   How to install packages?
+
+## Getting Started
+
+RStudio is a free, open-source IDE that makes R easier to use. It provides an editor, integrated console, and project management tools.
+
+### RStudio Layout
+
+When RStudio opens, you'll see:
+
+-   **Console** (left): Interactive R session where code runs
+-   **Environment/History** (upper right): Variables and command history
+-   **Files/Plots/Packages/Help** (lower right): File browser, plots, installed packages
+
+R scripts (`.R` files) can be opened in the editor panel (top left).
+
+### Workflow
+
+You can work in two ways:
+
+1. **Interactive**: Type code in the console, save useful lines to a `.R` file
+2. **Script-based**: Write code in a `.R` file, use Ctrl+Return to run lines
+
+::: {.callout-tip}
+## Running Code in RStudio
+
+To run the current line: click `Run` or press Ctrl+Return (Windows/Linux) or ⌘+Return (Mac).
+
+To run a code block: select it and click `Run`.
+:::
+
+## Using R as a Calculator
+
+R can perform arithmetic:
+
+```{r}
+#| eval: false
+#| echo: true
+
+1 + 100
+3 + 5 * 2
+(3 + 5) * 2
+```
+
+The `[1]` shown in output indicates the first element of a result.
+
+### Scientific Notation
+
+Large/small numbers use scientific notation (e.g., `2e-4` means $2 \times 10^{-4}$):
+
+```{r}
+#| eval: false
+#| echo: true
+
+2 / 10000
+5e3
+```
+
+## Mathematical Functions
+
+Call functions with parentheses. Functions take arguments as inputs:
+
+```{r}
+#| eval: false
+#| echo: true
+
+sin(1)
+log(1)
+log10(10)
+exp(0.5)
+```
+
+Use `?function_name` to view help for any function.
+
+## Comparisons
+
+Comparison operators:
+
+```{r}
+#| eval: false
+#| echo: true
+
+1 == 1  # equal
+1 != 2  # not equal
+1 < 2   # less than
+1 <= 1  # less than or equal
+```
+
+:::  {.callout-warning}
+## Comparing Numbers
+
+Never use `==` to compare decimal numbers. Use `all.equal()` instead due to floating-point precision.
+
+## Variables and Assignment
+
+Assign values to variables using `<-`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 1 / 40
+x
+log(x)
+```
+
+Variables appear in the Environment tab. Reassign at any time:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 100
+x <- x + 1
+```
+
+### Variable Naming Rules
+
+Valid names contain letters, numbers, underscores, and periods (must start with a letter or period). Conventions include `periods.between.words`, `underscores_between_words`, or `camelCase`. Be consistent.
+
+
+::: {.callout-note icon=false}
+## Challenge 1: Valid Variable Names
+
+Which of the following are valid R variable names?
+
+```{r}
+#| eval: false
+#| echo: true
+
+min_height
+max.height
+_age
+.mass
+MaxLength
+min-length
+2widths
+celsius2kelvin
+```
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+Valid: `min_height`, `max.height`, `.mass`, `MaxLength`, `celsius2kelvin`
+
+Invalid: `_age` (starts with underscore), `min-length` (hyphen not allowed), `2widths` (starts with number)
+:::
+:::
+
+## Vectorization
+
+R is vectorized—operations apply to entire vectors:
+
+```{r}
+#| eval: false
+#| echo: true
+
+1:5
+2^(1:5)
+
+x <- 1:5
+2^x
+```
+
+## Managing Your Environment
+
+List all variables with `ls()`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 1:5
+y <- 10
+ls()
+```
+
+Delete variables with `rm()`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+rm(x)
+```
+
+To delete all variables: `rm(list = ls())`
+
+::: {.callout-tip}
+When assigning function arguments by name, use `=` (not `<-`): `rm(list = ls())`
+:::
+
+::: {.callout-note icon=false}
+## Challenge 2: Variable Values
+
+What are the values of `mass` and `age` after each statement?
+
+```{r}
+#| eval: false
+#| echo: true
+
+mass <- 47.5
+age <- 122
+mass <- mass * 2.3
+age <- age - 20
+```
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+```{r}
+#| eval: false
+#| echo: true
+
+mass
+age
+```
+
+`mass` is 109.25 (47.5 × 2.3) and `age` is 102 (122 − 20).
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 3: Comparisons
+
+Is `mass` larger than `age`?
+
+```{r}
+#| eval: false
+#| echo: true
+
+mass <- 47.5
+age <- 122
+mass <- mass * 2.3
+age <- age - 20
+
+mass > age
+```
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+Yes, 109.25 > 102.
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 4: Clean Up
+
+Delete the `mass` and `age` variables.
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+```{r}
+#| eval: false
+#| echo: true
+
+rm(mass)
+rm(age)
+```
+:::
+:::
+
+## Packages
+
+Extend R with packages. Common package commands:
+
+```{r}
+#| eval: false
+#| echo: true
+
+installed.packages()     # list installed packages
+install.packages("name") # install a package
+update.packages()        # update packages
+library(name)            # load a package
+detach(package:name)     # unload a package
+```
+
+::: {.callout-note icon=false}
+## Challenge 5: Install Packages
+
+Install these packages: `ggplot2`, `plyr`, `gapminder`
+
+```{r}
+#| eval: false
+#| echo: true
+
+install.packages(c("ggplot2", "plyr", "gapminder"))
+```
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+Use the command above or install individually with `install.packages("name")`.
+:::
+:::
+
+## Key Points
+
+-   Use RStudio to write and run R programs.
+-   R has the usual arithmetic operators and mathematical functions.
+-   Use `<-` to assign values to variables.
+-   Use `ls()` to list the variables in a program.
+-   Use `rm()` to delete objects in a program.
+-   Use `install.packages()` to install packages (libraries).

@@ -1,0 +1,569 @@
+---
+title: "Data Structures"
+subtitle: "Adapted from Software Carpentry"
+---
+
+## Overview
+
+**Questions:**
+
+- How can I read data in R?
+- What are the basic data types in R?
+- How do I represent categorical information in R?
+
+**Objectives:**
+
+- To be able to identify the 5 main data types
+- To begin exploring data frames, and understand how they are related to vectors and lists
+- To be able to ask questions from R about the type, class, and structure of an object
+- To understand the information of the attributes "names", "class", and "dim"
+
+## Creating and Reading Data
+
+One of R's most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file. Let's start by making a toy dataset in your `data/` directory, called `feline-data.csv`:
+
+```{r}
+#| eval: false
+
+cats <- data.frame(coat = c("calico", "black", "tabby"),
+                   weight = c(2.1, 5.0, 3.2),
+                   likes_catnip = c(1, 0, 1))
+```
+
+We can now save `cats` as a CSV file. It is good practice to call the argument names explicitly:
+
+```{r}
+#| eval: false
+
+write.csv(x = cats, file = "data/feline-data.csv", row.names = FALSE)
+```
+
+We can load this into R via the following:
+
+```{r}
+#| eval: false
+
+cats <- read.csv(file = "data/feline-data.csv")
+cats
+```
+
+::: {.callout-tip}
+## Editing Text Files in R
+
+Alternatively, you can create `data/feline-data.csv` using a text editor (Nano), or within RStudio with the File → New File → Text File menu item.
+:::
+
+We can begin exploring our dataset right away, pulling out columns by specifying them using the `$` operator:
+
+```{r}
+#| eval: false
+
+cats$weight
+cats$coat
+```
+
+We can do other operations on the columns:
+
+```{r}
+#| eval: false
+
+# Say we discovered that the scale weighs two Kg light:
+cats$weight + 2
+
+paste("My cat is", cats$coat)
+```
+
+But what about:
+
+```{r}
+#| eval: false
+
+cats$weight + cats$coat
+```
+
+This will return an error because `2.1` plus `"black"` is nonsense!
+
+## Data Types
+
+Understanding data types is key to successfully analyzing data in R. We can ask what type of data something is:
+
+```{r}
+#| eval: false
+
+typeof(cats$weight)
+```
+
+There are 5 main types: **double**, **integer**, **complex**, **logical** and **character**. For historic reasons, `double` is also called `numeric`.
+
+```{r}
+#| eval: false
+
+typeof(3.14)           # "double"
+typeof(1L)             # "integer" (L suffix forces integer)
+typeof(1+1i)           # "complex"
+typeof(TRUE)           # "logical"
+typeof('banana')       # "character"
+```
+
+No matter how complicated our analyses become, all data in R is interpreted as one of these basic data types.
+
+### Type Coercion in Data Frames
+
+A user has provided details of another cat. We can add an additional row to our cats table:
+
+```{r}
+#| eval: false
+
+additional_cat <- data.frame(coat = "tabby", 
+                             weight = "2.3 or 2.4", 
+                             likes_catnip = 1)
+cats2 <- rbind(cats, additional_cat)
+```
+
+Let's check what type of data we find in the `weight` column:
+
+```{r}
+#| eval: false
+
+typeof(cats2$weight)  # "character"
+```
+
+Oh no! A given column in a data frame cannot be composed of different data types. When R can't store everything as numbers (because of "2.3 or 2.4"), the entire column changes to character type.
+
+## Vectors and Type Coercion
+
+To better understand this behavior, let's meet another of the data structures: the **vector**.
+
+```{r}
+#| eval: false
+
+my_vector <- vector(length = 3)
+my_vector
+```
+
+A vector in R is essentially an ordered list of things, with the special condition that **everything in the vector must be the same basic data type**.
+
+```{r}
+#| eval: false
+
+another_vector <- vector(mode='character', length=3)
+another_vector
+```
+
+You can check if something is a vector:
+
+```{r}
+#| eval: false
+
+str(another_vector)
+str(cats$weight)  # Columns are vectors too!
+```
+
+### Combining Vectors
+
+You can make vectors with explicit contents using the combine function:
+
+```{r}
+#| eval: false
+
+combine_vector <- c(2, 6, 3)
+combine_vector
+```
+
+What do you think the following will produce?
+
+```{r}
+#| eval: false
+
+quiz_vector <- c(2, 6, '3')
+```
+
+This is called **type coercion** - when R encounters a mix of types to be combined, it forces them all to be the same type:
+
+```{r}
+#| eval: false
+
+coercion_vector <- c('a', TRUE)
+coercion_vector  # "a" "TRUE"
+
+another_coercion_vector <- c(0, TRUE)
+another_coercion_vector  # 0 1
+```
+
+### The Type Hierarchy
+
+The coercion rules go: `logical` → `integer` → `double` → `complex` → `character`
+
+You can force coercion using the `as.` functions:
+
+```{r}
+#| eval: false
+
+character_vector_example <- c('0','2','4')
+character_coerced_to_double <- as.double(character_vector_example)
+character_coerced_to_double  # 0 2 4
+
+double_coerced_to_logical <- as.logical(character_coerced_to_double)
+double_coerced_to_logical  # FALSE TRUE TRUE
+```
+
+::: {.callout-note icon=false}
+## Challenge 1: Cleaning the Cat Data
+
+An important part of every data analysis is cleaning the input data. Clean the cat data set:
+
+1. Print `cats2` to the console
+2. Use `str(cats2)` to see the overview of data types
+3. The "weight" column has the incorrect data type. What is the correct data type?
+4. Correct the 4th weight data point with the mean: `cats2$weight[4] <- 2.35`
+5. Convert the weight to the right data type using `as.numeric()` or `as.double()`
+6. Calculate `mean(cats2$weight)` to test yourself
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 1
+
+```r
+cats2  # Print the data
+str(cats2)  # Shows weight is "character"
+# The correct data type is "double" or "numeric"
+cats2$weight[4] <- 2.35
+cats2$weight <- as.numeric(cats2$weight)
+mean(cats2$weight)  # Should work now!
+```
+:::
+:::
+
+### Vector Functions
+
+The combine function will also append things to an existing vector:
+
+```{r}
+#| eval: false
+
+ab_vector <- c('a', 'b')
+combine_example <- c(ab_vector, 'SWC')
+combine_example  # "a" "b" "SWC"
+```
+
+You can make series of numbers:
+
+```{r}
+#| eval: false
+
+mySeries <- 1:10
+seq(10)
+seq(1, 10, by=0.1)
+```
+
+We can ask questions about vectors:
+
+```{r}
+#| eval: false
+
+sequence_example <- 20:25
+head(sequence_example, n=2)  # 20 21
+tail(sequence_example, n=4)  # 22 23 24 25
+length(sequence_example)     # 6
+typeof(sequence_example)     # "integer"
+```
+
+We can get individual elements using bracket notation:
+
+```{r}
+#| eval: false
+
+first_element <- sequence_example[1]
+first_element  # 20
+
+# Change a single element
+sequence_example[1] <- 30
+sequence_example  # 30 21 22 23 24 25
+```
+
+::: {.callout-note icon=false}
+## Challenge 2: Vector Arithmetic
+
+Start by making a vector with the numbers 1 through 26. Then, multiply the vector by 2.
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 2
+
+```r
+x <- 1:26
+x * 2
+```
+:::
+:::
+
+## Lists
+
+Another data structure you'll want is the **list**. A list can have different data types:
+
+```{r}
+#| eval: false
+
+list_example <- list(1, "a", TRUE, 1+4i)
+list_example
+```
+
+When printing the structure:
+
+```{r}
+#| eval: false
+
+str(list_example)
+```
+
+To retrieve an element of a list, use double brackets:
+
+```{r}
+#| eval: false
+
+list_example[[2]]  # "a"
+```
+
+List elements can have names:
+
+```{r}
+#| eval: false
+
+another_list <- list(title = "Numbers", numbers = 1:10, data = TRUE)
+another_list
+
+# Access by name
+another_list$title  # "Numbers"
+```
+
+## Names
+
+### Accessing Vectors by Name
+
+Named vectors are generated similarly to named lists:
+
+```{r}
+#| eval: false
+
+pizza_price <- c(pizzasubito = 5.64, pizzafresh = 6.60, callapizza = 4.50)
+pizza_price["pizzasubito"]  # pizzasubito 5.64
+```
+
+Note: The `$` operator doesn't work for vectors, only for lists and data frames.
+
+If you're only interested in the names:
+
+```{r}
+#| eval: false
+
+names(pizza_price)
+```
+
+You can access and change names:
+
+```{r}
+#| eval: false
+
+names(pizza_price)[3]  # "callapizza"
+names(pizza_price)[3] <- "call-a-pizza"
+pizza_price
+```
+
+::: {.callout-note icon=false}
+## Challenge 3: Data Type of Names
+
+What is the data type of the names of `pizza_price`? Use `str()` or `typeof()` to find out.
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 3
+
+```r
+typeof(names(pizza_price))  # "character"
+```
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 4: Letters and Numbers
+
+Create a vector that gives the number for each letter in the alphabet:
+
+1. Generate a vector called `letter_no` with numbers from 1 to 26
+2. R has a built-in object called `LETTERS` (A to Z). Set the names to these letters
+3. Test by calling `letter_no["B"]`, which should give you 2
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 4
+
+```r
+letter_no <- 1:26
+names(letter_no) <- LETTERS
+letter_no["B"]  # B: 2
+```
+:::
+:::
+
+## Data Frames
+
+We can now understand something surprising about data frames:
+
+```{r}
+#| eval: false
+
+typeof(cats)  # "list"
+```
+
+Data frames are really lists of vectors! It is a special list in which all vectors must have the same length.
+
+```{r}
+#| eval: false
+
+class(cats)  # "data.frame"
+```
+
+The `class` is an attribute that tells us what this object means for humans. `typeof()` tells us how the object is constructed, while `class()` tells us its purpose.
+
+Each column is a vector:
+
+```{r}
+#| eval: false
+
+cats$coat
+cats[,1]
+typeof(cats[,1])  # "character"
+```
+
+Each row is a data frame:
+
+```{r}
+#| eval: false
+
+cats[1,]
+typeof(cats[1,])  # "list"
+```
+
+::: {.callout-note icon=false}
+## Challenge 5: Subsetting Data Frames
+
+There are several ways to call variables from data frames. Try these and explain what each returns:
+
+- `cats[1]`
+- `cats[[1]]`
+- `cats$coat`
+- `cats["coat"]`
+- `cats[1, 1]`
+- `cats[, 1]`
+- `cats[1, ]`
+
+Hint: Use `typeof()` to examine what is returned.
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 5
+
+```r
+cats[1]        # data frame with 1 column
+cats[[1]]      # vector (the column itself)
+cats$coat      # vector (same as above)
+cats["coat"]   # data frame with 1 column
+cats[1, 1]     # single value (character)
+cats[, 1]      # vector (column)
+cats[1, ]      # data frame (row)
+```
+:::
+:::
+
+::: {.callout-tip}
+## Renaming Data Frame Columns
+
+Data frames have column names, which can be accessed with `names()`:
+
+```r
+names(cats)
+
+# Rename the second column
+names(cats)[2] <- "weight_kg"
+cats
+```
+:::
+
+## Matrices
+
+Last but not least is the matrix. We can declare a matrix full of zeros:
+
+```{r}
+#| eval: false
+
+matrix_example <- matrix(0, ncol=6, nrow=3)
+matrix_example
+```
+
+What makes it special is the `dim()` attribute:
+
+```{r}
+#| eval: false
+
+dim(matrix_example)  # 3 6
+typeof(matrix_example)  # "double"
+class(matrix_example)   # "matrix" "array"
+nrow(matrix_example)    # 3
+ncol(matrix_example)    # 6
+```
+
+::: {.callout-note icon=false}
+## Challenge 6: Matrix Length
+
+What do you think will be the result of `length(matrix_example)`? Try it. Were you right? Why / why not?
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 6
+
+```r
+length(matrix_example)  # 18
+```
+
+Because a matrix is a vector with added dimension information, `length` gives you the total number of elements (3 × 6 = 18).
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 7: Creating Matrices
+
+Make another matrix, this time containing the numbers 1:50, with 5 columns and 10 rows. Did the `matrix` function fill your matrix by column, or by row, as its default behaviour? See if you can figure out how to change this. (Hint: read the documentation for `matrix`!)
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 7
+
+```r
+x <- matrix(1:50, ncol=5, nrow=10)
+x <- matrix(1:50, ncol=5, nrow=10, byrow = TRUE)  # filled by row
+```
+:::
+:::
+
+::: {.callout-note icon=false}
+## Challenge 8: Lists of Data Structures
+
+Create a list of length two containing a character vector for each of the sections in this part of the workshop:
+
+- Data types
+- Data structures
+
+Populate each character vector with the names of the data types and data structures we've seen so far.
+
+::: {.callout-tip collapse="true"}
+## Solution to Challenge 8
+
+```r
+dataTypes <- c('double', 'complex', 'integer', 'character', 'logical')
+dataStructures <- c('data.frame', 'vector', 'list', 'matrix')
+answer <- list(dataTypes, dataStructures)
+```
+:::
+:::
+
+## Key Points
+
+- Use `read.csv` to read tabular data in R
+- The basic data types in R are double, integer, complex, logical, and character
+- Data structures such as data frames or matrices are built on top of lists and vectors, with some added attributes
+- Vectors must contain elements of the same type; type coercion happens when mixing types
+- Data frames are lists of vectors with equal length
+- Use `typeof()`, `class()`, and `str()` to understand your data structures

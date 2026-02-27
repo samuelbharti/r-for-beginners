@@ -1,0 +1,68 @@
+---
+title: "Writing Good Software"
+subtitle: "Adapted from Software Carpentry"
+---
+
+## Overview
+
+**Questions:**
+
+- How can I write software that other people can use?
+
+**Objectives:**
+
+- Describe best practices for writing R and explain the justification for each
+
+## Keep Projects Organized
+
+Keep your project folder structured, organized, and tidy. Create subfolders for:
+
+- code
+- data
+- documentation
+- results and figures
+
+RStudio projects help, and you can automate setup with packages such as [ProjectTemplate](https://projecttemplate.net/index.html).
+
+::: {.callout-tip}
+## Tip: ProjectTemplate
+
+```r
+install.packages("ProjectTemplate")
+library("ProjectTemplate")
+create.project("../my_project_2", merge.strategy = "allow.non.conflict")
+```
+:::
+
+## Make Code Readable
+
+Readable code matters more than clever code. Someone else should be able to understand your work quickly, and that someone is often you in six months.
+
+## Document What and Why
+
+Comments should explain **what problem** you are solving and **why** you made a decision. The **how** is usually clear from the code itself.
+
+## Keep Code Modular
+
+Separate your functions from analysis scripts and store them in a file you `source()` when you start a project. Small, single-purpose functions are easier to test and reuse.
+
+## Test Your Work
+
+Make sure your functions do the right thing. Tests build confidence and prevent regressions.
+
+## Do Not Repeat Yourself
+
+Repeated blocks of code are good candidates for functions. This makes your project easier to maintain and update.
+
+## Be Consistent in Style
+
+Use consistent naming, indentation, and formatting. Style consistency makes collaboration easier.
+
+## Key Points
+
+- Keep your project folder structured and tidy
+- Document what and why, not just how
+- Break programs into short single-purpose functions
+- Write re-runnable tests
+- Do not repeat yourself
+- Be consistent in naming and style
