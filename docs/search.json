@@ -1376,21 +1376,21 @@
     "href": "index.html",
     "title": "R for Novices - Gapminder Lessons",
     "section": "",
-    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThis is an adapted version of the Software Carpentry R-novice-gapminder course, designed to provide a clearer, more focused learning experience. These lessons can be used by instructors for teaching side-by-side or by students to follow along independently."
+    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThis is an adapted version of the Software Carpentry R-novice-gapminder course, designed to provide a clearer, more focused learning experience. These lessons are a supplementary resource for R programming workshops and independent learning—use them to supplement your teaching or guide your learning journey.\nEach lesson is available in two formats: - Page - Detailed content for reading and reference - Slides - Presentation format for following along in workshops or for teaching"
   },
   {
     "objectID": "index.html#welcome",
     "href": "index.html#welcome",
     "title": "R for Novices - Gapminder Lessons",
     "section": "",
-    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThis is an adapted version of the Software Carpentry R-novice-gapminder course, designed to provide a clearer, more focused learning experience. These lessons can be used by instructors for teaching side-by-side or by students to follow along independently."
+    "text": "Welcome to the R for Novices lesson series using the Gapminder dataset.\nThis is an adapted version of the Software Carpentry R-novice-gapminder course, designed to provide a clearer, more focused learning experience. These lessons are a supplementary resource for R programming workshops and independent learning—use them to supplement your teaching or guide your learning journey.\nEach lesson is available in two formats: - Page - Detailed content for reading and reference - Slides - Presentation format for following along in workshops or for teaching"
   },
   {
     "objectID": "index.html#available-lessons",
     "href": "index.html#available-lessons",
     "title": "R for Novices - Gapminder Lessons",
     "section": "Available Lessons",
-    "text": "Available Lessons\n\nIntroduction to RStudio - Get familiar with the RStudio interface and R fundamentals\nProject Management with RStudio - Organize your work with RStudio projects and best practices\nSeeking Help - Learn how to find answers and get help when you’re stuck\nData Structures - Understand R’s core data types and structures\nExploring Data Frames - Learn to manipulate and explore data frames in R\nSubsetting Data - Master techniques for extracting subsets of data\nControl Flow - Make decisions with if/else statements and repeat operations with loops\nCreating Publication-Quality Graphics with ggplot2 - Build professional visualizations using the grammar of graphics\nVectorization - Operate on all elements of a vector at once for efficient code\nFunctions Explained - Understand and create your own R functions\nWriting Data - Learn to export and save your data\nData Frame Manipulation with dplyr - Master data wrangling with dplyr verbs and pipes\nProducing Reports With knitr - Create reproducible reports integrating code and narrative\nWriting Good Software - Apply best practices for readable, reusable R code"
+    "text": "Available Lessons\n\nIntroduction to RStudio (Slides) - Get familiar with the RStudio interface and R fundamentals\nProject Management with RStudio (Slides) - Organize your work with RStudio projects and best practices\nSeeking Help (Slides) - Learn how to find answers and get help when you’re stuck\nData Structures (Slides) - Understand R’s core data types and structures\nExploring Data Frames (Slides) - Learn to manipulate and explore data frames in R\nSubsetting Data (Slides) - Master techniques for extracting subsets of data\nControl Flow (Slides) - Make decisions with if/else statements and repeat operations with loops\nCreating Publication-Quality Graphics with ggplot2 (Slides) - Build professional visualizations using the grammar of graphics\nVectorization (Slides) - Operate on all elements of a vector at once for efficient code\nFunctions Explained (Slides) - Understand and create your own R functions\nWriting Data (Slides) - Learn to export and save your data\nData Frame Manipulation with dplyr (Slides) - Master data wrangling with dplyr verbs and pipes\nProducing Reports With knitr (Slides) - Create reproducible reports integrating code and narrative\nWriting Good Software (Slides) - Apply best practices for readable, reusable R code"
   },
   {
     "objectID": "index.html#about",

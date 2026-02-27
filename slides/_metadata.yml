@@ -3,7 +3,7 @@ execute:
 
 format:
   revealjs:
-    theme: black
+    theme: white
     transition: slide
     background-transition: fade
     slide-number: true
