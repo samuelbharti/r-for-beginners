@@ -40,27 +40,25 @@ RStudio's project feature creates a self-contained, reproducible workspace:
 A `.Rproj` file will be created. Double-click it to open the project and set R's working directory to the project folder.
 :::
 
-## Best Practices for Project Organization
-
-### Data is Read-Only
+## Best Practices: Data is Read-Only
 
 Raw data is valuable and time-consuming to collect. Treat it as read-only to ensure you know the original source and all modifications made.
 
-### Data Cleaning
+## Best Practices: Data Cleaning
 
 Store preprocessing scripts separately from raw data. Keep cleaned data in a separate output folder to avoid confusion.
 
-### Generated Output is Disposable
+## Best Practices: Output is Disposable
 
 Scripts should regenerate all outputs. Organize outputs by analysis type in subdirectories for easier management later.
 
-### Separate Functions and Applications
+## Best Practices: Separate Functions
 
 Create separate folders for:
 - Reusable functions (used across analyses)
 - Analysis scripts (project-specific workflows)
 
-### Working Directory
+## Working Directory
 
 Check your working directory:
 

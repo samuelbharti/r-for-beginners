@@ -246,17 +246,24 @@
 </div>
 </div>
 </section>
-<section id="best-practices-for-project-organization" class="slide level2">
-<h2>Best Practices for Project Organization</h2>
-<h3 id="data-is-read-only">Data is Read-Only</h3>
+<section id="best-practices-data-is-read-only" class="slide level2">
+<h2>Best Practices: Data is Read-Only</h2>
 <p>Raw data is valuable and time-consuming to collect. Treat it as read-only to ensure you know the original source and all modifications made.</p>
-<h3 id="data-cleaning">Data Cleaning</h3>
+</section>
+<section id="best-practices-data-cleaning" class="slide level2">
+<h2>Best Practices: Data Cleaning</h2>
 <p>Store preprocessing scripts separately from raw data. Keep cleaned data in a separate output folder to avoid confusion.</p>
-<h3 id="generated-output-is-disposable">Generated Output is Disposable</h3>
+</section>
+<section id="best-practices-output-is-disposable" class="slide level2">
+<h2>Best Practices: Output is Disposable</h2>
 <p>Scripts should regenerate all outputs. Organize outputs by analysis type in subdirectories for easier management later.</p>
-<h3 id="separate-functions-and-applications">Separate Functions and Applications</h3>
+</section>
+<section id="best-practices-separate-functions" class="slide level2">
+<h2>Best Practices: Separate Functions</h2>
 <p>Create separate folders for: - Reusable functions (used across analyses) - Analysis scripts (project-specific workflows)</p>
-<h3 id="working-directory">Working Directory</h3>
+</section>
+<section id="working-directory" class="slide level2">
+<h2>Working Directory</h2>
 <p>Check your working directory:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">getwd</span>()        <span class="co"># check current directory</span></span>

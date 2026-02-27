@@ -46,9 +46,7 @@ For special operators, use quotes or backticks:
 Highlight code examples in help pages and hit Ctrl+Return to run them in RStudio.
 :::
 
-## Getting Help
-
-### Package Vignettes
+## Package Vignettes
 
 Packages often include tutorials and extended examples:
 
@@ -63,7 +61,7 @@ vignette("dplyr")             # open specific vignette
 
 See [RStudio cheatsheets](https://rstudio.com/resources/cheatsheets/) for common packages.
 
-### Fuzzy Search
+## Fuzzy Search
 
 Search for functions when you don't know the exact name:
 
@@ -74,13 +72,11 @@ Search for functions when you don't know the exact name:
 ??function_name
 ```
 
-### Finding Packages
+## Finding Packages
 
 [CRAN Task Views](https://cran.r-project.org/web/views) organizes packages by topic.
 
-## Getting Help from Others
-
-### Online Resources
+## Online Resources
 
 - **Search the internet**: Paste your error message and "R" into a search engine
   - [StackOverflow](https://stackoverflow.com/questions/tagged/r) is particularly helpful; use the `[r]` tag
@@ -89,7 +85,7 @@ Search for functions when you don't know the exact name:
 - **Ask colleagues**: Share your problem with someone more experienced
 - **Rubber duck debugging**: Explaining your problem out loud often reveals the solution
 
-### Formulating Good Questions
+## Formulating Good Questions
 
 When asking for help, provide:
 
