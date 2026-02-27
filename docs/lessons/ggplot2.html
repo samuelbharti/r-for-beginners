@@ -261,9 +261,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-<div class="slide-link">
+<div class="slide-link" id="slide-link-wrap">
 
-  <a id="slide-link" href="#" target="_blank" rel="noopener">Open slides</a>
+  <a id="slide-link" href="#" target="_blank" rel="noopener">
+
+    Prefer a slide view for teaching or as a student? Click here.
+
+  </a>
 
 </div>
 
@@ -285,13 +289,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
     var link = document.getElementById("slide-link");
 
-    if (!link) {
+    var wrap = document.getElementById("slide-link-wrap");
+
+    if (!link || !wrap) {
 
       return;
 
     }
 
     link.href = "../slides/" + file;
+
+
+
+    // Move link to sit right after the subtitle in the title block.
+
+    var subtitle = document.querySelector(".quarto-title-block .subtitle");
+
+    if (subtitle && subtitle.parentNode) {
+
+      subtitle.parentNode.insertBefore(wrap, subtitle.nextSibling);
+
+      return;
+
+    }
+
+    var titleBlock = document.querySelector(".quarto-title-block");
+
+    if (titleBlock && titleBlock.parentNode) {
+
+      titleBlock.parentNode.insertBefore(wrap, titleBlock.nextSibling);
+
+    }
 
   })();
 
@@ -303,9 +331,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
   .slide-link {
 
-    margin: 0.75rem 0 1rem 0;
+    margin: 0.35rem 0 1rem 0;
 
-    text-align: right;
+    font-size: 0.95rem;
+
+    text-align: left;
 
   }
 
