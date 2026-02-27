@@ -59,6 +59,11 @@ This work is licensed under [CC BY 4.0](LICENSE.md), following Software Carpentr
 
 ## For Developers
 
+Quick notes for contributors:
+- Source lessons live in lessons/ and slides/.
+- Lesson pages render to docs/lessons and slide decks render to docs/slides.
+- The slide assets in docs/slides/site_libs must be committed for GitHub Pages.
+
 ### Project Structure
 
 ```
