@@ -41,7 +41,7 @@ Use whichever format works best for your learning style!
 
 ## About Quarto & the Slides
 
-This whole site is built with [Quarto](https://quarto.org/) — an open-source publishing system that turns plain text into websites, slides, PDFs, and more. Think of it as a modern, flexible way to write and share content without needing separate tools for each format.
+This whole site is built with [Quarto](https://quarto.org/) - an open-source publishing system that turns plain text into websites, slides, PDFs, and more. Think of it as a modern, flexible way to write and share content without needing separate tools for each format.
 
 The slide decks use **Quarto's reveal.js format**, and they're honestly pretty cool:
 
@@ -51,7 +51,7 @@ The slide decks use **Quarto's reveal.js format**, and they're honestly pretty c
 - Hit **E** to switch to a **PDF-friendly view**, then print or save as PDF
 - Built-in **chalkboard** to draw on slides during a live session
 
-It's an excellent setup for teaching — everything lives in one place, looks clean, and just works in the browser. No PowerPoint needed.
+It's an excellent setup for teaching - everything lives in one place, looks clean, and just works in the browser. No PowerPoint needed.
 
 ## Who Is This For?
 

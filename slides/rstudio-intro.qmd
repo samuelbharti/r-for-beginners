@@ -172,7 +172,7 @@ Invalid: `_age` (starts with underscore), `min-length` (hyphen not allowed), `2w
 
 ## Vectorization
 
-R is vectorized—operations apply to entire vectors:
+R is vectorized - operations apply to entire vectors:
 
 ```{r}
 #| eval: false

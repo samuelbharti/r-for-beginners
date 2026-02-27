@@ -10,6 +10,7 @@
 **/*.quarto_ipynb
 *_cache/
 *_files/
+!docs/**/*_files/
 _freeze/
 lessons_old/
 #lessons/*.html

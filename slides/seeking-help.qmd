@@ -101,7 +101,7 @@ sessionInfo()          # share your R environment
 
 Tools like ChatGPT can provide helpful suggestions. However:
 
-- Responses are **not always reliable**—verify accuracy
+- Responses are **not always reliable** - verify accuracy
 - They may generate plausible-sounding but incorrect information
 - You need domain knowledge to evaluate code quality
 - Later, focus on building your own problem-solving skills
