@@ -6,7 +6,7 @@ title: "R for Novices - Gapminder Lessons"
 
 Welcome to the R for Novices lesson series using the Gapminder dataset.
 
-This is an adapted version of the [Software Carpentry R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience. These lessons are a **supplementary resource** for R programming workshops and independent learning—use them to supplement your teaching or guide your learning journey.
+This is an adapted version of the [Software Carpentry R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience. These lessons are a **supplementary resource** for R programming workshops and independent learning - use them to supplement your teaching or guide your learning journey.
 
 **Each lesson is available in two formats:**
 - **Page** - Detailed content for reading and reference
@@ -31,7 +31,7 @@ This is an adapted version of the [Software Carpentry R-novice-gapminder](https:
 
 ## About the Slides
 
-The slides on this site are built with [Quarto](https://quarto.org/), an open-source publishing system that lets you write content in plain text and turn it into websites, slides, PDFs, and more — all from the same source.
+The slides on this site are built with [Quarto](https://quarto.org/), an open-source publishing system that lets you write content in plain text and turn it into websites, slides, PDFs, and more - all from the same source.
 
 The slide decks use **Quarto's reveal.js format**, and they're honestly pretty cool. You can:
 
@@ -41,7 +41,7 @@ The slide decks use **Quarto's reveal.js format**, and they're honestly pretty c
 - Hit **E** to switch to a **PDF-friendly view**, then print or save as PDF
 - Use the built-in **chalkboard** to draw on slides during a live session
 
-It's an excellent setup for teaching — everything lives in one place, looks clean, and just works in the browser. No PowerPoint, no extra software.
+It's an excellent setup for teaching - everything lives in one place, looks clean, and just works in the browser. No PowerPoint, no extra software.
 
 ## About
 
