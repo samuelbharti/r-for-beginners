@@ -4,6 +4,12 @@ An adapted version of [Software Carpentry's R-novice-gapminder](https://swcarpen
 
 🌐 **[View the lessons online](https://samuelbharti.github.io/sw-r-novice-gapminder-lessons/)**
 
+## Demo
+
+<video src="r-for-beginners.mp4" controls width="100%">
+  Your browser does not support the video tag.
+</video>
+
 ## About This Course
 
 This website presents R programming lessons in a decluttered, streamlined format that makes learning easier and more enjoyable. Whether you're an instructor teaching a workshop or a student learning independently, these lessons provide:
