@@ -2,7 +2,7 @@
 
 An adapted version of [Software Carpentry's R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience for both instructors and students.
 
-🌐 **[View the lessons online](https://samuelbharti.github.io//r-for-beginners/)**
+🌐 **[View the lessons online](https://samuelbharti.github.io/r-for-beginners/)**
 
 ## About This Course
 
