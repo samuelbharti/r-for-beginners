@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19744262.svg)](https://doi.org/10.5281/zenodo.19744262)
+
 # R for Novices - Gapminder Lessons
 
 An adapted version of [Software Carpentry's R-novice-gapminder](https://swcarpentry.github.io/r-novice-gapminder/) course, designed to provide a clearer, more focused learning experience for both instructors and students.
